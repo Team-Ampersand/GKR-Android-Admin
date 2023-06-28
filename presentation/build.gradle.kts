@@ -31,6 +31,8 @@ android {
 
 dependencies {
 
+    implementation(project(":domain"))
+
     implementation(Dependencies.AndroidX.CORE_KTX)
     implementation(Dependencies.AndroidX.APPCOMPAT)
     implementation(Dependencies.Google.MATERIAL)
