@@ -15,3 +15,4 @@ dependencyResolutionManagement {
 rootProject.name = "GKR-Admin"
 include(":app")
 include(":domain")
+include(":data")
