@@ -3,6 +3,7 @@ class Dependencies {
         const val CORE_KTX = "androidx.core:core-ktx:${Versions.CORE_KTX}"
         const val APPCOMPAT = "androidx.appcompat:appcompat:${Versions.APPCOMPAT}"
         const val HILT_NAVIGATION_COMPOSE = "androidx.hilt:hilt-navigation-compose:${Versions.HILT_NAVIGATION_COMPOSE}"
+        const val NAVIGATION_COMPOSE = "androidx.navigation:navigation-compose:${Versions.NAVIGATION_COMPOSE}"
         const val DATASTORE = "androidx.datastore:datastore-preferences:${Versions.DATASTORE}"
     }
 
