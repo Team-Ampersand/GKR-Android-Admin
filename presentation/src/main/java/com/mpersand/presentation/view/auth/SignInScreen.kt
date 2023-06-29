@@ -1,4 +1,4 @@
-package com.mpersand.presentation.view
+package com.mpersand.presentation.view.auth
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
