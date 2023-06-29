@@ -29,6 +29,12 @@ android {
     kotlinOptions {
         jvmTarget = ProjectProperties.Versions.JVM_TARGET
     }
+    buildFeatures {
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.4.6"
+    }
 }
 
 dependencies {
@@ -39,6 +45,11 @@ dependencies {
     implementation(Dependencies.AndroidX.APPCOMPAT)
     implementation(Dependencies.Google.MATERIAL)
     implementation(Dependencies.Google.HILT)
+    implementation(Dependencies.Compose.COMPOSE)
+    implementation(Dependencies.Compose.COMPOSE_TOOLING)
+    implementation(Dependencies.Compose.COMPOSE_MATERIAL)
+    implementation(Dependencies.Compose.COMPOSE_PREVIEW)
+    implementation(Dependencies.Msg.GAUTH)
     kapt(Dependencies.Google.HILT_COMPILER)
     testImplementation(Dependencies.Test.JUNIT)
     androidTestImplementation(Dependencies.Test.ANDROID_JUNIT)
