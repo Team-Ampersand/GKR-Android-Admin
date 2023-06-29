@@ -31,7 +31,7 @@ object ProjectProperties {
     }
 
     object NameSpace {
-        const val APP = "com.mpersand.gkr_android"
+        const val APP = "com.mpersand.gkr_android_admin"
         const val DATA = "com.mpersand.data"
         const val DOMAIN = "com.mpersand.domain"
         const val PRESENTATION = "com.mpersand.presentation"
