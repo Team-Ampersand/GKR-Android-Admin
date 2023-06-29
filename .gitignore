@@ -11,6 +11,7 @@
 /.idea/kotlinc.xml
 /.idea/misc.xml
 /.idea/compiler.xml
+/.idea/deploymentTargetDropDown.xml
 /buildSrc/build
 /data/build
 /di/build
