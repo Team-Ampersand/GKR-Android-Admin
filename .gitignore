@@ -10,6 +10,7 @@
 /.idea/gradle.xml
 /.idea/kotlinc.xml
 /.idea/misc.xml
+/.idea/compiler.xml
 /buildSrc/build
 /data/build
 /di/build
@@ -17,7 +18,6 @@
 /presentation/build
 .DS_Store
 /build
-/buildSrc/build
 /captures
 .externalNativeBuild
 .cxx
