@@ -49,6 +49,7 @@ dependencies {
     implementation(Dependencies.Compose.COMPOSE_TOOLING)
     implementation(Dependencies.Compose.COMPOSE_MATERIAL)
     implementation(Dependencies.Compose.COMPOSE_PREVIEW)
+    implementation(Dependencies.Msg.GAUTH)
     kapt(Dependencies.Google.HILT_COMPILER)
     testImplementation(Dependencies.Test.JUNIT)
     androidTestImplementation(Dependencies.Test.ANDROID_JUNIT)
