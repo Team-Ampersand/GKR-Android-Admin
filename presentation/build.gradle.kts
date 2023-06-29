@@ -43,6 +43,7 @@ dependencies {
 
     implementation(Dependencies.AndroidX.CORE_KTX)
     implementation(Dependencies.AndroidX.APPCOMPAT)
+    implementation(Dependencies.AndroidX.NAVIGATION_COMPOSE)
     implementation(Dependencies.Google.MATERIAL)
     implementation(Dependencies.Google.HILT)
     implementation(Dependencies.Compose.COMPOSE)
