@@ -1,6 +1,8 @@
 plugins {
     id(ProjectProperties.Gradle.APPLICATION)
     id(ProjectProperties.Gradle.KOTLIN)
+    id(ProjectProperties.Gradle.HILT_PLUGIN)
+    kotlin(ProjectProperties.Gradle.KAPT)
 }
 
 android {
@@ -40,6 +42,8 @@ dependencies {
     implementation(Dependencies.AndroidX.CORE_KTX)
     implementation(Dependencies.AndroidX.APPCOMPAT)
     implementation(Dependencies.Google.MATERIAL)
+    implementation(Dependencies.Google.HILT)
+    kapt(Dependencies.Google.HILT_COMPILER)
     testImplementation(Dependencies.Test.JUNIT)
     androidTestImplementation(Dependencies.Test.ANDROID_JUNIT)
     androidTestImplementation(Dependencies.Test.ESPRESSO)
