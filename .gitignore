@@ -11,9 +11,13 @@
 /.idea/kotlinc.xml
 /.idea/misc.xml
 /.idea/compiler.xml
+/buildSrc/build
+/data/build
+/di/build
+/domain/build
+/presentation/build
 .DS_Store
 /build
-/buildSrc/build
 /captures
 .externalNativeBuild
 .cxx
