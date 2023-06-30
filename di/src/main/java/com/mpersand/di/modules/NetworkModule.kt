@@ -1,5 +1,6 @@
 package com.mpersand.di.modules
 
+import com.mpersand.data.remote.api.AuthApi
 import com.mpersand.di.BuildConfig
 import dagger.Module
 import dagger.Provides
@@ -42,4 +43,8 @@ object NetworkModule {
     fun provideConverterFactory(): GsonConverterFactory {
         return GsonConverterFactory.create()
     }
+
+    @Provides
+    @Singleton
+    fun provideAuthApi(retrofit: Retrofit): AuthApi = retrofit.create(AuthApi::class.java)
 }
