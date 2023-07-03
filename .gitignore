@@ -12,6 +12,7 @@
 /.idea/misc.xml
 /.idea/compiler.xml
 /.idea/deploymentTargetDropDown.xml
+/.idea/inspectionProfiles/Project_Default.xml
 /buildSrc/build
 /data/build
 /di/build
