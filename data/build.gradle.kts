@@ -37,6 +37,7 @@ dependencies {
 
     implementation(Dependencies.AndroidX.CORE_KTX)
     implementation(Dependencies.AndroidX.APPCOMPAT)
+    implementation(Dependencies.AndroidX.DATASTORE)
     implementation(Dependencies.Google.MATERIAL)
     implementation(Dependencies.Google.HILT)
     kapt(Dependencies.Google.HILT_COMPILER)
