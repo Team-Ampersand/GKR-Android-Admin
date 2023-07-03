@@ -12,5 +12,5 @@ class AuthRepositoryImpl @Inject constructor(
     private val authDataSource: AuthDataSource
 ): AuthRepository {
     override suspend fun signIn(signInRequest: SignInRequestModel): SignInResponseModel =
-        authDataSource.signIn(signInRequest = signInRequest.asSignInRequest()).asSignInResponseModel()
+        authDataSource.signIn(signInRequest.asSignInRequest()).asSignInResponseModel()
 }
