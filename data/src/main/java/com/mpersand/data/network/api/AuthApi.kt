@@ -1,4 +1,4 @@
-package com.mpersand.data.remote.api
+package com.mpersand.data.network.api
 
 import com.mpersand.data.dto.auth.request.SignInRequest
 import com.mpersand.data.dto.auth.response.SignInResponse

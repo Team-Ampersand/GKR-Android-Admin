@@ -1,6 +1,6 @@
 package com.mpersand.di.modules
 
-import com.mpersand.data.remote.api.AuthApi
+import com.mpersand.data.network.api.AuthApi
 import com.mpersand.di.BuildConfig
 import dagger.Module
 import dagger.Provides
