@@ -11,6 +11,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -21,12 +25,30 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.mpersand.presentation.BuildConfig
 import com.mpersand.presentation.R
+import com.mpersand.presentation.viewmodel.AuthViewModel
+import com.msg.gauthsignin.GAuthSigninWebView
 import com.msg.gauthsignin.component.GAuthButton
 import com.msg.gauthsignin.component.utils.Types
 
 @Composable
-fun SignInScreen(modifier: Modifier = Modifier) {
+fun SignInScreen(
+    modifier: Modifier = Modifier,
+    viewModel: AuthViewModel = hiltViewModel()
+) {
+    var isClicked by remember { mutableStateOf(false) }
+
+    if (isClicked) {
+        GAuthSigninWebView(
+            clientId = BuildConfig.CLIENT_ID,
+            redirectUri = BuildConfig.REDIRECT_URI,
+        ) { code ->
+            viewModel.signIn(code)
+        }
+    }
+
     Column(
         modifier = modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
@@ -64,7 +86,7 @@ fun SignInScreen(modifier: Modifier = Modifier) {
             colors = Types.Colors.OUTLINE,
             horizontalPaddingValue = 85.dp
         ) {
-
+            isClicked = true
         }
         Spacer(modifier = modifier.height(70.dp))
     }
