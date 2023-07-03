@@ -66,6 +66,7 @@ dependencies {
     implementation(Dependencies.Compose.COMPOSE_TOOLING)
     implementation(Dependencies.Compose.COMPOSE_MATERIAL)
     implementation(Dependencies.Compose.COMPOSE_PREVIEW)
+    implementation(Dependencies.Compose.LIVEDATA_COMPOSE)
     implementation(Dependencies.Msg.GAUTH)
     kapt(Dependencies.Google.HILT_COMPILER)
     testImplementation(Dependencies.Test.JUNIT)

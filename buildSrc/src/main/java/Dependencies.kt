@@ -28,6 +28,7 @@ class Dependencies {
         const val COMPOSE_PREVIEW = "androidx.compose.ui:ui-tooling-preview:${Versions.COMPOSE}"
         const val COMPOSE_MATERIAL = "androidx.compose.material:material:${Versions.COMPOSE_MATERIAL}"
         const val COMPOSE_TOOLING = "androidx.compose.ui:ui-tooling:${Versions.COMPOSE}"
+        const val LIVEDATA_COMPOSE = "androidx.compose.runtime:runtime-livedata:${Versions.COMPOSE}"
     }
 
     object Test {
