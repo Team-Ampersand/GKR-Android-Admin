@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -49,8 +50,10 @@ fun MainScreen(modifier: Modifier = Modifier) {
         LazyColumn(
             modifier = modifier
                 .padding(horizontal = 13.dp)
-                .background(Color.White)
-                .padding(horizontal = 18.dp),
+                .background(
+                    color = Color.White,
+                    shape = RoundedCornerShape(10.dp)
+                ),
             verticalArrangement = Arrangement.spacedBy(8.dp),
             contentPadding = PaddingValues(top = 12.dp)
         ) {
