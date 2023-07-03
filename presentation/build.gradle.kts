@@ -1,3 +1,6 @@
+import java.io.FileInputStream
+import java.util.Properties
+
 plugins {
     id(ProjectProperties.Gradle.LIBRARY)
     id(ProjectProperties.Gradle.KOTLIN)
@@ -14,6 +17,18 @@ android {
 
         testInstrumentationRunner = ProjectProperties.Test.TEST_RUNNER
         consumerProguardFiles(ProjectProperties.Files.CONSUMER_PROGUARD)
+
+        buildConfigField(
+            "String",
+            "CLIENT_ID",
+            getApiKey("CLIENT_ID")
+        )
+
+        buildConfigField(
+            "String",
+            "REDIRECT_URI",
+            getApiKey("REDIRECT_URI")
+        )
     }
 
     buildTypes {
@@ -44,6 +59,7 @@ dependencies {
     implementation(Dependencies.AndroidX.CORE_KTX)
     implementation(Dependencies.AndroidX.APPCOMPAT)
     implementation(Dependencies.AndroidX.NAVIGATION_COMPOSE)
+    implementation(Dependencies.AndroidX.HILT_NAVIGATION_COMPOSE)
     implementation(Dependencies.Google.MATERIAL)
     implementation(Dependencies.Google.HILT)
     implementation(Dependencies.Compose.COMPOSE)
@@ -55,4 +71,11 @@ dependencies {
     testImplementation(Dependencies.Test.JUNIT)
     androidTestImplementation(Dependencies.Test.ANDROID_JUNIT)
     androidTestImplementation(Dependencies.Test.ESPRESSO)
+}
+
+fun getApiKey(propertyKey: String): String {
+    val propFile = rootProject.file("./local.properties")
+    val properties = Properties()
+    properties.load(FileInputStream(propFile))
+    return properties.getProperty(propertyKey)
 }
