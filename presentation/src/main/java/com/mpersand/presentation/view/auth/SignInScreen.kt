@@ -69,7 +69,7 @@ fun SignInScreen(
                 fontFamily = FontFamily(Font(R.font.fraunces_black)),
                 fontSize = 32.sp,
                 fontWeight = FontWeight.Thin,
-                color = Color(0xFFFFA559),
+                color = Color(0xFF865DFF),
                 textAlign = TextAlign.Center
             )
         }
@@ -77,7 +77,7 @@ fun SignInScreen(
         Text(
             text = "GSM의 기자재\n대여 서비스를 이용해보세요",
             textAlign = TextAlign.Center,
-            color = Color(0xDEFFA559),
+            color = Color(0xFFE384FF),
         )
         Spacer(modifier = modifier.weight(1f))
         GAuthButton(
