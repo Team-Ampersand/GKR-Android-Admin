@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -29,6 +30,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.mpersand.presentation.BuildConfig
 import com.mpersand.presentation.R
 import com.mpersand.presentation.viewmodel.AuthViewModel
+import com.mpersand.presentation.viewmodel.util.UiState
 import com.msg.gauthsignin.GAuthSigninWebView
 import com.msg.gauthsignin.component.GAuthButton
 import com.msg.gauthsignin.component.utils.Types
@@ -36,9 +38,19 @@ import com.msg.gauthsignin.component.utils.Types
 @Composable
 fun SignInScreen(
     modifier: Modifier = Modifier,
-    viewModel: AuthViewModel = hiltViewModel()
+    viewModel: AuthViewModel = hiltViewModel(),
+    navigateToMain: () -> Unit
 ) {
+    val uiState by viewModel.uiState.observeAsState()
     var isClicked by remember { mutableStateOf(false) }
+
+    when (uiState) {
+        is UiState.Success -> navigateToMain()
+        UiState.BadRequest -> {}
+        UiState.Loading -> {}
+        UiState.Unknown -> {}
+        else -> {}
+    }
 
     if (isClicked) {
         GAuthSigninWebView(
