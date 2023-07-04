@@ -1,7 +1,9 @@
 package com.mpersand.di.modules
 
 import com.mpersand.data.repository.AuthRepositoryImpl
+import com.mpersand.data.repository.EquipmentRepositoryImpl
 import com.mpersand.domain.repository.AuthRepository
+import com.mpersand.domain.repository.EquipmentRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -14,4 +16,9 @@ interface RepositoryModule {
     fun bindsAuthRepository(
         authRepositoryImpl: AuthRepositoryImpl
     ): AuthRepository
+
+    @Binds
+    fun bindsEquipmentRepository(
+        equipmentRepositoryImpl: EquipmentRepositoryImpl
+    ): EquipmentRepository
 }
