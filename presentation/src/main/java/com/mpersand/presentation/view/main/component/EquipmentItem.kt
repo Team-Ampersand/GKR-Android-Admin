@@ -58,7 +58,6 @@ fun EquipmentItem(
                 Text(
                     text = productNumber,
                     fontSize = 15.sp,
-                    fontFamily = FontFamily(Font(R.font.fraunces_black)),
                     fontWeight = FontWeight.SemiBold,
                     color = Color(0xFF656565)
                 )
@@ -74,14 +73,12 @@ fun EquipmentItem(
             Text(
                 text = status,
                 fontSize = 10.sp,
-                fontFamily = FontFamily(Font(R.font.fraunces_black)),
                 fontWeight = FontWeight.SemiBold,
                 color = Color(0xFFC2C2C2)
             )
             Text(
                 text = description,
                 fontSize = 10.sp,
-                fontFamily = FontFamily(Font(R.font.fraunces_black)),
                 fontWeight = FontWeight.SemiBold,
                 color = Color(0xFFC2C2C2)
             )
