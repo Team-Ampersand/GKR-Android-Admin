@@ -68,6 +68,7 @@ dependencies {
     implementation(Dependencies.Compose.COMPOSE_PREVIEW)
     implementation(Dependencies.Compose.LIVEDATA_COMPOSE)
     implementation(Dependencies.Msg.GAUTH)
+    implementation(Dependencies.Libraries.COIL)
     kapt(Dependencies.Google.HILT_COMPILER)
     testImplementation(Dependencies.Test.JUNIT)
     androidTestImplementation(Dependencies.Test.ANDROID_JUNIT)

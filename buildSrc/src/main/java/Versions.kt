@@ -25,4 +25,6 @@ object Versions {
     const val COMPOSE_MATERIAL = "1.2.0"
 
     const val GAUTH = "v1.0.7"
+
+    const val COIL = "2.4.0"
 }
