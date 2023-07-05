@@ -17,21 +17,22 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.rememberAsyncImagePainter
 import com.mpersand.presentation.R
 
 @Composable
 fun StudentItem(
     modifier: Modifier = Modifier,
-    studentName: String,
-    studentNumber: String,
-    rentalAmount: String,
-    rentalItems: String
+    name: String,
+    status: String,
+    description: String,
+    image: String,
+    productNumber: String
 ) {
     Row(
         modifier = modifier
@@ -48,14 +49,14 @@ fun StudentItem(
             modifier = modifier
                 .size(50.dp)
                 .clip(CircleShape),
-            painter = painterResource(id = R.drawable.ic_logo),
+            painter = rememberAsyncImagePainter(image),
             contentDescription = "profile"
         )
         Spacer(modifier = modifier.width(8.dp))
         Column {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(
-                    text = studentName,
+                    text = productNumber,
                     fontSize = 15.sp,
                     fontFamily = FontFamily(Font(R.font.fraunces_black)),
                     fontWeight = FontWeight.SemiBold,
@@ -63,7 +64,7 @@ fun StudentItem(
                 )
                 Spacer(modifier = modifier.width(3.dp))
                 Text(
-                    text = studentNumber,
+                    text = "#$name",
                     fontSize = 8.sp,
                     fontFamily = FontFamily(Font(R.font.fraunces_black)),
                     fontWeight = FontWeight.SemiBold,
@@ -71,14 +72,14 @@ fun StudentItem(
                 )
             }
             Text(
-                text = rentalAmount,
+                text = status,
                 fontSize = 10.sp,
                 fontFamily = FontFamily(Font(R.font.fraunces_black)),
                 fontWeight = FontWeight.SemiBold,
                 color = Color(0xFFC2C2C2)
             )
             Text(
-                text = rentalItems,
+                text = description,
                 fontSize = 10.sp,
                 fontFamily = FontFamily(Font(R.font.fraunces_black)),
                 fontWeight = FontWeight.SemiBold,
