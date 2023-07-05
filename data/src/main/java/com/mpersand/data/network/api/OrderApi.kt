@@ -5,5 +5,5 @@ import retrofit2.http.GET
 
 interface OrderApi {
     @GET("order/noreturn")
-    suspend fun getNoReturnStudentList(): List<OrderResponse>
+    suspend fun getNoReturnStudents(): List<OrderResponse>
 }
