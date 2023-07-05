@@ -26,7 +26,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.mpersand.presentation.view.main.component.AppBar
 import com.mpersand.presentation.view.main.component.FilterItem
-import com.mpersand.presentation.view.main.component.StudentItem
+import com.mpersand.presentation.view.main.component.EquipmentItem
 import com.mpersand.presentation.viewmodel.main.MainViewModel
 import com.mpersand.presentation.viewmodel.util.UiState
 
@@ -78,7 +78,7 @@ fun MainScreen(
                     contentPadding = PaddingValues(top = 12.dp)
                 ) {
                     items(rentedEquipments) {
-                        StudentItem(
+                        EquipmentItem(
                             name = it.name,
                             status = it.rentStatus,
                             description = it.description,

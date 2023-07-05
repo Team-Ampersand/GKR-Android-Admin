@@ -26,7 +26,7 @@ import coil.compose.rememberAsyncImagePainter
 import com.mpersand.presentation.R
 
 @Composable
-fun StudentItem(
+fun EquipmentItem(
     modifier: Modifier = Modifier,
     name: String,
     status: String,
