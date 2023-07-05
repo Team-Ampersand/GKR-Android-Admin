@@ -8,10 +8,13 @@ import javax.inject.Inject
 
 class EquipmentRepositoryImpl @Inject constructor(
     private val equipmentDataSource: EquipmentDataSource
-): EquipmentRepository {
+) : EquipmentRepository {
     override suspend fun getRentedEquipments(): List<EquipmentResponseModel> =
         equipmentDataSource.getRentedEquipments().map { it.asEquipmentResponseModel() }
 
     override suspend fun getEquipmentsByFilter(name: String): List<EquipmentResponseModel> =
         equipmentDataSource.getEquipmentsByFilter(name).map { it.asEquipmentResponseModel() }
+
+    override suspend fun getEquipmentDetail(productNumber: String): EquipmentResponseModel =
+        equipmentDataSource.getEquipmentDetail(productNumber).asEquipmentResponseModel()
 }
