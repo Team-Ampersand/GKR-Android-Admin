@@ -29,7 +29,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.mpersand.presentation.BuildConfig
 import com.mpersand.presentation.R
-import com.mpersand.presentation.viewmodel.AuthViewModel
+import com.mpersand.presentation.viewmodel.auth.AuthViewModel
 import com.mpersand.presentation.viewmodel.util.UiState
 import com.msg.gauthsignin.GAuthSigninWebView
 import com.msg.gauthsignin.component.GAuthButton

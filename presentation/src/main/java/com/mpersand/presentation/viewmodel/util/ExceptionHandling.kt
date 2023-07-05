@@ -1,4 +1,4 @@
-package com.mpersand.presentation.viewmodel
+package com.mpersand.presentation.viewmodel.util
 
 import com.mpersand.domain.exception.BadRequestException
 import com.mpersand.domain.exception.ConflictException
