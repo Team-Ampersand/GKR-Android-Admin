@@ -41,7 +41,7 @@ fun MainScreen(
 
     var selectedValue by remember { mutableStateOf(0) }
 
-    val filter = listOf("전체", "모니터", "노트북", "키보드", "라즈베리파이")
+    val filter = listOf("전체", "맥북", "갤럭시 북", "터치모니터")
     val uiState by viewModel.uiState.observeAsState()
 
     when (val state = uiState) {
@@ -54,7 +54,7 @@ fun MainScreen(
             ) {
                 AppBar()
                 LazyRow {
-                    items(5) {
+                    items(filter.size) {
                         Spacer(modifier = modifier.width(10.dp))
                         FilterItem(
                             selected = it == selectedValue,
