@@ -6,4 +6,6 @@ interface EquipmentRepository {
     suspend fun getRentedEquipments(): List<EquipmentResponseModel>
 
     suspend fun getEquipmentsByFilter(name: String): List<EquipmentResponseModel>
+
+    suspend fun getEquipmentDetail(productNumber: String): EquipmentResponseModel
 }
