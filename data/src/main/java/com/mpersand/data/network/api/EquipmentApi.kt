@@ -2,6 +2,7 @@ package com.mpersand.data.network.api
 
 import com.mpersand.data.dto.equpiment.response.EquipmentResponse
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface EquipmentApi {
@@ -12,4 +13,9 @@ interface EquipmentApi {
     suspend fun getEquipmentsByFilter(
         @Query("name") name: String
     ): List<EquipmentResponse>
+
+    @GET("equipment/{productNumber}")
+    suspend fun getEquipmentDetail(
+        @Path("productNumber") productNumber: String
+    )
 }

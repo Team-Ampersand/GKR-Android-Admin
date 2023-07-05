@@ -4,6 +4,7 @@ import android.util.Log
 import com.mpersand.data.network.RequestInterceptor
 import com.mpersand.data.network.api.AuthApi
 import com.mpersand.data.network.api.EquipmentApi
+import com.mpersand.data.network.api.RepairApi
 import com.mpersand.di.BuildConfig
 import dagger.Module
 import dagger.Provides
@@ -67,4 +68,8 @@ object NetworkModule {
     @Provides
     @Singleton
     fun provideEquipmentApi(retrofit: Retrofit): EquipmentApi = retrofit.create(EquipmentApi::class.java)
+
+    @Provides
+    @Singleton
+    fun provideRepairApi(retrofit: Retrofit): RepairApi = retrofit.create(RepairApi::class.java)
 }
