@@ -8,5 +8,5 @@ import javax.inject.Inject
 class OrderDataSourceImpl @Inject constructor(
     private val orderApi: OrderApi
 ): OrderDataSource {
-    override suspend fun getNoReturnStudentList(): List<OrderResponse> = safeApiCall { orderApi.getNoReturnStudentList() }
+    override suspend fun getNoReturnStudentList(): List<OrderResponse> = safeApiCall { orderApi.getNoReturnStudents() }
 }
