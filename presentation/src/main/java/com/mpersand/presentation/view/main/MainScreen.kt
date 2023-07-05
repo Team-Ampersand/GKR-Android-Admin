@@ -13,6 +13,8 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.DrawerValue
+import androidx.compose.material.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -27,6 +29,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.mpersand.presentation.view.main.component.AppBar
 import com.mpersand.presentation.view.main.component.FilterItem
 import com.mpersand.presentation.view.main.component.EquipmentItem
+import com.mpersand.presentation.view.main.component.NavigationDrawer
 import com.mpersand.presentation.viewmodel.main.MainViewModel
 import com.mpersand.presentation.viewmodel.util.UiState
 
@@ -40,51 +43,62 @@ fun MainScreen(
     }
 
     var selectedValue by remember { mutableStateOf(0) }
+    var openDrawer by remember { mutableStateOf(false) }
 
     val filter = listOf("전체", "맥북", "갤럭시 북", "터치모니터")
     val uiState by viewModel.uiState.observeAsState()
 
     when (val state = uiState) {
         is UiState.Success -> {
+            val drawerState = rememberDrawerState(DrawerValue.Closed)
             val rentedEquipments = state.data!!
-            Column(
-                modifier = modifier
-                    .fillMaxSize()
-                    .background(Color(0xFFFAFAFA))
-            ) {
-                AppBar()
-                LazyRow {
-                    items(filter.size) {
-                        Spacer(modifier = modifier.width(10.dp))
-                        FilterItem(
-                            selected = it == selectedValue,
-                            content = filter[it],
-                            onClick = {
-                                viewModel.getEquipmentsByFilter(filter[it])
-                                selectedValue = it
-                            }
-                        )
-                    }
+
+            if (openDrawer) {
+                LaunchedEffect(drawerState) {
+                    drawerState.open()
                 }
-                Spacer(modifier = modifier.height(8.dp))
-                LazyColumn(
+            }
+
+            NavigationDrawer(drawerState = drawerState) {
+                Column(
                     modifier = modifier
-                        .padding(horizontal = 13.dp)
-                        .background(
-                            color = Color.White,
-                            shape = RoundedCornerShape(10.dp)
-                        ),
-                    verticalArrangement = Arrangement.spacedBy(8.dp),
-                    contentPadding = PaddingValues(top = 12.dp)
+                        .fillMaxSize()
+                        .background(Color(0xFFFAFAFA))
                 ) {
-                    items(rentedEquipments) {
-                        EquipmentItem(
-                            name = it.name,
-                            status = it.rentStatus,
-                            description = it.description,
-                            image = it.image,
-                            productNumber = it.productNumber
-                        )
+                    AppBar { openDrawer = !openDrawer }
+                    LazyRow {
+                        items(filter.size) {
+                            Spacer(modifier = modifier.width(10.dp))
+                            FilterItem(
+                                selected = it == selectedValue,
+                                content = filter[it],
+                                onClick = {
+                                    viewModel.getEquipmentsByFilter(filter[it])
+                                    selectedValue = it
+                                }
+                            )
+                        }
+                    }
+                    Spacer(modifier = modifier.height(8.dp))
+                    LazyColumn(
+                        modifier = modifier
+                            .padding(horizontal = 13.dp)
+                            .background(
+                                color = Color.White,
+                                shape = RoundedCornerShape(10.dp)
+                            ),
+                        verticalArrangement = Arrangement.spacedBy(8.dp),
+                        contentPadding = PaddingValues(top = 12.dp)
+                    ) {
+                        items(rentedEquipments) {
+                            EquipmentItem(
+                                name = it.name,
+                                status = it.rentStatus,
+                                description = it.description,
+                                image = it.image,
+                                productNumber = it.productNumber
+                            )
+                        }
                     }
                 }
             }
