@@ -37,8 +37,8 @@ fun NavigationDrawer(
     drawerState: DrawerState,
     content: @Composable () -> Unit
 ) {
-    val contents = listOf("메인페이지", "프로필", "제재 내역", "로그아웃")
-    val resourceIds = listOf(R.drawable.ic_exit_door, R.drawable.ic_folder, R.drawable.ic_handshake, R.drawable.ic_profile)
+    val contents = listOf("메인페이지", "학생제재", "요청내역", "로그아웃")
+    val resourceIds = listOf(R.drawable.ic_folder, R.drawable.ic_profile, R.drawable.ic_handshake, R.drawable.ic_exit_door)
 
     var selectedItem by remember { mutableStateOf(0) }
 
