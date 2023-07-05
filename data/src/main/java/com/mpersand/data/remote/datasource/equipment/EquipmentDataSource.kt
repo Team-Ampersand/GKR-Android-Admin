@@ -6,4 +6,6 @@ interface EquipmentDataSource {
     suspend fun getRentedEquipments(): List<EquipmentResponse>
 
     suspend fun getEquipmentsByFilter(name: String): List<EquipmentResponse>
+
+    suspend fun getEquipmentDetail(productNumber: String): EquipmentResponse
 }

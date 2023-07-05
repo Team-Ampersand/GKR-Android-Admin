@@ -10,4 +10,6 @@ class EquipmentDataSourceImpl @Inject constructor(
     override suspend fun getRentedEquipments(): List<EquipmentResponse> = equipmentApi.getRentedEquipments()
 
     override suspend fun getEquipmentsByFilter(name: String): List<EquipmentResponse> = equipmentApi.getEquipmentsByFilter(name)
+
+    override suspend fun getEquipmentDetail(productNumber: String) = equipmentApi.getEquipmentDetail(productNumber)
 }

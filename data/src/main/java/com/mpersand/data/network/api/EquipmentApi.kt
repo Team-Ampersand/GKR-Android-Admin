@@ -17,5 +17,5 @@ interface EquipmentApi {
     @GET("equipment/{productNumber}")
     suspend fun getEquipmentDetail(
         @Path("productNumber") productNumber: String
-    )
+    ): EquipmentResponse
 }
