@@ -1,6 +1,7 @@
 package com.mpersand.presentation.view.main.component
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -22,7 +23,10 @@ import androidx.compose.ui.unit.sp
 import com.mpersand.presentation.R
 
 @Composable
-fun AppBar(modifier: Modifier = Modifier) {
+fun AppBar(
+    modifier: Modifier = Modifier,
+    onMenuClick: () -> Unit
+) {
     Row(
         modifier = modifier
             .fillMaxWidth()
@@ -40,6 +44,7 @@ fun AppBar(modifier: Modifier = Modifier) {
         )
         Spacer(modifier = modifier.weight(1f))
         Image(
+            modifier = modifier.clickable { onMenuClick() },
             painter = painterResource(id = R.drawable.ic_hamburger),
             contentDescription = "menu"
         )
