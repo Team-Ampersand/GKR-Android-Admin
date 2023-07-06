@@ -63,7 +63,8 @@ fun ModifyScreen(modifier: Modifier = Modifier) {
             ModifyTextField(
                 modifier = modifier
                     .fillMaxWidth()
-                    .height(300.dp)
+                    .height(300.dp),
+                maxLines = 10
             ) {
                 description = it
             }
