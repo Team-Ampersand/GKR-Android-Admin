@@ -32,7 +32,7 @@ fun LogoutDialog(
     Dialog(onDismissRequest = { onDismissRequest() }) {
         Column(
             modifier = modifier
-                .size(width = 250.dp, height = 150.dp)
+                .size(width = 250.dp, height = 130.dp)
                 .background(
                     color = Color.White,
                     shape = RoundedCornerShape(10.dp)
@@ -46,7 +46,7 @@ fun LogoutDialog(
             Spacer(modifier = modifier.height(5.dp))
             Text(
                 text = "정말 로그아웃 하시겠습니까?",
-                fontSize = 8.sp
+                fontSize = 12.sp
             )
             Spacer(modifier = modifier.weight(1f))
             Row(modifier = modifier.fillMaxWidth()) {
@@ -61,7 +61,7 @@ fun LogoutDialog(
                     Text(
                         text = "취소하기",
                         style = TextStyle(
-                            fontSize = 8.sp,
+                            fontSize = 10.sp,
                             color = Color(0xFFCBCBCB)
                         )
                     )
@@ -78,7 +78,7 @@ fun LogoutDialog(
                     Text(
                         text = "로그아웃",
                         style = TextStyle(
-                            fontSize = 8.sp,
+                            fontSize = 10.sp,
                             color = Color.White
                         )
                     )
