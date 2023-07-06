@@ -95,9 +95,9 @@ fun ViolationScreen(
 
                             ViolationItem(
                                 modifier = modifier.clickable { showDialog = true },
-                                grade = it.grade.toString(),
-                                classNum = it.classNum.toString(),
-                                number = it.number.toString(),
+                                grade = it.grade ?: 0,
+                                classNum = it.classNum ?: 0,
+                                number = it.number ?: 0,
                                 productNumber = it.name,
                                 image = it.profileUrl ?: ""
                             )

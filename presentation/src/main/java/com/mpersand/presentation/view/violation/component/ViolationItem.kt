@@ -28,9 +28,9 @@ import com.mpersand.presentation.R
 @Composable
 fun ViolationItem(
     modifier: Modifier = Modifier,
-    grade: String,
-    classNum: String,
-    number: String,
+    grade: Int,
+    classNum: Int,
+    number: Int,
     image: String,
     productNumber: String
 ) {
