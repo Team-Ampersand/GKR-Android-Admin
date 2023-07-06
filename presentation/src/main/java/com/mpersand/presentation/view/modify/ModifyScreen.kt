@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Text
@@ -47,7 +48,7 @@ fun ModifyScreen(modifier: Modifier = Modifier) {
                 text = "물품이름",
                 fontSize = 16.sp,
                 fontFamily = FontFamily(Font(R.font.fraunces_black)),
-                fontWeight = FontWeight.Black
+                fontWeight = FontWeight.Bold
             )
             Spacer(modifier = modifier.height(6.dp))
             ModifyTextField(modifier = modifier.fillMaxWidth()) {
@@ -58,7 +59,7 @@ fun ModifyScreen(modifier: Modifier = Modifier) {
                 text = "설명",
                 fontSize = 16.sp,
                 fontFamily = FontFamily(Font(R.font.fraunces_black)),
-                fontWeight = FontWeight.Black
+                fontWeight = FontWeight.Bold
             )
             ModifyTextField(
                 modifier = modifier
@@ -73,10 +74,14 @@ fun ModifyScreen(modifier: Modifier = Modifier) {
                 modifier = modifier.fillMaxWidth(),
                 colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFF865DFF)),
                 contentPadding = PaddingValues(vertical = 16.dp),
+                shape = RoundedCornerShape(10.dp),
                 onClick = { }
             ) {
                 Text(
-                    text = "다음"
+                    text = "다음",
+                    fontSize = 16.sp,
+                    color = Color.White,
+                    fontWeight = FontWeight.Medium
                 )
             }
             Spacer(modifier = modifier.height(46.dp))
