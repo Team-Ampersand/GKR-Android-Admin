@@ -63,10 +63,9 @@ fun ModifyScreen(modifier: Modifier = Modifier) {
             )
             Spacer(modifier = modifier.height(6.dp))
             ModifyTextField(
-                modifier = modifier
-                    .fillMaxWidth()
-                    .height(300.dp),
-                maxLines = 10
+                modifier = modifier.fillMaxWidth(),
+                minLines = 15,
+                maxLines = 15
             ) {
                 description = it
             }

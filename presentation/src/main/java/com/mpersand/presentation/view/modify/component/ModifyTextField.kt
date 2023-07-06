@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun ModifyTextField(
     modifier: Modifier = Modifier,
+    minLines: Int = 1,
     maxLines: Int = 1,
     onValueChanged: (String) -> Unit
 ) {
@@ -38,6 +39,7 @@ fun ModifyTextField(
                 vertical = 16.dp
             ),
         value = text,
+        minLines = minLines,
         maxLines = maxLines,
         onValueChange = {
             text = it
