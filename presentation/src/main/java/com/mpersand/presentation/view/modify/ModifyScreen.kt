@@ -61,6 +61,7 @@ fun ModifyScreen(modifier: Modifier = Modifier) {
                 fontFamily = FontFamily(Font(R.font.fraunces_black)),
                 fontWeight = FontWeight.Bold
             )
+            Spacer(modifier = modifier.height(6.dp))
             ModifyTextField(
                 modifier = modifier
                     .fillMaxWidth()
