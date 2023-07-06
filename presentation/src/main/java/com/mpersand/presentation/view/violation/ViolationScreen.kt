@@ -32,7 +32,6 @@ import com.mpersand.presentation.viewmodel.util.UiState
 import com.mpersand.presentation.viewmodel.violation.ViolationViewModel
 import kotlinx.coroutines.launch
 
-@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun ViolationScreen(
     modifier: Modifier = Modifier,
@@ -49,7 +48,7 @@ fun ViolationScreen(
         viewModel.getNoReturnStudents()
     }
 
-    Scaffold(scaffoldState = scaffoldState) {
+    Scaffold(scaffoldState = scaffoldState) { paddingValues ->
         when (val state = getNoReturnStudentsUiState) {
             is UiState.Success -> {
                 val violationItemList = state.data!!
@@ -58,6 +57,7 @@ fun ViolationScreen(
                     modifier = modifier
                         .fillMaxSize()
                         .background(Color.White)
+                        .padding(paddingValues)
                 ) {
                     GKRToolbar(title = "제제 하기") {
                         navigateToMain()
