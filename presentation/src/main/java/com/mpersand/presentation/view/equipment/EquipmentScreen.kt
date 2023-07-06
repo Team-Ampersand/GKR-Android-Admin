@@ -1,4 +1,4 @@
-package com.mpersand.presentation.view.modify
+package com.mpersand.presentation.view.equipment
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
@@ -26,10 +26,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.mpersand.presentation.R
-import com.mpersand.presentation.view.modify.component.ModifyTextField
+import com.mpersand.presentation.view.equipment.component.ModifyTextField
 
 @Composable
-fun ModifyScreen(modifier: Modifier = Modifier) {
+fun EquipmentScreen(modifier: Modifier = Modifier) {
     var equipmentName by remember { mutableStateOf("") }
     var description by remember { mutableStateOf("") }
 
