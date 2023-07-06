@@ -17,7 +17,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -50,8 +49,7 @@ fun ViolationItem(
             modifier = modifier
                 .size(50.dp)
                 .clip(CircleShape),
-//            painter = rememberAsyncImagePainter(image),
-            painter = painterResource(id = R.drawable.ic_logo),
+            painter = rememberAsyncImagePainter(image),
             contentDescription = "profile"
         )
         Spacer(modifier = modifier.width(15.dp))
