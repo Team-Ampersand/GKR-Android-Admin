@@ -4,11 +4,13 @@ import com.mpersand.data.repository.AuthRepositoryImpl
 import com.mpersand.data.repository.EquipmentRepositoryImpl
 import com.mpersand.data.repository.OrderRepositoryImpl
 import com.mpersand.data.repository.RepairRepositoryImpl
+import com.mpersand.data.repository.UserRepositoryImpl
 import com.mpersand.data.repository.ViolationRepositoryImpl
 import com.mpersand.domain.repository.AuthRepository
 import com.mpersand.domain.repository.EquipmentRepository
 import com.mpersand.domain.repository.OrderRepository
 import com.mpersand.domain.repository.RepairRepository
+import com.mpersand.domain.repository.UserRepository
 import com.mpersand.domain.repository.ViolationRepository
 import dagger.Binds
 import dagger.Module
@@ -42,4 +44,9 @@ interface RepositoryModule {
     fun bindsViolationRepository(
         violationRepositoryImpl: ViolationRepositoryImpl
     ): ViolationRepository
+
+    @Binds
+    fun bindsUserRepository(
+        userRepositoryImpl: UserRepositoryImpl
+    ): UserRepository
 }
