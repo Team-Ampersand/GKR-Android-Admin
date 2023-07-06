@@ -36,7 +36,8 @@ import com.mpersand.presentation.viewmodel.util.UiState
 @Composable
 fun MainScreen(
     modifier: Modifier = Modifier,
-    viewModel: MainViewModel = hiltViewModel()
+    viewModel: MainViewModel = hiltViewModel(),
+    navigateToViolation: () -> Unit
 ) {
     LaunchedEffect(Unit) {
         viewModel.getRentedEquipments()
@@ -59,7 +60,10 @@ fun MainScreen(
                 }
             }
 
-            NavigationDrawer(drawerState = drawerState) {
+            NavigationDrawer(
+                drawerState = drawerState,
+                navigateToViolation = navigateToViolation
+            ) {
                 Column(
                     modifier = modifier
                         .fillMaxSize()

@@ -6,6 +6,8 @@ import androidx.navigation.compose.NavHost
 import com.mpersand.presentation.view.auth.navigation.signInScreen
 import com.mpersand.presentation.view.main.navigation.mainScreen
 import com.mpersand.presentation.view.main.navigation.navigateToMain
+import com.mpersand.presentation.view.violation.navigation.navigationToViolation
+import com.mpersand.presentation.view.violation.navigation.violationScreen
 
 @Composable
 fun GKRAdminNavHost(
@@ -16,6 +18,11 @@ fun GKRAdminNavHost(
         signInScreen(navigateToMain = {
             navController.navigateToMain()
         })
-        mainScreen()
+        mainScreen(navigateToViolation = {
+            navController.navigationToViolation()
+        })
+        violationScreen(navigateToMain = {
+            navController.navigateToMain()
+        })
     }
 }
