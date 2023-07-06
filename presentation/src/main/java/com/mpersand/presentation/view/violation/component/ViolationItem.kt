@@ -63,7 +63,7 @@ fun ViolationItem(
                 )
                 Spacer(modifier = modifier.width(10.dp))
                 Text(
-                    text = grade +"학년 " + classNum + "반 " + number + "번",
+                    text = "${grade}학년 ${classNum}반 ${number}번 ",
                     fontSize = 8.sp,
                     fontFamily = FontFamily(Font(R.font.fraunces_black)),
                     fontWeight = FontWeight.SemiBold,
