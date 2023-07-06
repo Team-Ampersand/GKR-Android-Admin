@@ -8,4 +8,6 @@ interface EquipmentDataSource {
     suspend fun getEquipmentsByFilter(name: String): List<EquipmentResponse>
 
     suspend fun getEquipmentDetail(productNumber: String): EquipmentResponse
+
+    suspend fun modifyEquipment(productNumber: String)
 }
