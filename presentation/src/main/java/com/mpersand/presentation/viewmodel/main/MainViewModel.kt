@@ -23,7 +23,7 @@ class MainViewModel @Inject constructor(
     private val _uiState = MutableLiveData<UiState<List<EquipmentResponseModel>>>()
     val uiState: LiveData<UiState<List<EquipmentResponseModel>>> = _uiState
 
-    private val _logoutState = MutableLiveData<UiState<Nothing>>()
+    private val _logoutState = MutableLiveData<UiState<Nothing>>(UiState.Loading)
     val logoutState: LiveData<UiState<Nothing>> = _logoutState
 
     fun getRentedEquipments() {
