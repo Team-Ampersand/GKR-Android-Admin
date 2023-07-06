@@ -3,6 +3,7 @@ package com.mpersand.gkr_android_admin
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
+import com.mpersand.presentation.view.auth.navigation.navigateToSignIn
 import com.mpersand.presentation.view.auth.navigation.signInScreen
 import com.mpersand.presentation.view.detail.navigation.detailScreen
 import com.mpersand.presentation.view.detail.navigation.navigateToDetail
@@ -22,18 +23,21 @@ fun GKRAdminNavHost(
         })
 
         mainScreen(
-          navigateToViolation = {
-            navController.navigationToViolation()
-          },
-          navigateToDetail = {
-            navController.navigateToDetail(it)
-          }
+            navigateToViolation = {
+                navController.navigationToViolation()
+            },
+            navigateToDetail = {
+                navController.navigateToDetail(it)
+            },
+            navigateToSignIn = {
+                navController.navigateToSignIn()
+            }
         )
-        
+
         violationScreen(navigateToMain = {
             navController.navigateToMain()
         })
-        
+
         detailScreen()
     }
 }

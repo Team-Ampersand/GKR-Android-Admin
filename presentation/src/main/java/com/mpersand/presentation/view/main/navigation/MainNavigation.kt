@@ -13,12 +13,14 @@ fun NavController.navigateToMain() {
 
 fun NavGraphBuilder.mainScreen(
     navigateToDetail: (String) -> Unit,
-    navigateToViolation: () -> Unit
+    navigateToViolation: () -> Unit,
+    navigateToSignIn: () -> Unit
 ) {
     composable(mainRoute) {
         MainScreen(
             navigateToDetail = navigateToDetail,
-            navigateToViolation = navigateToViolation
+            navigateToViolation = navigateToViolation,
+            navigateToSignIn = navigateToSignIn
         )
     }
 }

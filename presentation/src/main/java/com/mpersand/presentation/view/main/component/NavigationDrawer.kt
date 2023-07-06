@@ -35,6 +35,7 @@ import com.mpersand.presentation.R
 fun NavigationDrawer(
     modifier: Modifier = Modifier,
     drawerState: DrawerState,
+    logoutAction: () -> Unit,
     navigateToViolation: () -> Unit,
     content: @Composable () -> Unit
 ) {
@@ -79,9 +80,14 @@ fun NavigationDrawer(
                         selected = it == selectedItem,
                         resourceId = resourceIds[it],
                         content = contents[it],
-                        onItemClick = { selectedItem = it }
+                        onItemClick = {
+                            selectedItem = it
+                            when (it) {
+                                1 -> navigateToViolation()
+                                3 -> logoutAction()
+                            }
+                        }
                     )
-                    if (selectedItem == 1) navigateToViolation()
                 }
             }
         },
