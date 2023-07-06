@@ -11,8 +11,14 @@ fun NavController.navigateToMain() {
     this.navigate(mainRoute)
 }
 
-fun NavGraphBuilder.mainScreen(navigateToDetail: (String) -> Unit) {
+fun NavGraphBuilder.mainScreen(
+    navigateToDetail: (String) -> Unit,
+    navigateToViolation: () -> Unit
+) {
     composable(mainRoute) {
-        MainScreen(navigateToDetail = navigateToDetail)
+        MainScreen(
+            navigateToDetail = navigateToDetail,
+            navigateToViolation = navigateToViolation
+        )
     }
 }

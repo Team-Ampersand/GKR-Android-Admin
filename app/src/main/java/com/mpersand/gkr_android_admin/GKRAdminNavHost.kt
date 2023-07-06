@@ -8,6 +8,8 @@ import com.mpersand.presentation.view.detail.navigation.detailScreen
 import com.mpersand.presentation.view.detail.navigation.navigateToDetail
 import com.mpersand.presentation.view.main.navigation.mainScreen
 import com.mpersand.presentation.view.main.navigation.navigateToMain
+import com.mpersand.presentation.view.violation.navigation.navigationToViolation
+import com.mpersand.presentation.view.violation.navigation.violationScreen
 
 @Composable
 fun GKRAdminNavHost(
@@ -18,9 +20,20 @@ fun GKRAdminNavHost(
         signInScreen(navigateToMain = {
             navController.navigateToMain()
         })
-        mainScreen(navigateToDetail = {
+
+        mainScreen(
+          navigateToViolation = {
+            navController.navigationToViolation()
+          },
+          navigateToDetail = {
             navController.navigateToDetail(it)
+          }
+        )
+        
+        violationScreen(navigateToMain = {
+            navController.navigateToMain()
         })
+        
         detailScreen()
     }
 }

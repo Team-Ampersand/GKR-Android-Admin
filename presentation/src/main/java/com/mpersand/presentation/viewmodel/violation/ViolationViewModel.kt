@@ -1,5 +1,6 @@
 package com.mpersand.presentation.viewmodel.violation
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -25,46 +26,47 @@ class ViolationViewModel @Inject constructor(
     private val _postViolationUserUiState = MutableLiveData<UiState<Nothing>>()
     val postViolationUserUiState: LiveData<UiState<Nothing>> = _postViolationUserUiState
 
-    fun getNoReturnStudents() = viewModelScope.launch {
-        getNoReturnStudentsUseCase()
-            .onSuccess {
-                _getNoReturnStudentsUiState.value = UiState.Success(it)
-            }
-            .onFailure {
-                it.exceptionHandling(
-                    badRequestAction = {
-                        _getNoReturnStudentsUiState.value = UiState.BadRequest
-                    },
-                    unauthorizedAction = {
-                        _getNoReturnStudentsUiState.value = UiState.Unauthorized
-                    },
-                    notFoundAction = {
-                        _getNoReturnStudentsUiState.value = UiState.NotFound
-                    }
-                )
-            }
+    fun getNoReturnStudents() {
+        viewModelScope.launch {
+            getNoReturnStudentsUseCase()
+                .onSuccess {
+                    _getNoReturnStudentsUiState.value = UiState.Success(it)
+                }
+                .onFailure {
+                    it.exceptionHandling(
+                        badRequestAction = {
+                            _getNoReturnStudentsUiState.value = UiState.BadRequest
+                        },
+                        unauthorizedAction = {
+                            _getNoReturnStudentsUiState.value = UiState.Unauthorized
+                        }
+                    )
+                }
+        }
     }
 
-    fun postViolationUser(violationRequestModel: ViolationRequestModel) = viewModelScope.launch {
-        postViolationUserUseCase(violationRequestModel)
-            .onSuccess {
-                _postViolationUserUiState.value = UiState.Success()
-            }
-            .onFailure {
-                it.exceptionHandling(
-                    badRequestAction = {
-                        _getNoReturnStudentsUiState.value = UiState.BadRequest
-                    },
-                    unauthorizedAction = {
-                        _getNoReturnStudentsUiState.value = UiState.Unauthorized
-                    },
-                    forbiddenAction = {
-                        _getNoReturnStudentsUiState.value = UiState.Forbidden
-                    },
-                    notFoundAction = {
-                        _getNoReturnStudentsUiState.value = UiState.NotFound
-                    }
-                )
-            }
+    fun postViolationUser(violationRequestModel: ViolationRequestModel) {
+        viewModelScope.launch {
+            postViolationUserUseCase(violationRequestModel)
+                .onSuccess {
+                    _postViolationUserUiState.value = UiState.Success()
+                }
+                .onFailure {
+                    it.exceptionHandling(
+                        badRequestAction = {
+                            _getNoReturnStudentsUiState.value = UiState.BadRequest
+                        },
+                        unauthorizedAction = {
+                            _getNoReturnStudentsUiState.value = UiState.Unauthorized
+                        },
+                        forbiddenAction = {
+                            _getNoReturnStudentsUiState.value = UiState.Forbidden
+                        },
+                        notFoundAction = {
+                            _getNoReturnStudentsUiState.value = UiState.NotFound
+                        }
+                    )
+                }
+        }
     }
 }

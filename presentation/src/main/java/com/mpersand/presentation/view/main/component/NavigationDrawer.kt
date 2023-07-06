@@ -35,6 +35,7 @@ import com.mpersand.presentation.R
 fun NavigationDrawer(
     modifier: Modifier = Modifier,
     drawerState: DrawerState,
+    navigateToViolation: () -> Unit,
     content: @Composable () -> Unit
 ) {
     val contents = listOf("메인페이지", "학생제재", "요청내역", "로그아웃")
@@ -80,6 +81,7 @@ fun NavigationDrawer(
                         content = contents[it],
                         onItemClick = { selectedItem = it }
                     )
+                    if (selectedItem == 1) navigateToViolation()
                 }
             }
         },

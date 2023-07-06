@@ -10,6 +10,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
@@ -25,8 +26,13 @@ import com.mpersand.presentation.viewmodel.violation.ViolationViewModel
 @Composable
 fun ViolationScreen(
     modifier: Modifier = Modifier,
-    viewModel: ViolationViewModel = hiltViewModel()
+    viewModel: ViolationViewModel = hiltViewModel(),
+    navigateToMain: () -> Unit
 ) {
+    LaunchedEffect(Unit) {
+        viewModel.getNoReturnStudents()
+    }
+
     val getNoReturnStudentsUiState by viewModel.getNoReturnStudentsUiState.observeAsState()
 
     when(val state = getNoReturnStudentsUiState) {
@@ -39,6 +45,7 @@ fun ViolationScreen(
                     .background(Color.White)
             ) {
                 GKRToolbar(title = "제제 하기") {
+                    navigateToMain()
                 }
                 LazyColumn(
                     modifier = modifier
@@ -64,10 +71,4 @@ fun ViolationScreen(
         }
         else -> {}
     }
-}
-
-@Preview
-@Composable
-fun preview() {
-    ViolationScreen()
 }

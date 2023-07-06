@@ -38,6 +38,7 @@ import com.mpersand.presentation.viewmodel.util.UiState
 fun MainScreen(
     modifier: Modifier = Modifier,
     viewModel: MainViewModel = hiltViewModel(),
+    navigateToViolation: () -> Unit,
     navigateToDetail: (String) -> Unit
 ) {
     LaunchedEffect(Unit) {
@@ -61,7 +62,10 @@ fun MainScreen(
                 }
             }
 
-            NavigationDrawer(drawerState = drawerState) {
+            NavigationDrawer(
+                drawerState = drawerState,
+                navigateToViolation = navigateToViolation
+            ) {
                 Column(
                     modifier = modifier
                         .fillMaxSize()
