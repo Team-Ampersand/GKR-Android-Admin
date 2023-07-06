@@ -39,9 +39,6 @@ class ViolationViewModel @Inject constructor(
                         },
                         unauthorizedAction = {
                             _getNoReturnStudentsUiState.value = UiState.Unauthorized
-                        },
-                        notFoundAction = {
-                            _getNoReturnStudentsUiState.value = UiState.NotFound
                         }
                     )
                 }
