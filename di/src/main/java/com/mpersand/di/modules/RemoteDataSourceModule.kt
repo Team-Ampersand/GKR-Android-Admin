@@ -8,6 +8,8 @@ import com.mpersand.data.remote.datasource.order.OrderDataSource
 import com.mpersand.data.remote.datasource.order.OrderDataSourceImpl
 import com.mpersand.data.remote.datasource.repair.RepairDataSource
 import com.mpersand.data.remote.datasource.repair.RepairDataSourceImpl
+import com.mpersand.data.remote.datasource.user.UserDataSource
+import com.mpersand.data.remote.datasource.user.UserDataSourceImpl
 import com.mpersand.data.remote.datasource.violation.ViolationDataSource
 import com.mpersand.data.remote.datasource.violation.ViolationDataSourceImpl
 import dagger.Binds
@@ -42,4 +44,9 @@ interface RemoteDataSourceModule {
     fun bindsViolationDataSource(
         violationDataSourceImpl: ViolationDataSourceImpl
     ): ViolationDataSource
+
+    @Binds
+    fun bindsUserDataSource(
+        userDataSourceImpl: UserDataSourceImpl
+    ): UserDataSource
 }

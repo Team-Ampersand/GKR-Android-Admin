@@ -1,6 +1,7 @@
 package com.mpersand.presentation.view.main
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -37,7 +38,8 @@ import com.mpersand.presentation.viewmodel.util.UiState
 fun MainScreen(
     modifier: Modifier = Modifier,
     viewModel: MainViewModel = hiltViewModel(),
-    navigateToViolation: () -> Unit
+    navigateToViolation: () -> Unit,
+    navigateToDetail: (String) -> Unit
 ) {
     LaunchedEffect(Unit) {
         viewModel.getRentedEquipments()
@@ -96,6 +98,7 @@ fun MainScreen(
                     ) {
                         items(rentedEquipments) {
                             EquipmentItem(
+                                modifier = modifier.clickable { navigateToDetail(it.productNumber) },
                                 name = it.name,
                                 status = it.rentStatus,
                                 description = it.description,
