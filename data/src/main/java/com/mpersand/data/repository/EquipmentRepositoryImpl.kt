@@ -17,4 +17,7 @@ class EquipmentRepositoryImpl @Inject constructor(
 
     override suspend fun getEquipmentDetail(productNumber: String): EquipmentResponseModel =
         equipmentDataSource.getEquipmentDetail(productNumber).asEquipmentResponseModel()
+
+    override suspend fun modifyEquipment(productNumber: String) =
+        equipmentDataSource.modifyEquipment(productNumber)
 }
