@@ -59,7 +59,7 @@ fun ViolationScreen(
                         .background(Color.White)
                         .padding(paddingValues)
                 ) {
-                    GKRToolbar(title = "제제 하기") {
+                    GKRToolbar(title = "제재 하기") {
                         navigateToMain()
                     }
                     LazyColumn(
@@ -81,12 +81,27 @@ fun ViolationScreen(
                                     when (postViolationUserUiState) {
                                         is UiState.Success -> {
                                             coroutineScope.launch {
-                                                scaffoldState.snackbarHostState.showSnackbar("제제가 완료되었습니다.")
+                                                scaffoldState.snackbarHostState.showSnackbar("제재가 완료되었습니다.")
+                                            }
+                                        }
+                                        UiState.BadRequest -> {
+                                            coroutineScope.launch {
+                                                scaffoldState.snackbarHostState.showSnackbar("잘못된 요청입니다.\n개발자에게 문의 해주세요.")
+                                            }
+                                        }
+                                        UiState.Unauthorized -> {
+                                            coroutineScope.launch {
+                                                scaffoldState.snackbarHostState.showSnackbar("토큰이 존재하지 않습니다.\n다시 로그인 해주세요.")
+                                            }
+                                        }
+                                        UiState.Forbidden -> {
+                                            coroutineScope.launch {
+                                                scaffoldState.snackbarHostState.showSnackbar("권한이 존재하지 않습니다.\n개발자에게 문의 해주세요.")
                                             }
                                         }
                                         else -> {
                                             coroutineScope.launch {
-                                                scaffoldState.snackbarHostState.showSnackbar("예상치 못 한 오류가 발생 했습니다.\n 개발자에게 문의 해주세요.")
+                                                scaffoldState.snackbarHostState.showSnackbar("예상치 못 한 오류가 발생 했습니다.\n개발자에게 문의 해주세요.")
                                             }
                                         }
                                     }
