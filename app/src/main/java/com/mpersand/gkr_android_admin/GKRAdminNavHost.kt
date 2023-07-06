@@ -4,6 +4,8 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.mpersand.presentation.view.auth.navigation.signInScreen
+import com.mpersand.presentation.view.detail.navigation.detailScreen
+import com.mpersand.presentation.view.detail.navigation.navigateToDetail
 import com.mpersand.presentation.view.main.navigation.mainScreen
 import com.mpersand.presentation.view.main.navigation.navigateToMain
 
@@ -16,6 +18,9 @@ fun GKRAdminNavHost(
         signInScreen(navigateToMain = {
             navController.navigateToMain()
         })
-        mainScreen()
+        mainScreen(navigateToDetail = {
+            navController.navigateToDetail(it)
+        })
+        detailScreen()
     }
 }
