@@ -17,7 +17,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -29,9 +28,9 @@ import com.mpersand.presentation.R
 @Composable
 fun ViolationItem(
     modifier: Modifier = Modifier,
-    grade: String,
-    classNum: String,
-    number: String,
+    grade: Int,
+    classNum: Int,
+    number: Int,
     image: String,
     productNumber: String
 ) {
@@ -50,8 +49,7 @@ fun ViolationItem(
             modifier = modifier
                 .size(50.dp)
                 .clip(CircleShape),
-//            painter = rememberAsyncImagePainter(image),
-            painter = painterResource(id = R.drawable.ic_logo),
+            painter = rememberAsyncImagePainter(image),
             contentDescription = "profile"
         )
         Spacer(modifier = modifier.width(15.dp))
@@ -65,7 +63,7 @@ fun ViolationItem(
                 )
                 Spacer(modifier = modifier.width(10.dp))
                 Text(
-                    text = grade +"학년 " + classNum + "반 " + number + "번",
+                    text = "${grade}학년 ${classNum}반 ${number}번 ",
                     fontSize = 8.sp,
                     fontFamily = FontFamily(Font(R.font.fraunces_black)),
                     fontWeight = FontWeight.SemiBold,

@@ -2,6 +2,7 @@ package com.mpersand.data.network.api
 
 import com.mpersand.data.dto.equpiment.response.EquipmentResponse
 import retrofit2.http.GET
+import retrofit2.http.PATCH
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -18,4 +19,9 @@ interface EquipmentApi {
     suspend fun getEquipmentDetail(
         @Path("productNumber") productNumber: String
     ): EquipmentResponse
+
+    @PATCH("equipment/{productNumber}")
+    suspend fun modifyEquipment(
+        @Path("productNumber") productNumber: String
+    )
 }
