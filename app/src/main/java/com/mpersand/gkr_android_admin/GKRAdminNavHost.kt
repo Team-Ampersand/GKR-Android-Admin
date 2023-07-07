@@ -10,6 +10,8 @@ import com.mpersand.presentation.view.detail.navigation.navigateToDetail
 import com.mpersand.presentation.view.main.navigation.mainScreen
 import com.mpersand.presentation.view.main.navigation.navigateToMain
 import com.mpersand.presentation.view.equipment.navigation.equipmentScreen
+import com.mpersand.presentation.view.equipment.navigation.navigateToEquipment
+import com.mpersand.presentation.view.repair.navigation.navigateToRepair
 import com.mpersand.presentation.view.repair.navigation.repairScreen
 import com.mpersand.presentation.view.violation.navigation.navigationToViolation
 import com.mpersand.presentation.view.violation.navigation.violationScreen
@@ -37,8 +39,12 @@ fun GKRAdminNavHost(
         violationScreen(navigateToMain = {
             navController.navigateToMain()
         })
-        detailScreen()
-        equipmentScreen()
+        detailScreen(navigateToEquipment = {
+            navController.navigateToEquipment(it)
+        })
+        equipmentScreen(navigateToRepair = {
+            navController.navigateToRepair(it)
+        })
         repairScreen()
     }
 }

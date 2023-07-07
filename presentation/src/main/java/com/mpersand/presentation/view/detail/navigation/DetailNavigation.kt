@@ -11,8 +11,11 @@ fun NavController.navigateToDetail(productNumber: String) {
     this.navigate("$detailRoute/$productNumber")
 }
 
-fun NavGraphBuilder.detailScreen() {
+fun NavGraphBuilder.detailScreen(navigateToEquipment: (productNumber: String) -> Unit) {
     composable("$detailRoute/{productNumber}") { backStackEntry ->
-        DetailScreen(productNumber = backStackEntry.arguments?.getString("productNumber"))
+        DetailScreen(
+            productNumber = backStackEntry.arguments?.getString("productNumber"),
+            navigateToEquipment = navigateToEquipment
+        )
     }
 }

@@ -7,12 +7,12 @@ import com.mpersand.presentation.view.repair.RepairScreen
 
 const val repairRoute = "repair_route"
 
-fun NavController.navigateToRepair() {
-    this.navigate(repairRoute)
+fun NavController.navigateToRepair(productNumber: String) {
+    this.navigate("$repairRoute/$productNumber")
 }
 
 fun NavGraphBuilder.repairScreen() {
-    composable(repairRoute) {
+    composable("$repairRoute/{productNumber}") {
         RepairScreen()
     }
 }
