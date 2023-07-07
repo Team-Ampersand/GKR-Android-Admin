@@ -26,7 +26,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.mpersand.presentation.R
-import com.mpersand.presentation.view.equipment.component.ModifyTextField
+import com.mpersand.presentation.view.component.ModifyTextField
 
 @Composable
 fun EquipmentScreen(modifier: Modifier = Modifier) {
