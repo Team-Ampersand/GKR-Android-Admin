@@ -3,6 +3,7 @@ package com.mpersand.data.remote.util
 import com.mpersand.domain.exception.BadRequestException
 import com.mpersand.domain.exception.ConflictException
 import com.mpersand.domain.exception.ForbiddenException
+import com.mpersand.domain.exception.NoContentException
 import com.mpersand.domain.exception.NoInternetException
 import com.mpersand.domain.exception.NotFoundException
 import com.mpersand.domain.exception.OtherHttpException
@@ -38,6 +39,8 @@ suspend fun <T> safeApiCall(call: suspend () -> T): T {
         throw NoInternetException()
     } catch (e: TokenExpiredException) {
         throw TokenExpiredException()
+    } catch (e: KotlinNullPointerException) {
+        throw NoContentException(message = e.message)
     } catch (e: Exception) {
         throw UnknownException(message = e.message)
     }
