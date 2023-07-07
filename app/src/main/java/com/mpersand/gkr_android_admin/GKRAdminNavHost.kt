@@ -10,6 +10,7 @@ import com.mpersand.presentation.view.detail.navigation.navigateToDetail
 import com.mpersand.presentation.view.main.navigation.mainScreen
 import com.mpersand.presentation.view.main.navigation.navigateToMain
 import com.mpersand.presentation.view.equipment.navigation.equipmentScreen
+import com.mpersand.presentation.view.repair.navigation.repairScreen
 import com.mpersand.presentation.view.violation.navigation.navigationToViolation
 import com.mpersand.presentation.view.violation.navigation.violationScreen
 
@@ -38,5 +39,6 @@ fun GKRAdminNavHost(
         })
         detailScreen()
         equipmentScreen()
+        repairScreen()
     }
 }
