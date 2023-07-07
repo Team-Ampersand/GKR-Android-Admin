@@ -7,12 +7,15 @@ import com.mpersand.presentation.view.equipment.EquipmentScreen
 
 const val equipmentRoute = "equipment_route"
 
-fun NavController.navigateToEquipment() {
-    this.navigate(equipmentRoute)
+fun NavController.navigateToEquipment(productNumber: String) {
+    this.navigate("$equipmentRoute/$productNumber")
 }
 
-fun NavGraphBuilder.equipmentScreen() {
-    composable(equipmentRoute) {
-        EquipmentScreen()
+fun NavGraphBuilder.equipmentScreen(navigateToRepair: (productNumber: String) -> Unit) {
+    composable("$equipmentRoute/{productNumber}") { backStackEntry ->
+        EquipmentScreen(
+            productNumber = backStackEntry.arguments?.getString("productNumber"),
+            navigateToRepair = navigateToRepair
+        )
     }
 }

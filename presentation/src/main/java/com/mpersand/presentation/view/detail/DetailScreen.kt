@@ -34,7 +34,8 @@ import com.mpersand.presentation.viewmodel.util.UiState
 fun DetailScreen(
     modifier: Modifier = Modifier,
     productNumber: String?,
-    viewModel: DetailViewModel = hiltViewModel()
+    viewModel: DetailViewModel = hiltViewModel(),
+    navigateToEquipment: (productNumber: String) -> Unit
 ) {
     LaunchedEffect(Unit) {
         viewModel.getEquipmentInfo(checkNotNull(productNumber))
@@ -86,7 +87,7 @@ fun DetailScreen(
                         ),
                         contentPadding = PaddingValues(vertical = 16.dp),
                         shape = RoundedCornerShape(10.dp),
-                        onClick = { }
+                        onClick = { navigateToEquipment(checkNotNull(productNumber)) }
                     ) {
                         Text(
                             text = "수정하기"

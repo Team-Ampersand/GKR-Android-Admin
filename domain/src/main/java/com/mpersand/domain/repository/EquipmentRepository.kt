@@ -1,5 +1,6 @@
 package com.mpersand.domain.repository
 
+import com.mpersand.domain.model.equipment.request.EquipmentRequestModel
 import com.mpersand.domain.model.equipment.response.EquipmentResponseModel
 
 interface EquipmentRepository {
@@ -9,5 +10,5 @@ interface EquipmentRepository {
 
     suspend fun getEquipmentDetail(productNumber: String): EquipmentResponseModel
 
-    suspend fun modifyEquipment(productNumber: String)
+    suspend fun modifyEquipment(productNumber: String, body: EquipmentRequestModel)
 }

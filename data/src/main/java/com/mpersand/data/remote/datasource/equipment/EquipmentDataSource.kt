@@ -1,5 +1,6 @@
 package com.mpersand.data.remote.datasource.equipment
 
+import com.mpersand.data.dto.equpiment.request.EquipmentRequest
 import com.mpersand.data.dto.equpiment.response.EquipmentResponse
 
 interface EquipmentDataSource {
@@ -9,5 +10,5 @@ interface EquipmentDataSource {
 
     suspend fun getEquipmentDetail(productNumber: String): EquipmentResponse
 
-    suspend fun modifyEquipment(productNumber: String)
+    suspend fun modifyEquipment(productNumber: String, body: EquipmentRequest)
 }
