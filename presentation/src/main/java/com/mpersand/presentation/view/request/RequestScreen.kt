@@ -15,7 +15,10 @@ import com.mpersand.presentation.view.component.GKRToolbar
 import com.mpersand.presentation.view.request.component.RequestItem
 
 @Composable
-fun RequestScreen(navigateToMain: () -> Unit) {
+fun RequestScreen(
+    navigateToMain: () -> Unit,
+    navigateToRequestDetail: () -> Unit
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -23,12 +26,12 @@ fun RequestScreen(navigateToMain: () -> Unit) {
     ) {
         GKRToolbar(title = "요청") { navigateToMain() }
 
-        RequestList()
+        RequestList(navigateToRequestDetail = navigateToRequestDetail)
     }
 }
 
 @Composable
-fun RequestList() {
+fun RequestList(navigateToRequestDetail: () -> Unit) {
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
         contentPadding = PaddingValues(horizontal = 13.dp),
@@ -37,7 +40,7 @@ fun RequestList() {
         val list = listOf(1,2,3,4)
 
         items(list) {
-            RequestItem(onCardClick = { /*TODO*/ })
+            RequestItem(onCardClick = navigateToRequestDetail)
         }
     }
 }
