@@ -10,6 +10,8 @@ import com.mpersand.presentation.view.detail.navigation.navigateToDetail
 import com.mpersand.presentation.view.main.navigation.mainScreen
 import com.mpersand.presentation.view.main.navigation.navigateToMain
 import com.mpersand.presentation.view.request.navigation.navigateToRequest
+import com.mpersand.presentation.view.request.navigation.navigateToRequestDetail
+import com.mpersand.presentation.view.request.navigation.requestDetailScreen
 import com.mpersand.presentation.view.request.navigation.requestScreen
 import com.mpersand.presentation.view.violation.navigation.navigationToViolation
 import com.mpersand.presentation.view.violation.navigation.violationScreen
@@ -38,7 +40,10 @@ fun GKRAdminNavHost(
         detailScreen()
 
         requestScreen(
-            navigateToMain = { navController.navigateToMain() }
+            navigateToMain = { navController.navigateToMain() },
+            navigateToRequestDetail = { navController.navigateToRequestDetail() }
         )
+
+        requestDetailScreen()
     }
 }

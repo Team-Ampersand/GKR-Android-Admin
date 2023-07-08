@@ -11,8 +11,14 @@ fun NavController.navigateToRequest() {
     this.navigate(requestRoute)
 }
 
-fun NavGraphBuilder.requestScreen(navigateToMain: () -> Unit) {
+fun NavGraphBuilder.requestScreen(
+    navigateToMain: () -> Unit,
+    navigateToRequestDetail: () -> Unit
+) {
     composable(requestRoute) {
-        RequestScreen(navigateToMain = navigateToMain)
+        RequestScreen(
+            navigateToMain = navigateToMain,
+            navigateToRequestDetail = navigateToRequestDetail
+        )
     }
 }
