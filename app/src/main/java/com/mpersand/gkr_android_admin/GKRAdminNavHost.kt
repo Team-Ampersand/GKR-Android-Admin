@@ -9,6 +9,7 @@ import com.mpersand.presentation.view.detail.navigation.detailScreen
 import com.mpersand.presentation.view.detail.navigation.navigateToDetail
 import com.mpersand.presentation.view.main.navigation.mainScreen
 import com.mpersand.presentation.view.main.navigation.navigateToMain
+import com.mpersand.presentation.view.request.navigation.navigateToRequest
 import com.mpersand.presentation.view.violation.navigation.navigationToViolation
 import com.mpersand.presentation.view.violation.navigation.violationScreen
 
@@ -23,15 +24,10 @@ fun GKRAdminNavHost(
         })
 
         mainScreen(
-            navigateToViolation = {
-                navController.navigationToViolation()
-            },
-            navigateToDetail = {
-                navController.navigateToDetail(it)
-            },
-            navigateToSignIn = {
-                navController.navigateToSignIn()
-            }
+            navigateToViolation = { navController.navigationToViolation() },
+            navigateToDetail = { navController.navigateToDetail(it) },
+            navigateToSignIn = { navController.navigateToSignIn() },
+            navigateToRequest = { navController.navigateToRequest() }
         )
 
         violationScreen(navigateToMain = {
