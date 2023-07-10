@@ -2,7 +2,6 @@ package com.mpersand.presentation.view.main.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -30,6 +29,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.mpersand.presentation.R
+import com.mpersand.presentation.view.modifier.gkrClickable
 
 @Composable
 fun NavigationDrawer(
@@ -116,7 +116,7 @@ fun DrawerItem(
                 shape = RoundedCornerShape(5.dp)
             )
             .padding(horizontal = 12.dp, vertical = 10.dp)
-            .clickable { onItemClick() },
+            .gkrClickable { onItemClick() },
         verticalAlignment = Alignment.CenterVertically
     ) {
         Image(
