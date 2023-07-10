@@ -37,6 +37,7 @@ fun NavigationDrawer(
     drawerState: DrawerState,
     logoutAction: () -> Unit,
     navigateToViolation: () -> Unit,
+    navigateToRequest: () -> Unit,
     content: @Composable () -> Unit
 ) {
     val contents = listOf("메인페이지", "학생제재", "요청내역", "로그아웃")
@@ -84,6 +85,7 @@ fun NavigationDrawer(
                             selectedItem = it
                             when (it) {
                                 1 -> navigateToViolation()
+                                2 -> navigateToRequest()
                                 3 -> logoutAction()
                             }
                         }

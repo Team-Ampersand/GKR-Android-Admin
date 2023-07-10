@@ -44,7 +44,8 @@ fun MainScreen(
     viewModel: MainViewModel = hiltViewModel(),
     navigateToViolation: () -> Unit,
     navigateToDetail: (String) -> Unit,
-    navigateToSignIn: () -> Unit
+    navigateToSignIn: () -> Unit,
+    navigateToRequest: () -> Unit,
 ) {
     LaunchedEffect(Unit) {
         viewModel.getEquipmentsByFilter("")
@@ -90,7 +91,8 @@ fun MainScreen(
             coroutineScope.launch { drawerState.close() }
             showDialog = true
         },
-        navigateToViolation = navigateToViolation
+        navigateToViolation = navigateToViolation,
+        navigateToRequest = navigateToRequest
     ) {
         Column(
             modifier = modifier
