@@ -1,7 +1,9 @@
 package com.mpersand.data.repository
 
+import com.mpersand.data.dto.equpiment.request.asEquipmentRequest
 import com.mpersand.data.dto.equpiment.response.asEquipmentResponseModel
 import com.mpersand.data.remote.datasource.equipment.EquipmentDataSource
+import com.mpersand.domain.model.equipment.request.EquipmentRequestModel
 import com.mpersand.domain.model.equipment.response.EquipmentResponseModel
 import com.mpersand.domain.repository.EquipmentRepository
 import javax.inject.Inject
@@ -17,4 +19,7 @@ class EquipmentRepositoryImpl @Inject constructor(
 
     override suspend fun getEquipmentDetail(productNumber: String): EquipmentResponseModel =
         equipmentDataSource.getEquipmentDetail(productNumber).asEquipmentResponseModel()
+
+    override suspend fun modifyEquipment(productNumber: String, body: EquipmentRequestModel) =
+        equipmentDataSource.modifyEquipment(productNumber, body.asEquipmentRequest())
 }

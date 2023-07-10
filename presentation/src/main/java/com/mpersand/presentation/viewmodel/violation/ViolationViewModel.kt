@@ -1,6 +1,5 @@
 package com.mpersand.presentation.viewmodel.violation
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -23,7 +22,7 @@ class ViolationViewModel @Inject constructor(
     private val _getNoReturnStudentsUiState = MutableLiveData<UiState<List<OrderResponseModel>>>()
     val getNoReturnStudentsUiState: LiveData<UiState<List<OrderResponseModel>>> = _getNoReturnStudentsUiState
 
-    private val _postViolationUserUiState = MutableLiveData<UiState<Nothing>>()
+    private val _postViolationUserUiState = MutableLiveData<UiState<Nothing>>(UiState.Loading)
     val postViolationUserUiState: LiveData<UiState<Nothing>> = _postViolationUserUiState
 
     fun getNoReturnStudents() {

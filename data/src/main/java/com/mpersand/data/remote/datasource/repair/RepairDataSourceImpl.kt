@@ -11,5 +11,5 @@ class RepairDataSourceImpl @Inject constructor(
 ): RepairDataSource {
     override suspend fun getRepairHistory(productNumber: String): List<RepairResponse> = safeApiCall { repairApi.getRepairHistory(productNumber) }
 
-    override suspend fun modifyRepairHistory(body: RepairRequest) = safeApiCall { repairApi.modifyRepairHistory(body = body) }
+    override suspend fun addRepairHistory(body: RepairRequest) = safeApiCall { repairApi.addRepairHistory(body = body) }
 }

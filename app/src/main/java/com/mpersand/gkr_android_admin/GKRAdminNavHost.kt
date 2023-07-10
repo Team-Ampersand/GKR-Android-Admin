@@ -13,6 +13,10 @@ import com.mpersand.presentation.view.request.navigation.navigateToRequest
 import com.mpersand.presentation.view.request.navigation.navigateToRequestDetail
 import com.mpersand.presentation.view.request.navigation.requestDetailScreen
 import com.mpersand.presentation.view.request.navigation.requestScreen
+import com.mpersand.presentation.view.equipment.navigation.equipmentScreen
+import com.mpersand.presentation.view.equipment.navigation.navigateToEquipment
+import com.mpersand.presentation.view.repair.navigation.navigateToRepair
+import com.mpersand.presentation.view.repair.navigation.repairScreen
 import com.mpersand.presentation.view.violation.navigation.navigationToViolation
 import com.mpersand.presentation.view.violation.navigation.violationScreen
 
@@ -25,20 +29,26 @@ fun GKRAdminNavHost(
         signInScreen(navigateToMain = {
             navController.navigateToMain()
         })
-
         mainScreen(
             navigateToViolation = { navController.navigationToViolation() },
             navigateToDetail = { navController.navigateToDetail(it) },
             navigateToSignIn = { navController.navigateToSignIn() },
             navigateToRequest = { navController.navigateToRequest() }
         )
-
         violationScreen(navigateToMain = {
             navController.navigateToMain()
         })
-
-        detailScreen()
-
+        
+        detailScreen(navigateToEquipment = {
+            navController.navigateToEquipment(it)
+        })
+        equipmentScreen(navigateToRepair = {
+            navController.navigateToRepair(it)
+        })
+        repairScreen(navigateToMain = {
+            navController.navigateToMain()
+        })
+        
         requestScreen(
             navigateToMain = { navController.navigateToMain() },
             navigateToRequestDetail = { navController.navigateToRequestDetail() }

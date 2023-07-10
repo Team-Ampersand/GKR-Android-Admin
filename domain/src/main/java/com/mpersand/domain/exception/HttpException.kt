@@ -1,5 +1,8 @@
 package com.mpersand.domain.exception
 
+class NoContentException(
+    override val message: String?
+): RuntimeException()
 class BadRequestException(
     override val message: String?
 ): RuntimeException()
