@@ -91,30 +91,32 @@ fun DetailScreen(
                         fontWeight = FontWeight.Black
                     )
                     Spacer(modifier = modifier.height(20.dp))
-                    RepairDetail(
-                        title = "수리 내용",
-                        content = repair.last().description
-                    )
-                    Spacer(modifier = modifier.height(20.dp))
-                    RepairDetail(
-                        title = "수리 일자",
-                        content = repair.last().repairDate
-                    )
-                    Spacer(modifier = modifier.height(20.dp))
-                    RepairDetail(
-                        title = "수리 비용",
-                        content = repair.last().cost.toString()
-                    )
-                    Spacer(modifier = modifier.height(20.dp))
-                    RepairDetail(
-                        title = "수리 사유",
-                        content = repair.last().reason
-                    )
-                    Spacer(modifier = modifier.height(20.dp))
-                    RepairDetail(
-                        title = "비고",
-                        content = repair.last().comment
-                    )
+                    if (repair.isNotEmpty()) {
+                        RepairDetail(
+                            title = "수리 내용",
+                            content = repair.last().description
+                        )
+                        Spacer(modifier = modifier.height(20.dp))
+                        RepairDetail(
+                            title = "수리 일자",
+                            content = repair.last().repairDate
+                        )
+                        Spacer(modifier = modifier.height(20.dp))
+                        RepairDetail(
+                            title = "수리 비용",
+                            content = repair.last().cost.toString()
+                        )
+                        Spacer(modifier = modifier.height(20.dp))
+                        RepairDetail(
+                            title = "수리 사유",
+                            content = repair.last().reason
+                        )
+                        Spacer(modifier = modifier.height(20.dp))
+                        RepairDetail(
+                            title = "비고",
+                            content = repair.last().comment
+                        )
+                    }
                     Spacer(modifier = modifier.height(60.dp))
                     Button(
                         modifier = modifier.fillMaxWidth(),
