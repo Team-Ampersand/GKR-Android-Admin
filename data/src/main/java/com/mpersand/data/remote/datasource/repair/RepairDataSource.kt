@@ -6,5 +6,5 @@ import com.mpersand.data.dto.repair.response.RepairResponse
 interface RepairDataSource {
     suspend fun getRepairHistory(productNumber: String): List<RepairResponse>
 
-    suspend fun modifyRepairHistory(body: RepairRequest)
+    suspend fun addRepairHistory(body: RepairRequest)
 }

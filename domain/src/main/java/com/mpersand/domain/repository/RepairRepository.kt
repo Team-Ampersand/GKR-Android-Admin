@@ -6,5 +6,5 @@ import com.mpersand.domain.model.repair.response.RepairResponseModel
 interface RepairRepository {
     suspend fun getRepairHistory(productNumber: String): List<RepairResponseModel>
 
-    suspend fun modifyRepairHistory(body: RepairRequestModel)
+    suspend fun addRepairHistory(body: RepairRequestModel)
 }

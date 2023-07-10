@@ -11,8 +11,11 @@ fun NavController.navigateToRepair(productNumber: String) {
     this.navigate("$repairRoute/$productNumber")
 }
 
-fun NavGraphBuilder.repairScreen() {
-    composable("$repairRoute/{productNumber}") {
-        RepairScreen()
+fun NavGraphBuilder.repairScreen(navigateToMain: () -> Unit) {
+    composable("$repairRoute/{productNumber}") { backStackEntry ->
+        RepairScreen(
+            productNumber = backStackEntry.arguments?.getString("productNumber"),
+            navigateToMain = navigateToMain
+        )
     }
 }

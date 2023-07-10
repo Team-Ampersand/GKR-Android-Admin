@@ -14,7 +14,7 @@ class RepairRepositoryImpl @Inject constructor(
     override suspend fun getRepairHistory(productNumber: String): List<RepairResponseModel> =
         repairDataSource.getRepairHistory(productNumber).map { it.asRepairResponseModel() }
 
-    override suspend fun modifyRepairHistory(body: RepairRequestModel) {
-        repairDataSource.modifyRepairHistory(body.asRepairResult())
+    override suspend fun addRepairHistory(body: RepairRequestModel) {
+        repairDataSource.addRepairHistory(body.asRepairResult())
     }
 }
