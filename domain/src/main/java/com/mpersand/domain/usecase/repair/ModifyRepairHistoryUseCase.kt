@@ -7,5 +7,5 @@ import javax.inject.Inject
 class ModifyRepairHistoryUseCase @Inject constructor(
     private val repository: RepairRepository
 ) {
-    suspend operator fun invoke(body: RepairRequestModel) = repository.modifyRepairHistory(body)
+    suspend operator fun invoke(body: RepairRequestModel) = kotlin.runCatching { repository.modifyRepairHistory(body) }
 }
