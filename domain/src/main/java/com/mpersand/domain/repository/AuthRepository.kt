@@ -12,4 +12,6 @@ interface AuthRepository {
         accessTokenExp: String,
         refreshTokenExp: String
     )
+
+    suspend fun isLogin(): Boolean
 }

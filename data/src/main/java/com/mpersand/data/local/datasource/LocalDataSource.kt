@@ -17,4 +17,6 @@ interface LocalDataSource {
     suspend fun getAccessTokenExp(): Flow<String>
 
     suspend fun getRefreshTokenExp(): Flow<String>
+
+    suspend fun isLogin(): Flow<Boolean>
 }
