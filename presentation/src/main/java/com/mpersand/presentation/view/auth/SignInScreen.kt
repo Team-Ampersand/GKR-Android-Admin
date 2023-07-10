@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
@@ -41,8 +42,18 @@ fun SignInScreen(
     viewModel: AuthViewModel = hiltViewModel(),
     navigateToMain: () -> Unit
 ) {
+    LaunchedEffect(Unit) {
+        viewModel.isLogin()
+    }
+
+    val loginUiState by viewModel.loginState.observeAsState()
     val uiState by viewModel.uiState.observeAsState()
     var isClicked by remember { mutableStateOf(false) }
+
+    when (val loginState = loginUiState) {
+        is UiState.Success ->  loginState.data?.let { isLogin -> if (isLogin) navigateToMain() }
+        else -> {}
+    }
 
     when (uiState) {
         is UiState.Success -> navigateToMain()

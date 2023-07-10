@@ -7,6 +7,7 @@ import com.mpersand.data.remote.datasource.auth.AuthDataSource
 import com.mpersand.domain.model.auth.request.SignInRequestModel
 import com.mpersand.domain.model.auth.response.SignInResponseModel
 import com.mpersand.domain.repository.AuthRepository
+import kotlinx.coroutines.flow.first
 import javax.inject.Inject
 
 class AuthRepositoryImpl @Inject constructor(
@@ -24,4 +25,6 @@ class AuthRepositoryImpl @Inject constructor(
             refreshTokenExp = refreshTokenExp
         )
     }
+
+    override suspend fun isLogin(): Boolean = localDataSource.isLogin().first()
 }
