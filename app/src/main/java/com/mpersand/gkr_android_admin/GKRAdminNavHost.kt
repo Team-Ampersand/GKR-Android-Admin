@@ -45,6 +45,8 @@ fun GKRAdminNavHost(
         equipmentScreen(navigateToRepair = {
             navController.navigateToRepair(it)
         })
-        repairScreen()
+        repairScreen(navigateToMain = {
+            navController.navigateToMain()
+        })
     }
 }
