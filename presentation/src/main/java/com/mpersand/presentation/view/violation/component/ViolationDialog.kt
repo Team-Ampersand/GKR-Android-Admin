@@ -42,7 +42,6 @@ fun ViolationDialog(
     userId: UUID,
     viewModel: ViolationViewModel = hiltViewModel(),
     onDismissRequest: () -> Unit,
-    showSnackBar: () -> Unit
 ) {
     var text by remember { mutableStateOf("") }
     Dialog(onDismissRequest = onDismissRequest) {
@@ -63,7 +62,6 @@ fun ViolationDialog(
                         )
                     )
                     onDismissRequest()
-                    showSnackBar()
                 }
             )
         }
