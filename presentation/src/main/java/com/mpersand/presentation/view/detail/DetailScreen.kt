@@ -8,7 +8,9 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Text
@@ -47,7 +49,11 @@ fun DetailScreen(
         is UiState.Success -> {
             val (equipment, repair) = state.data!!
 
-            Column(modifier = modifier.background(Color(0xFFFAFAFA))) {
+            Column(
+                modifier = modifier
+                    .background(Color(0xFFFAFAFA))
+                    .verticalScroll(rememberScrollState())
+            ) {
                 Image(
                     modifier = modifier
                         .fillMaxWidth()
@@ -73,12 +79,43 @@ fun DetailScreen(
                     )
                     Spacer(modifier = modifier.height(30.dp))
                     Text(
+                        text = "기자재 상세",
+                        fontSize = 16.sp,
+                        fontFamily = FontFamily(Font(R.font.fraunces_black)),
+                        fontWeight = FontWeight.Bold
+                    )
+                    Text(
                         text = equipment.description,
                         fontSize = 13.sp,
                         fontFamily = FontFamily(Font(R.font.fraunces_black)),
                         fontWeight = FontWeight.Black
                     )
-                    Spacer(modifier = modifier.weight(1f))
+                    Spacer(modifier = modifier.height(20.dp))
+                    RepairDetail(
+                        title = "수리 내용",
+                        content = repair.last().description
+                    )
+                    Spacer(modifier = modifier.height(20.dp))
+                    RepairDetail(
+                        title = "수리 일자",
+                        content = repair.last().repairDate
+                    )
+                    Spacer(modifier = modifier.height(20.dp))
+                    RepairDetail(
+                        title = "수리 비용",
+                        content = repair.last().cost.toString()
+                    )
+                    Spacer(modifier = modifier.height(20.dp))
+                    RepairDetail(
+                        title = "수리 사유",
+                        content = repair.last().reason
+                    )
+                    Spacer(modifier = modifier.height(20.dp))
+                    RepairDetail(
+                        title = "비고",
+                        content = repair.last().comment
+                    )
+                    Spacer(modifier = modifier.height(60.dp))
                     Button(
                         modifier = modifier.fillMaxWidth(),
                         colors = ButtonDefaults.buttonColors(
@@ -105,4 +142,24 @@ fun DetailScreen(
         UiState.Unknown -> {}
         else -> {}
     }
+}
+
+@Composable
+fun RepairDetail(
+    modifier: Modifier = Modifier,
+    title: String,
+    content: String
+) {
+    Text(
+        text = title,
+        fontSize = 16.sp,
+        fontFamily = FontFamily(Font(R.font.fraunces_black)),
+        fontWeight = FontWeight.Bold
+    )
+    Spacer(modifier = modifier.height(6.dp))
+    Text(
+        text = content,
+        fontSize = 13.sp,
+        fontWeight = FontWeight.Bold
+    )
 }
