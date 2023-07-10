@@ -1,8 +1,6 @@
 package com.mpersand.presentation.view.violation
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -26,6 +24,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.mpersand.presentation.view.component.GKRToolbar
+import com.mpersand.presentation.view.modifier.gkrClickable
 import com.mpersand.presentation.view.violation.component.ViolationDialog
 import com.mpersand.presentation.view.violation.component.ViolationItem
 import com.mpersand.presentation.viewmodel.util.UiState
@@ -109,7 +108,7 @@ fun ViolationScreen(
                             }
 
                             ViolationItem(
-                                modifier = modifier.clickable { showDialog = true },
+                                modifier = modifier.gkrClickable { showDialog = true },
                                 grade = it.grade ?: 0,
                                 classNum = it.classNum ?: 0,
                                 number = it.number ?: 0,

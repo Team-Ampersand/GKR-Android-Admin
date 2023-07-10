@@ -1,7 +1,6 @@
 package com.mpersand.presentation.view.main
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -34,6 +33,7 @@ import com.mpersand.presentation.view.main.component.EquipmentItem
 import com.mpersand.presentation.view.main.component.FilterItem
 import com.mpersand.presentation.view.main.component.LogoutDialog
 import com.mpersand.presentation.view.main.component.NavigationDrawer
+import com.mpersand.presentation.view.modifier.gkrClickable
 import com.mpersand.presentation.viewmodel.main.MainViewModel
 import com.mpersand.presentation.viewmodel.util.UiState
 import kotlinx.coroutines.launch
@@ -153,7 +153,7 @@ fun EquipmentListView(
     ) {
         items(equipments) {
             EquipmentItem(
-                modifier = Modifier.clickable { navigateToDetail(it.productNumber) },
+                modifier = Modifier.gkrClickable { navigateToDetail(it.productNumber) },
                 name = it.name,
                 status = it.rentStatus,
                 description = it.description,

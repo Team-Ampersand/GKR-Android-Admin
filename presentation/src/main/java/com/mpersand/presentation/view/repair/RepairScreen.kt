@@ -4,7 +4,6 @@ import android.app.DatePickerDialog
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
@@ -41,6 +40,7 @@ import coil.compose.rememberAsyncImagePainter
 import com.mpersand.domain.model.repair.request.RepairRequestModel
 import com.mpersand.presentation.R
 import com.mpersand.presentation.view.component.ModifyTextField
+import com.mpersand.presentation.view.modifier.gkrClickable
 import com.mpersand.presentation.viewmodel.repair.RepairViewModel
 import com.mpersand.presentation.viewmodel.util.UiState
 import java.util.Calendar
@@ -126,7 +126,7 @@ fun RepairScreen(
                                 horizontal = 20.dp,
                                 vertical = 16.dp
                             )
-                            .clickable { datePicker.show() },
+                            .gkrClickable { datePicker.show() },
                         text = date
                     )
                     Spacer(modifier = modifier.height(15.dp))
