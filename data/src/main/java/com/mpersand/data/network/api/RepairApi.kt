@@ -14,7 +14,7 @@ interface RepairApi {
     ): List<RepairResponse>
 
     @POST("repair")
-    suspend fun modifyRepairHistory(
+    suspend fun addRepairHistory(
         @Body body: RepairRequest
     )
 }

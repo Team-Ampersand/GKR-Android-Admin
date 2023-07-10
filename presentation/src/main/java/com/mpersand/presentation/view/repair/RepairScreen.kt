@@ -153,7 +153,7 @@ fun RepairScreen(
                 contentPadding = PaddingValues(vertical = 16.dp),
                 colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFF865DFF)),
                 onClick = {
-                    viewModel.modifyRepairHistory(
+                    viewModel.addRepairHistory(
                         RepairRequestModel(
                             productNumber = checkNotNull(productNumber),
                             reason = reason,
