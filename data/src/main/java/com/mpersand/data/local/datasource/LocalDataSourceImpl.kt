@@ -44,4 +44,10 @@ class LocalDataSourceImpl @Inject constructor(
     override suspend fun getRefreshTokenExp(): Flow<String> = context.dataStore.data.map { it[REFRESH_TOKEN_EXP] ?: "" }
 
     override suspend fun isLogin(): Flow<Boolean> = context.dataStore.data.map { it[IS_LOGIN] ?: false }
+
+    override suspend fun logout() {
+        context.dataStore.edit {
+            it[IS_LOGIN] = false
+        }
+    }
 }

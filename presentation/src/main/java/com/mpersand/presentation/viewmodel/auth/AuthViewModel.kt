@@ -20,7 +20,7 @@ class AuthViewModel @Inject constructor(
     private val saveTokenUseCase: SaveTokenUseCase,
     private val isLoginUseCase: IsLoginUseCase
 ) : ViewModel() {
-    private val _loginState = MutableLiveData<UiState<Boolean>>()
+    private val _loginState = MutableLiveData<UiState<Boolean>>(UiState.Loading)
     val loginState: LiveData<UiState<Boolean>> = _loginState
 
     private val _uiState = MutableLiveData<UiState<Nothing>>()

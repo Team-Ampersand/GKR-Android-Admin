@@ -46,12 +46,12 @@ fun SignInScreen(
         viewModel.isLogin()
     }
 
-    val loginState by viewModel.loginState.observeAsState()
+    val loginUiState by viewModel.loginState.observeAsState()
     val uiState by viewModel.uiState.observeAsState()
     var isClicked by remember { mutableStateOf(false) }
 
-    when (loginState) {
-        is UiState.Success -> navigateToMain()
+    when (val loginState = loginUiState) {
+        is UiState.Success ->  loginState.data?.let { isLogin -> if (isLogin) navigateToMain() }
         else -> {}
     }
 
