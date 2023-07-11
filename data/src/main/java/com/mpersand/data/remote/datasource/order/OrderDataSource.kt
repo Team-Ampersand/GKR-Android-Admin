@@ -4,4 +4,6 @@ import com.mpersand.data.dto.order.response.OrderResponse
 
 interface OrderDataSource {
     suspend fun getNoReturnStudents(): List<OrderResponse>
+
+    suspend fun getWaitList(): List<OrderResponse>
 }
