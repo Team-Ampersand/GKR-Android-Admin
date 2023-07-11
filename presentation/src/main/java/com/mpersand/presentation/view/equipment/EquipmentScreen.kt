@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
@@ -66,7 +67,7 @@ fun EquipmentScreen(
             var equipmentName by remember { mutableStateOf(equipment.name) }
             var description by remember { mutableStateOf(equipment.description) }
 
-            Column {
+            Column(modifier = modifier.systemBarsPadding()) {
                 Image(
                     modifier = modifier
                         .fillMaxWidth()
