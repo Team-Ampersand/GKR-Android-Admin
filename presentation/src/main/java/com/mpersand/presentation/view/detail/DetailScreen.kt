@@ -65,13 +65,18 @@ fun DetailScreen(
                 Spacer(modifier = modifier.height(17.dp))
                 Column(modifier = modifier.padding(horizontal = 26.dp)) {
                     Text(
-                        text = equipment.productNumber,
+                        text = equipment.name,
                         fontSize = 16.sp,
                         fontFamily = FontFamily(Font(R.font.fraunces_black)),
                         fontWeight = FontWeight.Black
                     )
                     Text(
-                        text = "#${equipment.name}",
+                        text = when (equipment.name) {
+                            "맥북" -> "#맥북 #노트북"
+                            "갤럭시 북" -> "#갤럭시 북 #노트북"
+                            "터치모니터" -> "#터치모니터 #모니터"
+                            else -> "#?"
+                        },
                         fontSize = 8.sp,
                         fontFamily = FontFamily(Font(R.font.fraunces_black)),
                         fontWeight = FontWeight.Black,

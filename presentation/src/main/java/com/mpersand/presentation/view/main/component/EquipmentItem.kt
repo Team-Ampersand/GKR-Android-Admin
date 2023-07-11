@@ -32,7 +32,6 @@ fun EquipmentItem(
     status: String,
     description: String,
     image: String,
-    productNumber: String
 ) {
     Row(
         modifier = modifier
@@ -56,14 +55,19 @@ fun EquipmentItem(
         Column {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(
-                    text = productNumber,
+                    text = name,
                     fontSize = 15.sp,
                     fontWeight = FontWeight.SemiBold,
                     color = Color(0xFF656565)
                 )
                 Spacer(modifier = modifier.width(3.dp))
                 Text(
-                    text = "#$name",
+                    text = when (name) {
+                        "맥북" -> "#맥북 #노트북"
+                        "갤럭시 북" -> "#갤럭시 북 #노트북"
+                        "터치모니터" -> "#터치모니터 #모니터"
+                        else -> "#?"
+                    },
                     fontSize = 8.sp,
                     fontFamily = FontFamily(Font(R.font.fraunces_black)),
                     fontWeight = FontWeight.SemiBold,
