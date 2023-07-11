@@ -159,8 +159,7 @@ fun EquipmentListView(
                 name = it.name,
                 status = it.rentStatus,
                 description = it.description,
-                image = it.image,
-                productNumber = it.productNumber
+                image = it.image
             )
         }
     }
