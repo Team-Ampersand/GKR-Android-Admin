@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Divider
@@ -48,7 +49,7 @@ fun NavigationDrawer(
     ModalDrawer(
         drawerState = drawerState,
         drawerContent = {
-            Column {
+            Column(modifier = modifier.systemBarsPadding()) {
                 Image(
                     modifier = modifier.padding(top = 17.dp, start = 17.dp),
                     painter = painterResource(id = R.drawable.ic_logo),
