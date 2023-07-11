@@ -11,4 +11,7 @@ class OrderRepositoryImpl @Inject constructor(
 ): OrderRepository {
     override suspend fun getNoReturnStudents(): List<OrderResponseModel> =
         orderDataSource.getNoReturnStudents().map { it.asOrderResponseModel() }
+
+    override suspend fun getWaitList(): List<OrderResponseModel> =
+        orderDataSource.getWaitList().map { it.asOrderResponseModel() }
 }
