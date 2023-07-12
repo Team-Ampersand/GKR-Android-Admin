@@ -20,11 +20,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.mpersand.domain.model.order.response.WaitListResponseModel
 import com.mpersand.presentation.R
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun RequestItem(onCardClick: () -> Unit) {
+fun RequestItem(
+    data: WaitListResponseModel,
+    onCardClick: () -> Unit
+) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -44,7 +48,7 @@ fun RequestItem(onCardClick: () -> Unit) {
             Row(modifier = Modifier.fillMaxWidth()) {
                 Text(
                     modifier = Modifier.weight(1f),
-                    text = "[제재 내역] 오유찬 학생",
+                    text = data.equipmentId,
                     style = TextStyle(
                         fontFamily = FontFamily(Font(R.font.inter_black)),
                         fontSize = 15.sp,
@@ -54,7 +58,7 @@ fun RequestItem(onCardClick: () -> Unit) {
                 )
                 
                 Text(
-                    text = "2023.06.26",
+                    text = data.rentalDate,
                     style = TextStyle(
                         fontFamily = FontFamily(Font(resId = R.font.inter_light, weight = FontWeight.Medium)),
                         fontSize = 12.sp
@@ -64,7 +68,7 @@ fun RequestItem(onCardClick: () -> Unit) {
             }
 
             Text(
-                text = "모니터를 대여 요청하고 싶습니다.",
+                text = data.reason,
                 style = TextStyle(
                     fontFamily = FontFamily(Font(resId = R.font.inter_light, weight = FontWeight.Medium)),
                     fontSize = 12.sp
