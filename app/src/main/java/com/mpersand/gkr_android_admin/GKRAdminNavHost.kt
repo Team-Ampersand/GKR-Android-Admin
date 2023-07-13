@@ -19,6 +19,8 @@ import com.mpersand.presentation.view.equipment.navigation.equipmentScreen
 import com.mpersand.presentation.view.equipment.navigation.navigateToEquipment
 import com.mpersand.presentation.view.repair.navigation.navigateToRepair
 import com.mpersand.presentation.view.repair.navigation.repairScreen
+import com.mpersand.presentation.view.search.navigation.navigateToSearch
+import com.mpersand.presentation.view.search.navigation.searchScreen
 import com.mpersand.presentation.view.violation.navigation.navigationToViolation
 import com.mpersand.presentation.view.violation.navigation.violationScreen
 
@@ -35,7 +37,8 @@ fun GKRAdminNavHost(
             navigateToViolation = { navController.navigationToViolation() },
             navigateToDetail = { navController.navigateToDetail(it) },
             navigateToSignIn = { navController.navigateToSignIn() },
-            navigateToRequest = { navController.navigateToRequest() }
+            navigateToRequest = { navController.navigateToRequest() },
+            navigateToSearch = { navController.navigateToSearch() }
         )
         violationScreen(navigateToMain = {
             navController.navigateToMain()
@@ -60,5 +63,10 @@ fun GKRAdminNavHost(
         )
 
         requestDetailScreen()
+
+        searchScreen(
+            navigateToMain = { navController.navigateToMain() },
+            navigateToDetail = { navController.navigateToDetail(it) }
+        )
     }
 }

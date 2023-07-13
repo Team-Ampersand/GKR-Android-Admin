@@ -25,7 +25,8 @@ import com.mpersand.presentation.view.modifier.gkrClickable
 @Composable
 fun AppBar(
     modifier: Modifier = Modifier,
-    onMenuClick: () -> Unit
+    onMenuClick: () -> Unit,
+    onSearchClick: () -> Unit
 ) {
     Row(
         modifier = modifier
@@ -50,6 +51,7 @@ fun AppBar(
         )
         Spacer(modifier = modifier.width(16.dp))
         Image(
+            modifier = modifier.gkrClickable { onSearchClick() },
             painter = painterResource(id = R.drawable.ic_search),
             contentDescription = "search"
         )
