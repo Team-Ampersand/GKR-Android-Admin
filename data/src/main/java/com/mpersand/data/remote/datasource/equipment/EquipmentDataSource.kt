@@ -11,4 +11,6 @@ interface EquipmentDataSource {
     suspend fun getEquipmentDetail(productNumber: String): EquipmentResponse
 
     suspend fun modifyEquipment(productNumber: String, body: EquipmentRequest)
+
+    suspend fun equipmentFilter(name: String): List<EquipmentResponse>
 }
