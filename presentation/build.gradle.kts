@@ -56,6 +56,8 @@ dependencies {
 
     implementation(project(":domain"))
 
+    implementation(Dependencies.Libraries.RETROFIT_CONVERTER_GSON)
+
     implementation(Dependencies.AndroidX.CORE_KTX)
     implementation(Dependencies.AndroidX.APPCOMPAT)
     implementation(Dependencies.AndroidX.NAVIGATION_COMPOSE)

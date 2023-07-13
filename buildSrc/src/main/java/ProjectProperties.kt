@@ -8,6 +8,7 @@ object ProjectProperties {
         const val KTLINT = "org.jlleitschuh.gradle.ktlint"
         const val HILT_PLUGIN = "com.google.dagger.hilt.android"
         const val KAPT = "kapt"
+        const val PARCELIZE = "kotlin-parcelize"
     }
 
     object Test {

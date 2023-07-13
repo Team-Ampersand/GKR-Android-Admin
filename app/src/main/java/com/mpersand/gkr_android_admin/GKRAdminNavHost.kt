@@ -1,8 +1,10 @@
 package com.mpersand.gkr_android_admin
 
+import android.net.Uri
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
+import com.google.gson.Gson
 import com.mpersand.presentation.view.auth.navigation.navigateToSignIn
 import com.mpersand.presentation.view.auth.navigation.signInScreen
 import com.mpersand.presentation.view.detail.navigation.detailScreen
@@ -51,7 +53,10 @@ fun GKRAdminNavHost(
         
         requestScreen(
             navigateToMain = { navController.navigateToMain() },
-            navigateToRequestDetail = { navController.navigateToRequestDetail() }
+            navigateToRequestDetail = { data ->
+                val json = Uri.encode(Gson().toJson(data))
+                navController.navigateToRequestDetail(json)
+            }
         )
 
         requestDetailScreen()

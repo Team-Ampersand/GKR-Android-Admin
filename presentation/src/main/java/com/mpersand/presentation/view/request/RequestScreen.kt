@@ -25,7 +25,7 @@ import com.mpersand.presentation.viewmodel.util.UiState
 fun RequestScreen(
     requestViewModel: RequestViewModel = hiltViewModel(),
     navigateToMain: () -> Unit,
-    navigateToRequestDetail: () -> Unit
+    navigateToRequestDetail: (WaitListResponseModel) -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -48,7 +48,7 @@ fun RequestScreen(
 @Composable
 fun RequestList(
     waitState: UiState<List<WaitListResponseModel>>?,
-    navigateToRequestDetail: () -> Unit
+    navigateToRequestDetail: (WaitListResponseModel) -> Unit
 ) {
     when (waitState) {
         UiState.Loading -> {}
@@ -71,7 +71,7 @@ fun RequestList(
 @Composable
 fun RequestItemList(
     list: List<WaitListResponseModel>,
-    navigateToRequestDetail: () -> Unit
+    navigateToRequestDetail: (WaitListResponseModel) -> Unit
 ) {
     LazyColumn(
         modifier = Modifier.fillMaxSize(),

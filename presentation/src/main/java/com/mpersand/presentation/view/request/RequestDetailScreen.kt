@@ -23,10 +23,11 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.mpersand.domain.model.order.response.WaitListResponseModel
 import com.mpersand.presentation.R
 
 @Composable
-fun RequestDetailScreen() {
+fun RequestDetailScreen(data: WaitListResponseModel?) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -39,9 +40,9 @@ fun RequestDetailScreen() {
             contentScale = ContentScale.FillWidth
         )
 
-        StudentInfo()
+        StudentInfo(data = data)
 
-        ReasonView()
+        ReasonView(data = data)
 
         Spacer(modifier = Modifier.weight(1f))
 
@@ -53,10 +54,10 @@ fun RequestDetailScreen() {
 }
 
 @Composable
-fun StudentInfo() {
+fun StudentInfo(data: WaitListResponseModel?) {
     Text(
         modifier = Modifier.padding(start = 13.dp),
-        text = "[대여 요청] 오유찬 학생",
+        text = data?.equipmentId ?: "null equipment",
         style = TextStyle(
             fontFamily = FontFamily(Font(R.font.inter_black)),
             fontSize = 20.sp
@@ -66,7 +67,7 @@ fun StudentInfo() {
 
     Text(
         modifier = Modifier.padding(start = 13.dp),
-        text = "3학년 2반 13번",
+        text = data?.rentalDate ?: "null date",
         style = TextStyle(
             fontFamily = FontFamily(Font(R.font.fraunces_black)),
             fontSize = 15.sp,
@@ -76,10 +77,10 @@ fun StudentInfo() {
 }
 
 @Composable
-fun ReasonView() {
+fun ReasonView(data: WaitListResponseModel?) {
     Text(
         modifier = Modifier.padding(start = 13.dp, top = 20.dp),
-        text = "연장 이유",
+        text = "대여 이유",
         style = TextStyle(
             fontFamily = FontFamily(Font(R.font.inter_black)),
             fontSize = 16.sp,
@@ -91,7 +92,7 @@ fun ReasonView() {
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 13.dp),
-        text = "대여 사유",
+        text = data?.reason ?: "null reason",
         style = TextStyle(
             fontFamily = FontFamily(Font(R.font.inter_black)),
             fontSize = 16.sp,

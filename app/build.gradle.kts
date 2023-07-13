@@ -42,8 +42,11 @@ android {
 
 dependencies {
 
-    implementation(project(":presentation"))
     implementation(project(":di"))
+    implementation(project(":domain"))
+    implementation(project(":presentation"))
+
+    implementation(Dependencies.Libraries.RETROFIT_CONVERTER_GSON)
 
     implementation(Dependencies.AndroidX.CORE_KTX)
     implementation(Dependencies.AndroidX.APPCOMPAT)
