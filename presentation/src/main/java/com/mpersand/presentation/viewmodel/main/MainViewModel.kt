@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mpersand.domain.model.equipment.response.EquipmentResponseModel
 import com.mpersand.domain.usecase.equipment.GetEquipmentsByFilterUseCase
+import com.mpersand.domain.usecase.equipment.GetNotRentedEquipmentsUseCase
 import com.mpersand.domain.usecase.equipment.GetRentedEquipmentsUseCase
 import com.mpersand.domain.usecase.user.LogoutUseCase
 import com.mpersand.presentation.viewmodel.util.exceptionHandling
@@ -18,6 +19,7 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(
     private val getEquipmentsByFilterUseCase: GetEquipmentsByFilterUseCase,
     private val getRentedEquipmentsUseCase: GetRentedEquipmentsUseCase,
+    private val getNotRentedEquipmentsUseCase: GetNotRentedEquipmentsUseCase,
     private val logoutUseCase: LogoutUseCase
 ) : ViewModel() {
     private val _uiState = MutableLiveData<UiState<List<EquipmentResponseModel>>>()
@@ -44,6 +46,26 @@ class MainViewModel @Inject constructor(
                         }
                     )
                 }
+        }
+    }
+
+    fun getNotRentedEquipments() {
+        viewModelScope.launch {
+            getNotRentedEquipmentsUseCase().onSuccess {
+                _uiState.value = UiState.Success(it)
+            }.onFailure {
+                it.exceptionHandling(
+                    badRequestAction = {
+                        _uiState.value = UiState.BadRequest
+                    },
+                    unauthorizedAction = {
+                        _uiState.value = UiState.Unauthorized
+                    },
+                    notFoundAction = {
+                        _uiState.value = UiState.NotFound
+                    }
+                )
+            }
         }
     }
 
