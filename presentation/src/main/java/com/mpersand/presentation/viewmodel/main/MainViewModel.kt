@@ -5,9 +5,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mpersand.domain.model.equipment.response.EquipmentResponseModel
+import com.mpersand.domain.model.user.response.UserResponseModel
 import com.mpersand.domain.usecase.equipment.GetEquipmentsByFilterUseCase
 import com.mpersand.domain.usecase.equipment.GetNotRentedEquipmentsUseCase
 import com.mpersand.domain.usecase.equipment.GetRentedEquipmentsUseCase
+import com.mpersand.domain.usecase.user.GetUserUseCase
 import com.mpersand.domain.usecase.user.LogoutUseCase
 import com.mpersand.presentation.viewmodel.util.exceptionHandling
 import com.mpersand.presentation.viewmodel.util.UiState
@@ -20,13 +22,17 @@ class MainViewModel @Inject constructor(
     private val getEquipmentsByFilterUseCase: GetEquipmentsByFilterUseCase,
     private val getRentedEquipmentsUseCase: GetRentedEquipmentsUseCase,
     private val getNotRentedEquipmentsUseCase: GetNotRentedEquipmentsUseCase,
-    private val logoutUseCase: LogoutUseCase
+    private val logoutUseCase: LogoutUseCase,
+    private val getUserUseCase: GetUserUseCase
 ) : ViewModel() {
     private val _uiState = MutableLiveData<UiState<List<EquipmentResponseModel>>>()
     val uiState: LiveData<UiState<List<EquipmentResponseModel>>> = _uiState
 
     private val _logoutState = MutableLiveData<UiState<Nothing>>(UiState.Loading)
     val logoutState: LiveData<UiState<Nothing>> = _logoutState
+
+    private val _getUserInfoUiState = MutableLiveData<UiState<UserResponseModel>>()
+    val getUserInfoUiState: LiveData<UiState<UserResponseModel>> = _getUserInfoUiState
 
     fun getRentedEquipments() {
         viewModelScope.launch {
@@ -103,6 +109,28 @@ class MainViewModel @Inject constructor(
                         badRequestAction = { _logoutState.value = UiState.BadRequest },
                         unauthorizedAction = { _logoutState.value = UiState.Unauthorized },
                         notFoundAction = { _logoutState.value = UiState.NotFound }
+                    )
+                }
+        }
+    }
+
+    fun getUserInfo() {
+        viewModelScope.launch {
+            getUserUseCase()
+                .onSuccess {
+                    _getUserInfoUiState.value = UiState.Success(it)
+                }
+                .onFailure {
+                    it.exceptionHandling(
+                        badRequestAction = {
+                            _getUserInfoUiState.value = UiState.BadRequest
+                        },
+                        unauthorizedAction = {
+                            _getUserInfoUiState.value = UiState.Unauthorized
+                        },
+                        notFoundAction = {
+                            _getUserInfoUiState.value = UiState.NotFound
+                        }
                     )
                 }
         }

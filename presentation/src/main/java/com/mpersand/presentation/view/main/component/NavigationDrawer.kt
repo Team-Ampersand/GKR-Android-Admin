@@ -29,6 +29,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.rememberAsyncImagePainter
+import com.mpersand.domain.model.user.response.UserResponseModel
 import com.mpersand.presentation.R
 import com.mpersand.presentation.view.modifier.gkrClickable
 
@@ -36,6 +38,7 @@ import com.mpersand.presentation.view.modifier.gkrClickable
 fun NavigationDrawer(
     modifier: Modifier = Modifier,
     drawerState: DrawerState,
+    userInfo: UserResponseModel,
     logoutAction: () -> Unit,
     navigateToViolation: () -> Unit,
     navigateToRequest: () -> Unit,
@@ -52,13 +55,14 @@ fun NavigationDrawer(
             Column(modifier = modifier.systemBarsPadding()) {
                 Image(
                     modifier = modifier.padding(top = 17.dp, start = 17.dp),
-                    painter = painterResource(id = R.drawable.ic_logo),
+                    painter = if (userInfo.profileUrl != null) rememberAsyncImagePainter(userInfo.profileUrl)
+                    else painterResource(id = R.drawable.ic_logo),
                     contentDescription = "profile"
                 )
                 Spacer(modifier = modifier.height(10.dp))
                 Text(
                     modifier = modifier.padding(horizontal = 20.dp),
-                    text = "어드민",
+                    text = userInfo.name,
                     fontSize = 15.sp,
                     fontWeight = FontWeight.Bold,
                     color = Color(0xB2000000),
@@ -66,7 +70,7 @@ fun NavigationDrawer(
                 )
                 Text(
                     modifier = modifier.padding(horizontal = 20.dp),
-                    text = "어드민",
+                    text = "선생님",
                     fontSize = 10.sp,
                     fontWeight = FontWeight.Bold,
                     color = Color(0xFFCBCBCB),

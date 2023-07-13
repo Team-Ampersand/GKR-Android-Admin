@@ -62,6 +62,7 @@ fun MainScreen(
     val logoutState by viewModel.logoutState.observeAsState()
     val coroutineScope = rememberCoroutineScope()
     val scaffoldState = rememberScaffoldState()
+    val getUserInfoUiState by viewModel.getUserInfoUiState.observeAsState()
 
     when (logoutState) {
         is UiState.Success -> navigateToSignIn()
@@ -87,63 +88,73 @@ fun MainScreen(
         }
     }
 
-    NavigationDrawer(
-        drawerState = drawerState,
-        logoutAction = {
-            coroutineScope.launch { drawerState.close() }
-            showDialog = true
-        },
-        navigateToViolation = navigateToViolation,
-        navigateToRequest = navigateToRequest
-    ) {
-        Column(
-            modifier = modifier
-                .fillMaxSize()
-                .background(Color(0xFFFAFAFA))
-                .systemBarsPadding()
-        ) {
-            AppBar(
-                onMenuClick = { openDrawer = !openDrawer },
-                onSearchClick = navigateToSearch
-            )
+    LaunchedEffect(Unit) {
+        viewModel.getUserInfo()
+    }
 
-            LazyRow(
-                modifier = modifier.padding(horizontal = 13.dp),
-                horizontalArrangement = Arrangement.spacedBy(10.dp)
+    when(val state = getUserInfoUiState) {
+        is UiState.Success -> {
+            NavigationDrawer(
+                drawerState = drawerState,
+                userInfo = state.data!!,
+                logoutAction = {
+                    coroutineScope.launch { drawerState.close() }
+                    showDialog = true
+                },
+                navigateToViolation = navigateToViolation,
+                navigateToRequest = navigateToRequest
             ) {
-                items(filter.size) {
-                    FilterItem(
-                        selected = it == selectedValue,
-                        content = filter[it],
-                        onClick = {
-                            when (it) {
-                                filter.lastIndex -1 -> viewModel.getRentedEquipments()
-                                filter.lastIndex -> viewModel.getNotRentedEquipments()
-                                else -> viewModel.getEquipmentsByFilter(if (it == 0) "" else filter[it])
-                            }
-                            selectedValue = it
+                Column(
+                    modifier = modifier
+                        .fillMaxSize()
+                        .background(Color(0xFFFAFAFA))
+                        .systemBarsPadding()
+                ) {
+                    AppBar(
+                        onMenuClick = { openDrawer = !openDrawer },
+                        onSearchClick = navigateToSearch
+                    )
+
+                    LazyRow(
+                        modifier = modifier.padding(horizontal = 13.dp),
+                        horizontalArrangement = Arrangement.spacedBy(10.dp)
+                    ) {
+                        items(filter.size) {
+                            FilterItem(
+                                selected = it == selectedValue,
+                                content = filter[it],
+                                onClick = {
+                                    when (it) {
+                                        filter.lastIndex -1 -> viewModel.getRentedEquipments()
+                                        filter.lastIndex -> viewModel.getNotRentedEquipments()
+                                        else -> viewModel.getEquipmentsByFilter(if (it == 0) "" else filter[it])
+                                    }
+                                    selectedValue = it
+                                }
+                            )
                         }
+                    }
+                    Spacer(modifier = modifier.height(8.dp))
+
+                    var equipmentResult: List<EquipmentResponseModel> by remember { mutableStateOf(emptyList()) }
+                    when (val state = uiState) {
+                        is UiState.Success -> equipmentResult = state.data!!
+                        UiState.BadRequest -> {}
+                        UiState.Forbidden -> {}
+                        UiState.Loading -> {}
+                        UiState.NotFound -> equipmentResult = emptyList()
+                        UiState.Unauthorized -> {}
+                        else -> {}
+                    }
+
+                    EquipmentListView(
+                        equipments = equipmentResult,
+                        navigateToDetail = navigateToDetail
                     )
                 }
             }
-            Spacer(modifier = modifier.height(8.dp))
-
-            var equipmentResult: List<EquipmentResponseModel> by remember { mutableStateOf(emptyList()) }
-            when (val state = uiState) {
-                is UiState.Success -> equipmentResult = state.data!!
-                UiState.BadRequest -> {}
-                UiState.Forbidden -> {}
-                UiState.Loading -> {}
-                UiState.NotFound -> equipmentResult = emptyList()
-                UiState.Unauthorized -> {}
-                else -> {}
-            }
-
-            EquipmentListView(
-                equipments = equipmentResult,
-                navigateToDetail = navigateToDetail
-            )
         }
+        else -> {}
     }
 }
 
