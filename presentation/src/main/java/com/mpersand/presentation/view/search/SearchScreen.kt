@@ -22,6 +22,8 @@ import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -34,13 +36,16 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.mpersand.domain.model.equipment.response.EquipmentResponseModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.mpersand.presentation.R
 import com.mpersand.presentation.view.search.component.SearchHistoryItem
 import com.mpersand.presentation.view.search.component.SearchResultItem
+import com.mpersand.presentation.viewmodel.equipment.EquipmentViewModel
+import com.mpersand.presentation.viewmodel.util.UiState
 
 @Composable
 fun SearchScreen(
+    equipmentViewModel: EquipmentViewModel = hiltViewModel(),
     navigateToMain: () -> Unit,
     navigateToDetail: (productNumber: String) -> Unit
 ) {
@@ -79,6 +84,7 @@ fun SearchScreen(
         if (!textChange.value && !isTextChanged.value && textState.value.isNotEmpty())
             SearchResultView(
                 text = textState.value,
+                equipmentViewModel = equipmentViewModel,
                 navigateToDetail = navigateToDetail
             )
     }
@@ -166,6 +172,7 @@ fun SearchHistoryView(textState: MutableState<String>) {
 @Composable
 fun SearchResultView(
     text: String,
+    equipmentViewModel: EquipmentViewModel,
     navigateToDetail: (productNumber: String) -> Unit
 ) {
     Text(
@@ -178,16 +185,26 @@ fun SearchResultView(
         )
     )
 
-    LazyColumn(
-        modifier = Modifier.fillMaxWidth(),
-        verticalArrangement = Arrangement.spacedBy(5.dp)
-    ) {
-        val item = listOf(1,2,3,4)
-        items(item) {
-            SearchResultItem(
-                data = EquipmentResponseModel("", "", "", "", ""),
-                navigateToDetail = navigateToDetail
-            )
+    equipmentViewModel.searchEquipment(text)
+    val searchResult by equipmentViewModel.equipmentFilter.observeAsState()
+
+    when (val state = searchResult) {
+        UiState.Loading -> {}
+        is UiState.Success -> {
+            LazyColumn(
+                modifier = Modifier.fillMaxWidth(),
+                verticalArrangement = Arrangement.spacedBy(5.dp)
+            ) {
+                items(state.data!!) {
+                    SearchResultItem(
+                        data = it,
+                        navigateToDetail = navigateToDetail
+                    )
+                }
+            }
         }
+        UiState.BadRequest -> {}
+        UiState.NotFound -> {}
+        else -> {}
     }
 }
