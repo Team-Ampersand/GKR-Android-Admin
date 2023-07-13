@@ -27,9 +27,4 @@ interface EquipmentApi {
         @Path("productNumber") productNumber: String,
         @Body body: EquipmentRequest
     )
-
-    @GET
-    suspend fun equipmentFilter(
-        @Query("name") name: String
-    ): List<EquipmentResponse>
 }

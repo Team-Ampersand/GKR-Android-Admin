@@ -6,8 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mpersand.domain.model.equipment.request.EquipmentRequestModel
 import com.mpersand.domain.model.equipment.response.EquipmentResponseModel
-import com.mpersand.domain.usecase.equipment.EquipmentFilterUseCase
 import com.mpersand.domain.usecase.equipment.GetEquipmentDetailUseCase
+import com.mpersand.domain.usecase.equipment.GetEquipmentsByFilterUseCase
 import com.mpersand.domain.usecase.equipment.ModifyEquipmentUseCase
 import com.mpersand.presentation.viewmodel.util.UiState
 import com.mpersand.presentation.viewmodel.util.exceptionHandling
@@ -19,7 +19,7 @@ import javax.inject.Inject
 class EquipmentViewModel @Inject constructor(
     private val modifyEquipmentUseCase: ModifyEquipmentUseCase,
     private val getEquipmentDetailUseCase: GetEquipmentDetailUseCase,
-    private val equipmentFilterUseCase: EquipmentFilterUseCase
+    private val getEquipmentsByFilterUseCase: GetEquipmentsByFilterUseCase
 ) : ViewModel() {
     private val _equipmentState = MutableLiveData<UiState<EquipmentResponseModel>>()
     val equipmentState: LiveData<UiState<EquipmentResponseModel>> = _equipmentState
@@ -64,7 +64,7 @@ class EquipmentViewModel @Inject constructor(
 
     fun searchEquipment(name: String) {
         viewModelScope.launch {
-            equipmentFilterUseCase(name).onSuccess {
+            getEquipmentsByFilterUseCase(name).onSuccess {
                 _equipmentFilter.value = UiState.Success(it)
             }.onFailure {
                 it.exceptionHandling(
