@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.text.BasicTextField
@@ -50,6 +51,7 @@ fun SearchScreen(
         modifier = Modifier
             .fillMaxSize()
             .background(Color(0xFFFAFAFA))
+            .systemBarsPadding()
     ) {
         val textState = remember { mutableStateOf("") }
 
