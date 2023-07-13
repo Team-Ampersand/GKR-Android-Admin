@@ -15,14 +15,16 @@ fun NavGraphBuilder.mainScreen(
     navigateToDetail: (String) -> Unit,
     navigateToViolation: () -> Unit,
     navigateToSignIn: () -> Unit,
-    navigateToRequest: () -> Unit
+    navigateToRequest: () -> Unit,
+    navigateToSearch: () -> Unit
 ) {
     composable(mainRoute) {
         MainScreen(
             navigateToDetail = navigateToDetail,
             navigateToViolation = navigateToViolation,
             navigateToSignIn = navigateToSignIn,
-            navigateToRequest = navigateToRequest
+            navigateToRequest = navigateToRequest,
+            navigateToSearch = navigateToSearch
         )
     }
 }

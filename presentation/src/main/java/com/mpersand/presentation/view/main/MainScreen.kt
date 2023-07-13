@@ -47,6 +47,7 @@ fun MainScreen(
     navigateToDetail: (String) -> Unit,
     navigateToSignIn: () -> Unit,
     navigateToRequest: () -> Unit,
+    navigateToSearch: () -> Unit
 ) {
     LaunchedEffect(Unit) {
         viewModel.getEquipmentsByFilter("")
@@ -101,7 +102,11 @@ fun MainScreen(
                 .background(Color(0xFFFAFAFA))
                 .systemBarsPadding()
         ) {
-            AppBar { openDrawer = !openDrawer }
+            AppBar(
+                onMenuClick = { openDrawer = !openDrawer },
+                onSearchClick = navigateToSearch
+            )
+
             LazyRow(
                 modifier = modifier.padding(horizontal = 13.dp),
                 horizontalArrangement = Arrangement.spacedBy(10.dp)
