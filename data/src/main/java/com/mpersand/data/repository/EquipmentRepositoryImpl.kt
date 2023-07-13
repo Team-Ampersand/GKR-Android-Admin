@@ -14,6 +14,10 @@ class EquipmentRepositoryImpl @Inject constructor(
     override suspend fun getRentedEquipments(): List<EquipmentResponseModel> =
         equipmentDataSource.getRentedEquipments().map { it.asEquipmentResponseModel() }
 
+    override suspend fun getNotRentedEquipments(): List<EquipmentResponseModel> =
+        equipmentDataSource.getNotRentedEquipments().map { it.asEquipmentResponseModel() }
+
+
     override suspend fun getEquipmentsByFilter(name: String): List<EquipmentResponseModel> =
         equipmentDataSource.getEquipmentsByFilter(name).map { it.asEquipmentResponseModel() }
 
