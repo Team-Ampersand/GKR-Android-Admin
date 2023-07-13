@@ -22,4 +22,7 @@ class EquipmentRepositoryImpl @Inject constructor(
 
     override suspend fun modifyEquipment(productNumber: String, body: EquipmentRequestModel) =
         equipmentDataSource.modifyEquipment(productNumber, body.asEquipmentRequest())
+
+    override suspend fun equipmentFilter(name: String): List<EquipmentResponseModel> =
+        equipmentDataSource.equipmentFilter(name).map { it.asEquipmentResponseModel() }
 }

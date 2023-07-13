@@ -11,4 +11,6 @@ interface EquipmentRepository {
     suspend fun getEquipmentDetail(productNumber: String): EquipmentResponseModel
 
     suspend fun modifyEquipment(productNumber: String, body: EquipmentRequestModel)
+
+    suspend fun equipmentFilter(name: String): List<EquipmentResponseModel>
 }
