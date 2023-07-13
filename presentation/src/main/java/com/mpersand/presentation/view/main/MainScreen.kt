@@ -116,9 +116,11 @@ fun MainScreen(
                         selected = it == selectedValue,
                         content = filter[it],
                         onClick = {
-                            if (it == filter.lastIndex -1)
-                                viewModel.getRentedEquipments()
-                            else viewModel.getEquipmentsByFilter(if (it == 0) "" else filter[it])
+                            when (it) {
+                                filter.lastIndex -1 -> viewModel.getRentedEquipments()
+                                filter.lastIndex -> viewModel.getNotRentedEquipments()
+                                else -> viewModel.getEquipmentsByFilter(if (it == 0) "" else filter[it])
+                            }
                             selectedValue = it
                         }
                     )
@@ -136,7 +138,7 @@ fun MainScreen(
                 UiState.Unauthorized -> {}
                 else -> {}
             }
-            
+
             EquipmentListView(
                 equipments = equipmentResult,
                 navigateToDetail = navigateToDetail
