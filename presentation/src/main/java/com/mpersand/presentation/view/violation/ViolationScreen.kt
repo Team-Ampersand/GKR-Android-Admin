@@ -45,7 +45,10 @@ fun ViolationScreen(
         viewModel.getNoReturnStudents()
     }
 
-    Scaffold(scaffoldState = scaffoldState) { paddingValues ->
+    Scaffold(
+        modifier = modifier.padding(bottom = 30.dp),
+        scaffoldState = scaffoldState
+    ) { paddingValues ->
         LaunchedEffect(postViolationUserUiState) {
             when (postViolationUserUiState) {
                 UiState.Loading -> {}
