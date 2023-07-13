@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
-import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -22,12 +21,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.mpersand.domain.model.order.response.WaitListResponseModel
 import com.mpersand.presentation.R
+import com.mpersand.presentation.view.modifier.gkrClickable
 
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun RequestItem(
     data: WaitListResponseModel,
-    onCardClick: () -> Unit
+    onCardClick: (WaitListResponseModel) -> Unit
 ) {
     Card(
         modifier = Modifier
@@ -37,8 +36,8 @@ fun RequestItem(
                 width = 1.dp,
                 color = Color(0xFFD3D3D3),
                 shape = RoundedCornerShape(8.dp)
-            ),
-        onClick = onCardClick
+            )
+            .gkrClickable { onCardClick(data) }
     ) {
         Column(
             modifier = Modifier
