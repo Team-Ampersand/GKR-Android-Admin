@@ -12,6 +12,9 @@ interface EquipmentApi {
     @GET("equipment/isrent")
     suspend fun getRentedEquipments(): List<EquipmentResponse>
 
+    @GET("equipment/notrent")
+    suspend fun getNotRentedEquipments(): List<EquipmentResponse>
+
     @GET("equipment")
     suspend fun getEquipmentsByFilter(
         @Query("name") name: String
