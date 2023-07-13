@@ -3,6 +3,7 @@ plugins {
     id(ProjectProperties.Gradle.KOTLIN)
     id(ProjectProperties.Gradle.HILT_PLUGIN)
     kotlin(ProjectProperties.Gradle.KAPT)
+    id(ProjectProperties.Gradle.PARCELIZE)
 }
 
 android {
