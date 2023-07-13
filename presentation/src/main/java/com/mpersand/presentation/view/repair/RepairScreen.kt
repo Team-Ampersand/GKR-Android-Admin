@@ -18,13 +18,16 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
+import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -44,6 +47,7 @@ import com.mpersand.presentation.view.component.ModifyTextField
 import com.mpersand.presentation.view.modifier.gkrClickable
 import com.mpersand.presentation.viewmodel.repair.RepairViewModel
 import com.mpersand.presentation.viewmodel.util.UiState
+import kotlinx.coroutines.launch
 import java.util.Calendar
 
 @Composable
@@ -63,6 +67,8 @@ fun RepairScreen(
     var reason by remember { mutableStateOf("") }
     var note by remember { mutableStateOf("") }
 
+    val coroutineScope = rememberCoroutineScope()
+    val scaffoldState = rememberScaffoldState()
     val repairState by viewModel.repairState.observeAsState()
     val detailState by viewModel.detailState.observeAsState()
     val context = LocalContext.current
@@ -87,110 +93,124 @@ fun RepairScreen(
 
     when (val state = detailState) {
         is UiState.Success -> {
-            Column(
-                modifier = modifier
-                    .verticalScroll(rememberScrollState())
-                    .systemBarsPadding()
-            ) {
-                Image(
+            Scaffold(scaffoldState = scaffoldState) { paddingValues ->
+                Column(
                     modifier = modifier
-                        .fillMaxWidth()
-                        .height(235.dp),
-                    contentDescription = "equipment",
-                    contentScale = ContentScale.Crop,
-                    painter = rememberAsyncImagePainter(state.data?.image)
-                )
-                Column(modifier = modifier.padding(horizontal = 26.dp)) {
-                    Spacer(modifier = modifier.height(17.dp))
-                    RepairItem(
-                        modifier = modifier.fillMaxWidth(),
-                        title = "수리 내용"
-                    ) {
-                        description = it
-                    }
-                    Spacer(modifier = modifier.height(15.dp))
-                    Text(
-                        text = "수리 일자",
-                        fontSize = 16.sp,
-                        fontFamily = FontFamily(Font(R.font.fraunces_black)),
-                        fontWeight = FontWeight.Bold
-                    )
-                    Text(
+                        .verticalScroll(rememberScrollState())
+                        .systemBarsPadding()
+                        .padding(paddingValues)
+                ) {
+                    Image(
                         modifier = modifier
                             .fillMaxWidth()
-                            .border(
-                                width = 1.dp,
-                                color = Color(0xFFD3D3D3),
-                                shape = RoundedCornerShape(8.dp)
-                            )
-                            .background(
-                                color = Color(0xFFF7F7F9),
-                                shape = RoundedCornerShape(8.dp)
-                            )
-                            .padding(
-                                horizontal = 20.dp,
-                                vertical = 16.dp
-                            )
-                            .gkrClickable { datePicker.show() },
-                        text = date
+                            .height(235.dp),
+                        contentDescription = "equipment",
+                        contentScale = ContentScale.Crop,
+                        painter = rememberAsyncImagePainter(state.data?.image)
                     )
-                    Spacer(modifier = modifier.height(15.dp))
-                    RepairItem(
-                        modifier = modifier.fillMaxWidth(),
-                        title = "수리 비용",
-                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
-                    ) {
-                        cost = it
-                    }
-                    Spacer(modifier = modifier.height(15.dp))
-                    RepairItem(
-                        modifier = modifier.fillMaxWidth(),
-                        title = "수리 사유",
-                        minLines = 5,
-                        maxLines = 5
-                    ) {
-                        reason = it
-                    }
-                    Spacer(modifier = modifier.height(15.dp))
-                    RepairItem(
-                        modifier = modifier.fillMaxWidth(),
-                        title = "비고",
-                        minLines = 10,
-                        maxLines = 10
-                    ) {
-                        note = it
-                    }
-                    Spacer(modifier = modifier.height(90.dp))
-                    Button(
-                        modifier = modifier.fillMaxSize(),
-                        contentPadding = PaddingValues(vertical = 16.dp),
-                        colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFF865DFF)),
-                        onClick = {
-                            viewModel.addRepairHistory(
-                                RepairRequestModel(
-                                    productNumber = checkNotNull(productNumber),
-                                    reason = reason,
-                                    description = description,
-                                    repairDate = date
-                                        .replace("\\s*([년월])\\s*".toRegex(), "-")
-                                        .replace("일", ""),
-                                    cost = cost.toInt(),
-                                    comment = note
+                    Column(modifier = modifier.padding(horizontal = 26.dp)) {
+                        Spacer(modifier = modifier.height(17.dp))
+                        RepairItem(
+                            modifier = modifier.fillMaxWidth(),
+                            title = "수리 내용"
+                        ) {
+                            description = it
+                        }
+                        Spacer(modifier = modifier.height(15.dp))
+                        Text(
+                            text = "수리 일자",
+                            fontSize = 16.sp,
+                            fontFamily = FontFamily(Font(R.font.fraunces_black)),
+                            fontWeight = FontWeight.Bold
+                        )
+                        Text(
+                            modifier = modifier
+                                .fillMaxWidth()
+                                .border(
+                                    width = 1.dp,
+                                    color = Color(0xFFD3D3D3),
+                                    shape = RoundedCornerShape(8.dp)
                                 )
+                                .background(
+                                    color = Color(0xFFF7F7F9),
+                                    shape = RoundedCornerShape(8.dp)
+                                )
+                                .padding(
+                                    horizontal = 20.dp,
+                                    vertical = 16.dp
+                                )
+                                .gkrClickable { datePicker.show() },
+                            text = date
+                        )
+                        Spacer(modifier = modifier.height(15.dp))
+                        RepairItem(
+                            modifier = modifier.fillMaxWidth(),
+                            title = "수리 비용",
+                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
+                        ) {
+                            cost = it
+                        }
+                        Spacer(modifier = modifier.height(15.dp))
+                        RepairItem(
+                            modifier = modifier.fillMaxWidth(),
+                            title = "수리 사유",
+                            minLines = 5,
+                            maxLines = 5
+                        ) {
+                            reason = it
+                        }
+                        Spacer(modifier = modifier.height(15.dp))
+                        RepairItem(
+                            modifier = modifier.fillMaxWidth(),
+                            title = "비고",
+                            minLines = 10,
+                            maxLines = 10
+                        ) {
+                            note = it
+                        }
+                        Spacer(modifier = modifier.height(90.dp))
+                        Button(
+                            modifier = modifier.fillMaxSize(),
+                            contentPadding = PaddingValues(vertical = 16.dp),
+                            colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFF865DFF)),
+                            onClick = {
+                                when {
+                                    isAllFieldEmpty(description, date, cost, reason, note) -> navigateToMain()
+                                    cost.isEmpty() -> {
+                                        coroutineScope.launch {
+                                            scaffoldState.snackbarHostState.showSnackbar("수리 비용이 입력되지 않았습니다.")
+                                        }
+                                    }
+                                    else -> {
+                                        viewModel.addRepairHistory(
+                                            RepairRequestModel(
+                                                productNumber = checkNotNull(productNumber),
+                                                reason = reason,
+                                                description = description,
+                                                repairDate = date
+                                                    .replace("\\s*([년월])\\s*".toRegex(), "-")
+                                                    .replace("일", ""),
+                                                cost = cost.toInt(),
+                                                comment = note
+                                            )
+                                        )
+                                    }
+                                }
+                            }
+                        ) {
+                            Text(
+                                text = "수정하기",
+                                fontSize = 16.sp,
+                                fontWeight = FontWeight.Medium,
+                                color = Color.White
                             )
                         }
-                    ) {
-                        Text(
-                            text = "수정하기",
-                            fontSize = 16.sp,
-                            fontWeight = FontWeight.Medium,
-                            color = Color.White
-                        )
+                        Spacer(modifier = modifier.height(60.dp))
                     }
-                    Spacer(modifier = modifier.height(60.dp))
                 }
             }
         }
+
         UiState.BadRequest -> {}
         UiState.Loading -> {}
         UiState.NotFound -> {}
@@ -223,3 +243,5 @@ fun RepairItem(
         onValueChanged = { onValueChanged(it) }
     )
 }
+
+private fun isAllFieldEmpty(vararg field: String): Boolean = field.all { it.isEmpty() }
