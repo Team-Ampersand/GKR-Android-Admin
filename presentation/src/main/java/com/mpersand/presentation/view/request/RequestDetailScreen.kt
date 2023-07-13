@@ -1,5 +1,6 @@
 package com.mpersand.presentation.view.request
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
@@ -13,9 +14,12 @@ import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
@@ -23,11 +27,18 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.mpersand.domain.model.order.request.OrderRequestModel
 import com.mpersand.domain.model.order.response.WaitListResponseModel
 import com.mpersand.presentation.R
+import com.mpersand.presentation.viewmodel.request.RequestViewModel
+import com.mpersand.presentation.viewmodel.util.UiState
 
 @Composable
-fun RequestDetailScreen(data: WaitListResponseModel?) {
+fun RequestDetailScreen(
+    data: WaitListResponseModel?,
+    requestViewModel: RequestViewModel = hiltViewModel()
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -46,10 +57,22 @@ fun RequestDetailScreen(data: WaitListResponseModel?) {
 
         Spacer(modifier = Modifier.weight(1f))
 
+        val result by requestViewModel.requestResult.observeAsState()
+        val context = LocalContext.current
+
         AcceptOrNotView(
-            acceptButtonClick = {},
-            rejectButtonClick = {}
+            acceptButtonClick = { requestViewModel.requestResult(OrderRequestModel(equipmentId = data!!.equipmentId, decision = "RENTAL_ACCEPT")) },
+            rejectButtonClick = { requestViewModel.requestResult(OrderRequestModel(equipmentId = data!!.equipmentId, decision = "REJECT")) }
         )
+
+        when (result) {
+            UiState.Loading -> {}
+            is UiState.Success -> Toast.makeText(context, "요청을 수락하였습니다.", Toast.LENGTH_SHORT).show()
+            UiState.BadRequest -> Toast.makeText(context, "토큰 값이 잘못되었습니다.", Toast.LENGTH_SHORT).show()
+            UiState.Unauthorized -> Toast.makeText(context, "토큰이 유효하지 않습니다.", Toast.LENGTH_SHORT).show()
+            UiState.NotFound -> Toast.makeText(context, "UUID를 찾을 수 없습니다.", Toast.LENGTH_SHORT).show()
+            else -> Toast.makeText(context, "알 수 없는 오류가 발생했습니다.", Toast.LENGTH_SHORT).show()
+        }
     }
 }
 
