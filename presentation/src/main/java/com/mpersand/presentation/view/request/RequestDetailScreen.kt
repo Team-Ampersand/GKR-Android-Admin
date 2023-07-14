@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -43,6 +44,7 @@ fun RequestDetailScreen(
         modifier = Modifier
             .fillMaxSize()
             .systemBarsPadding()
+            .navigationBarsPadding()
     ) {
         Image(
             modifier = Modifier.fillMaxWidth(),
