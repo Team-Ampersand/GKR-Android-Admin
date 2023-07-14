@@ -35,7 +35,7 @@ fun SearchResultItem(
     ) {
         Image(
             modifier = Modifier.size(width = 120.dp, height = 90.dp),
-            painter = rememberAsyncImagePainter(model = data.image) ?: painterResource(id = R.drawable.temp_equipment_image),
+            painter = rememberAsyncImagePainter(model = data.image) ?: painterResource(id = R.drawable.ic_temp_equipment_image),
             contentDescription = "equipment image"
         )
 
