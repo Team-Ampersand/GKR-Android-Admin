@@ -78,9 +78,6 @@ fun SearchScreen(
         )
         Divider()
 
-        if (textState.value.isEmpty())
-            SearchHistoryView(textState)
-
         if (!textChange.value && !isTextChanged.value && textState.value.isNotEmpty())
             SearchResultView(
                 text = textState.value,
