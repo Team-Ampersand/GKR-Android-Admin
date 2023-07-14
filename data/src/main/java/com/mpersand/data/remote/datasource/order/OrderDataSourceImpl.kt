@@ -1,5 +1,6 @@
 package com.mpersand.data.remote.datasource.order
 
+import com.mpersand.data.dto.order.request.OrderRequest
 import com.mpersand.data.dto.order.response.OrderResponse
 import com.mpersand.data.dto.order.response.WaitListResponse
 import com.mpersand.data.network.api.OrderApi
@@ -12,4 +13,6 @@ class OrderDataSourceImpl @Inject constructor(
     override suspend fun getNoReturnStudents(): List<OrderResponse> = safeApiCall { orderApi.getNoReturnStudents() }
 
     override suspend fun getWaitList(): List<WaitListResponse> = safeApiCall { orderApi.getWaitList() }
+
+    override suspend fun requestResult(body: OrderRequest) = safeApiCall { orderApi.requestResult(body) }
 }
