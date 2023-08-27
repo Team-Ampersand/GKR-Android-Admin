@@ -54,6 +54,12 @@ class AuthViewModel @Inject constructor(
                     it.exceptionHandling(
                         badRequestAction = {
                             _uiState.value = UiState.BadRequest
+                        },
+                        notFoundAction = {
+                            _uiState.value = UiState.NotFound
+                        },
+                        serverAction = {
+                            _uiState.value = UiState.Server
                         }
                     )
                 }
