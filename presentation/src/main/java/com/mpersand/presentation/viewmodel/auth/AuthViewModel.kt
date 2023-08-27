@@ -46,8 +46,8 @@ class AuthViewModel @Inject constructor(
                     saveTokenUseCase(
                         accessToken = it.accessToken,
                         refreshToken = it.refreshToken,
-                        accessTokenExp = it.accessTokenExp,
-                        refreshTokenExp = it.refreshTokenExp
+                        accessTokenExp = it.accessTokenExp.toString(),
+                        refreshTokenExp = it.refreshTokenExp.toString()
                     )
                     _uiState.value = UiState.Success()
                 }.onFailure {
