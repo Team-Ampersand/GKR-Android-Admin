@@ -5,4 +5,6 @@ import com.mpersand.data.dto.auth.response.SignInResponse
 
 interface AuthDataSource {
     suspend fun signIn(signInRequest: SignInRequest): SignInResponse
+
+    suspend fun logout()
 }

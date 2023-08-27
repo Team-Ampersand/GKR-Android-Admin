@@ -10,4 +10,6 @@ class AuthDataSourceImpl @Inject constructor(
     private val authApi: AuthApi
 ): AuthDataSource {
     override suspend fun signIn(signInRequest: SignInRequest): SignInResponse = safeApiCall { authApi.signIn(signInRequest) }
+
+    override suspend fun logout() = safeApiCall { authApi.logout() }
 }

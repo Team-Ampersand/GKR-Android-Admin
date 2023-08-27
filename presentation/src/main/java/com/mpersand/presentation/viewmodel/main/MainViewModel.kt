@@ -10,7 +10,7 @@ import com.mpersand.domain.usecase.equipment.GetEquipmentsByFilterUseCase
 import com.mpersand.domain.usecase.equipment.GetNotRentedEquipmentsUseCase
 import com.mpersand.domain.usecase.equipment.GetRentedEquipmentsUseCase
 import com.mpersand.domain.usecase.user.GetUserUseCase
-import com.mpersand.domain.usecase.user.LogoutUseCase
+import com.mpersand.domain.usecase.auth.LogoutUseCase
 import com.mpersand.presentation.viewmodel.util.exceptionHandling
 import com.mpersand.presentation.viewmodel.util.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
