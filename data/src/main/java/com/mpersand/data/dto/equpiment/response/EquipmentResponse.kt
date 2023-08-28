@@ -1,13 +1,15 @@
 package com.mpersand.data.dto.equpiment.response
 
+import com.google.gson.annotations.SerializedName
 import com.mpersand.domain.model.equipment.response.EquipmentResponseModel
 
 data class EquipmentResponse(
-    val productNumber: String,
+    @SerializedName("id") val productNumber: String,
     val name: String,
-    val image: String,
+    @SerializedName("imageUrl") val image: String,
     val description: String,
-    val rentStatus: String
+    val equipmentStatus: String,
+    val equipmentType: String
 )
 
 fun EquipmentResponse.asEquipmentResponseModel() = EquipmentResponseModel(
@@ -15,5 +17,6 @@ fun EquipmentResponse.asEquipmentResponseModel() = EquipmentResponseModel(
     name = name,
     image = image,
     description = description,
-    rentStatus = rentStatus
+    equipmentStatus = equipmentStatus,
+    equipmentType = equipmentType
 )
