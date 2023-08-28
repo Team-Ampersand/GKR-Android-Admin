@@ -9,11 +9,18 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface EquipmentApi {
-    @GET("equipment/isrent")
-    suspend fun getRentedEquipments(): List<EquipmentResponse>
+    @GET("equipment")
+    suspend fun getAllEquipments(): List<EquipmentResponse>
 
-    @GET("equipment/notrent")
-    suspend fun getNotRentedEquipments(): List<EquipmentResponse>
+    @GET("equipment/state")
+    suspend fun getEquipmentsByState(
+        @Query("equipmentStatus") equipmentStatus: String
+    ): List<EquipmentResponse>
+
+    @GET("equipment/type")
+    suspend fun getEquipmentsByType(
+        @Query("equipmentType") equipmentType: String
+    ): List<EquipmentResponse>
 
     @GET("equipment")
     suspend fun getEquipmentsByFilter(
