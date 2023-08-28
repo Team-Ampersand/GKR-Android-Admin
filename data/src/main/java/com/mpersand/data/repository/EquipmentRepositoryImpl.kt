@@ -11,12 +11,14 @@ import javax.inject.Inject
 class EquipmentRepositoryImpl @Inject constructor(
     private val equipmentDataSource: EquipmentDataSource
 ) : EquipmentRepository {
-    override suspend fun getRentedEquipments(): List<EquipmentResponseModel> =
-        equipmentDataSource.getRentedEquipments().map { it.asEquipmentResponseModel() }
+    override suspend fun getAllEquipments(): List<EquipmentResponseModel> =
+        equipmentDataSource.getAllEquipments().map { it.asEquipmentResponseModel() }
 
-    override suspend fun getNotRentedEquipments(): List<EquipmentResponseModel> =
-        equipmentDataSource.getNotRentedEquipments().map { it.asEquipmentResponseModel() }
+    override suspend fun getEquipmentsByState(equipmentStatus: String): List<EquipmentResponseModel> =
+        equipmentDataSource.getEquipmentsByState(equipmentStatus).map { it.asEquipmentResponseModel() }
 
+    override suspend fun getEquipmentsByType(equipmentType: String): List<EquipmentResponseModel> =
+        equipmentDataSource.getEquipmentsByType(equipmentType).map { it.asEquipmentResponseModel() }
 
     override suspend fun getEquipmentsByFilter(name: String): List<EquipmentResponseModel> =
         equipmentDataSource.getEquipmentsByFilter(name).map { it.asEquipmentResponseModel() }
