@@ -7,10 +7,11 @@ import androidx.lifecycle.viewModelScope
 import com.mpersand.domain.model.equipment.response.EquipmentResponseModel
 import com.mpersand.domain.model.user.response.UserResponseModel
 import com.mpersand.domain.usecase.equipment.GetEquipmentsByFilterUseCase
-import com.mpersand.domain.usecase.equipment.GetNotRentedEquipmentsUseCase
-import com.mpersand.domain.usecase.equipment.GetRentedEquipmentsUseCase
 import com.mpersand.domain.usecase.user.GetUserUseCase
 import com.mpersand.domain.usecase.auth.LogoutUseCase
+import com.mpersand.domain.usecase.equipment.GetAllEquipmentsUseCase
+import com.mpersand.domain.usecase.equipment.GetEquipmentsByStateUseCase
+import com.mpersand.domain.usecase.equipment.GetEquipmentsByTypeUseCase
 import com.mpersand.presentation.viewmodel.util.exceptionHandling
 import com.mpersand.presentation.viewmodel.util.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,8 +21,9 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val getEquipmentsByFilterUseCase: GetEquipmentsByFilterUseCase,
-    private val getRentedEquipmentsUseCase: GetRentedEquipmentsUseCase,
-    private val getNotRentedEquipmentsUseCase: GetNotRentedEquipmentsUseCase,
+    private val getAllEquipmentsUseCase: GetAllEquipmentsUseCase,
+    private val getEquipmentsByStateUseCase: GetEquipmentsByStateUseCase,
+    private val getEquipmentsByTypeUseCase: GetEquipmentsByTypeUseCase,
     private val logoutUseCase: LogoutUseCase,
     private val getUserUseCase: GetUserUseCase
 ) : ViewModel() {
@@ -34,44 +36,60 @@ class MainViewModel @Inject constructor(
     private val _getUserInfoUiState = MutableLiveData<UiState<UserResponseModel>>()
     val getUserInfoUiState: LiveData<UiState<UserResponseModel>> = _getUserInfoUiState
 
-    fun getRentedEquipments() {
+    fun getAllEquipments() {
         viewModelScope.launch {
-            getRentedEquipmentsUseCase()
+            getAllEquipmentsUseCase()
                 .onSuccess {
                     _uiState.value = UiState.Success(it)
                 }.onFailure {
                     it.exceptionHandling(
-                        badRequestAction = {
-                            _uiState.value = UiState.BadRequest
-                        },
                         unauthorizedAction = {
                             _uiState.value = UiState.Unauthorized
                         },
                         notFoundAction = {
                             _uiState.value = UiState.NotFound
+                        },
+                        serverAction = {
+                            _uiState.value = UiState.Server
                         }
                     )
                 }
         }
     }
 
-    fun getNotRentedEquipments() {
+    fun getEquipmentsByState(equipmentStatus: String) {
         viewModelScope.launch {
-            getNotRentedEquipmentsUseCase().onSuccess {
-                _uiState.value = UiState.Success(it)
-            }.onFailure {
-                it.exceptionHandling(
-                    badRequestAction = {
-                        _uiState.value = UiState.BadRequest
-                    },
-                    unauthorizedAction = {
-                        _uiState.value = UiState.Unauthorized
-                    },
-                    notFoundAction = {
-                        _uiState.value = UiState.NotFound
-                    }
-                )
-            }
+            getEquipmentsByStateUseCase(equipmentStatus)
+                .onSuccess {
+                    _uiState.value = UiState.Success(it)
+                }.onFailure {
+                    it.exceptionHandling(
+                        unauthorizedAction = {
+                            _uiState.value = UiState.Unauthorized
+                        },
+                        serverAction = {
+                            _uiState.value = UiState.Server
+                        }
+                    )
+                }
+        }
+    }
+
+    fun getEquipmentsByType(equipmentType: String) {
+        viewModelScope.launch {
+            getEquipmentsByTypeUseCase(equipmentType)
+                .onSuccess {
+                    _uiState.value = UiState.Success(it)
+                }.onFailure {
+                    it.exceptionHandling(
+                        unauthorizedAction = {
+                            _uiState.value = UiState.Unauthorized
+                        },
+                        serverAction = {
+                            _uiState.value = UiState.Server
+                        }
+                    )
+                }
         }
     }
 
@@ -123,11 +141,14 @@ class MainViewModel @Inject constructor(
                         badRequestAction = {
                             _getUserInfoUiState.value = UiState.BadRequest
                         },
-                        unauthorizedAction = {
-                            _getUserInfoUiState.value = UiState.Unauthorized
+                        forbiddenAction = {
+                            _getUserInfoUiState.value = UiState.Forbidden
                         },
                         notFoundAction = {
                             _getUserInfoUiState.value = UiState.NotFound
+                        },
+                        serverAction = {
+                            _getUserInfoUiState.value = UiState.Server
                         }
                     )
                 }
