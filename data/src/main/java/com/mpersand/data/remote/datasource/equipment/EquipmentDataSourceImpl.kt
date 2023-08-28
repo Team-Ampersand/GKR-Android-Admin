@@ -8,15 +8,19 @@ import javax.inject.Inject
 
 class EquipmentDataSourceImpl @Inject constructor(
     private val equipmentApi: EquipmentApi
-): EquipmentDataSource {
-    override suspend fun getRentedEquipments(): List<EquipmentResponse> = safeApiCall { equipmentApi.getRentedEquipments() }
+) : EquipmentDataSource {
+    override suspend fun getAllEquipments(): List<EquipmentResponse> = safeApiCall { equipmentApi.getAllEquipments() }
+    override suspend fun getEquipmentsByState(equipmentStatus: String): List<EquipmentResponse> =
+        safeApiCall { equipmentApi.getEquipmentsByState(equipmentStatus) }
 
-    override suspend fun getNotRentedEquipments(): List<EquipmentResponse> = safeApiCall { equipmentApi.getNotRentedEquipments() }
+    override suspend fun getEquipmentsByType(equipmentType: String): List<EquipmentResponse> =
+        safeApiCall { equipmentApi.getEquipmentsByType(equipmentType) }
 
     override suspend fun getEquipmentsByFilter(name: String): List<EquipmentResponse> = safeApiCall { equipmentApi.getEquipmentsByFilter(name) }
 
     override suspend fun getEquipmentDetail(productNumber: String) = safeApiCall { equipmentApi.getEquipmentDetail(productNumber) }
 
     override suspend fun modifyEquipment(productNumber: String, body: EquipmentRequest) = safeApiCall { equipmentApi.modifyEquipment(productNumber, body) }
+
     override suspend fun equipmentFilter(name: String): List<EquipmentResponse> = safeApiCall { equipmentApi.getEquipmentsByFilter(name) }
 }

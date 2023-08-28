@@ -4,9 +4,11 @@ import com.mpersand.data.dto.equpiment.request.EquipmentRequest
 import com.mpersand.data.dto.equpiment.response.EquipmentResponse
 
 interface EquipmentDataSource {
-    suspend fun getRentedEquipments(): List<EquipmentResponse>
+    suspend fun getAllEquipments(): List<EquipmentResponse>
 
-    suspend fun getNotRentedEquipments(): List<EquipmentResponse>
+    suspend fun getEquipmentsByState(equipmentStatus: String): List<EquipmentResponse>
+
+    suspend fun getEquipmentsByType(equipmentType: String): List<EquipmentResponse>
 
     suspend fun getEquipmentsByFilter(name: String): List<EquipmentResponse>
 
