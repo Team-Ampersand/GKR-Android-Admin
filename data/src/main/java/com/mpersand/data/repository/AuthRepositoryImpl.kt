@@ -13,9 +13,14 @@ import javax.inject.Inject
 class AuthRepositoryImpl @Inject constructor(
     private val authDataSource: AuthDataSource,
     private val localDataSource: LocalDataSource
-): AuthRepository {
+) : AuthRepository {
     override suspend fun signIn(signInRequest: SignInRequestModel): SignInResponseModel =
         authDataSource.signIn(signInRequest.asSignInRequest()).asSignInResponseModel()
+
+    override suspend fun logout() {
+        authDataSource.logout()
+        localDataSource.logout()
+    }
 
     override suspend fun saveToken(accessToken: String, refreshToken: String, accessTokenExp: String, refreshTokenExp: String) {
         localDataSource.saveToken(

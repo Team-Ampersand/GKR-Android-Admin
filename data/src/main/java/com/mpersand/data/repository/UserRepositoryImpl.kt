@@ -11,10 +11,5 @@ class UserRepositoryImpl @Inject constructor(
     private val userDataSource: UserDataSource,
     private val localDataSource: LocalDataSource
 ) : UserRepository {
-    override suspend fun logout() {
-        userDataSource.logout()
-        localDataSource.logout()
-    }
-
     override suspend fun getUser(): UserResponseModel = userDataSource.getUser().asUserResponseModel()
 }

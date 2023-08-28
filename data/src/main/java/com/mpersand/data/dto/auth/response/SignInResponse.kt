@@ -1,12 +1,14 @@
 package com.mpersand.data.dto.auth.response
 
+import com.google.gson.annotations.SerializedName
 import com.mpersand.domain.model.auth.response.SignInResponseModel
+import java.time.ZonedDateTime
 
 data class SignInResponse(
     val accessToken: String,
     val refreshToken: String,
-    val accessTokenExp: String,
-    val refreshTokenExp: String
+    @SerializedName("accessExp") val accessTokenExp: ZonedDateTime,
+    @SerializedName("refreshExp") val refreshTokenExp: ZonedDateTime
 )
 
 fun SignInResponse.asSignInResponseModel() = SignInResponseModel(

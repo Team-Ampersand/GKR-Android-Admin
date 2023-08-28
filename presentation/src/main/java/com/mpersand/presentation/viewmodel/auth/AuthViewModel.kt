@@ -46,14 +46,20 @@ class AuthViewModel @Inject constructor(
                     saveTokenUseCase(
                         accessToken = it.accessToken,
                         refreshToken = it.refreshToken,
-                        accessTokenExp = it.accessTokenExp,
-                        refreshTokenExp = it.refreshTokenExp
+                        accessTokenExp = it.accessTokenExp.toString(),
+                        refreshTokenExp = it.refreshTokenExp.toString()
                     )
                     _uiState.value = UiState.Success()
                 }.onFailure {
                     it.exceptionHandling(
                         badRequestAction = {
                             _uiState.value = UiState.BadRequest
+                        },
+                        notFoundAction = {
+                            _uiState.value = UiState.NotFound
+                        },
+                        serverAction = {
+                            _uiState.value = UiState.Server
                         }
                     )
                 }

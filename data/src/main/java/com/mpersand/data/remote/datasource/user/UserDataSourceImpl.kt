@@ -8,6 +8,5 @@ import javax.inject.Inject
 class UserDataSourceImpl @Inject constructor(
     private val userApi: UserApi
 ): UserDataSource {
-    override suspend fun logout() = safeApiCall { userApi.logout() }
     override suspend fun getUser(): UserResponse = safeApiCall { userApi.getUser() }
 }
