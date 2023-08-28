@@ -50,7 +50,7 @@ fun MainScreen(
     navigateToSearch: () -> Unit
 ) {
     LaunchedEffect(Unit) {
-        viewModel.getEquipmentsByFilter("")
+        viewModel.getAllEquipments()
     }
 
     var selectedValue by remember { mutableStateOf(0) }
@@ -125,9 +125,9 @@ fun MainScreen(
                                 content = filter[it],
                                 onClick = {
                                     when (it) {
-                                        filter.lastIndex -1 -> viewModel.getRentedEquipments()
-                                        filter.lastIndex -> viewModel.getNotRentedEquipments()
-                                        else -> viewModel.getEquipmentsByFilter(if (it == 0) "" else filter[it])
+                                        filter.lastIndex -1 -> viewModel.getEquipmentsByState("RENTING")
+                                        filter.lastIndex -> viewModel.getEquipmentsByState("NOT_RENT")
+                                        else -> if (it == 0) viewModel.getAllEquipments() else viewModel.getEquipmentsByType(filter[it])
                                     }
                                     selectedValue = it
                                 }
@@ -177,7 +177,7 @@ fun EquipmentListView(
             EquipmentItem(
                 modifier = Modifier.gkrClickable { navigateToDetail(it.productNumber) },
                 name = it.name,
-                status = it.rentStatus,
+                status = it.equipmentStatus,
                 description = it.description,
                 image = it.image
             )
