@@ -5,6 +5,7 @@ data class EquipmentResponseModel(
     val name: String,
     val image: String,
     val description: String,
-    val rentStatus: String
+    val equipmentStatus: String,
+    val equipmentType: String
 )
 

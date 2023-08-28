@@ -1,5 +1,6 @@
 package com.mpersand.data.dto.user.response
 
+import com.google.gson.annotations.SerializedName
 import com.mpersand.domain.model.user.response.UserResponseModel
 import java.util.UUID
 
@@ -9,10 +10,10 @@ data class UserResponse(
     val name: String,
     val grade: Int,
     val classNum: Int,
-    val number: Int,
-    val profileUrl: String?,
+    @SerializedName("stuNum") val number: Int,
+    val profileUrl: String,
     val role: String,
-    val isRentalRestricted: Boolean
+    @SerializedName("rentalRestricted") val isRentalRestricted: Boolean
 )
 
 fun UserResponse.asUserResponseModel() = UserResponseModel(
