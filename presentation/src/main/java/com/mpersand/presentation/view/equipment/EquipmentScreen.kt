@@ -29,7 +29,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.rememberAsyncImagePainter
-import com.mpersand.domain.model.equipment.request.EquipmentRequestModel
 import com.mpersand.presentation.R
 import com.mpersand.presentation.view.component.ModifyTextField
 import com.mpersand.presentation.viewmodel.equipment.EquipmentViewModel
@@ -114,14 +113,7 @@ fun EquipmentScreen(
                         contentPadding = PaddingValues(vertical = 16.dp),
                         shape = RoundedCornerShape(10.dp),
                         onClick = {
-                            viewModel.modifyEquipment(
-                                productNumber = checkNotNull(productNumber),
-                                body = EquipmentRequestModel(
-                                    name = equipmentName,
-                                    image = equipment.image,
-                                    description = description
-                                )
-                            )
+                            // TODO: 기자재 수정 코드 작성
                         }
                     ) {
                         Text(
