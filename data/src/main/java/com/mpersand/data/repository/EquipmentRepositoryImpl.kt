@@ -1,11 +1,11 @@
 package com.mpersand.data.repository
 
-import com.mpersand.data.dto.equpiment.request.asEquipmentRequest
 import com.mpersand.data.dto.equpiment.response.asEquipmentResponseModel
 import com.mpersand.data.remote.datasource.equipment.EquipmentDataSource
-import com.mpersand.domain.model.equipment.request.EquipmentRequestModel
 import com.mpersand.domain.model.equipment.response.EquipmentResponseModel
 import com.mpersand.domain.repository.EquipmentRepository
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import javax.inject.Inject
 
 class EquipmentRepositoryImpl @Inject constructor(
@@ -26,6 +26,6 @@ class EquipmentRepositoryImpl @Inject constructor(
     override suspend fun getEquipmentDetail(productNumber: String): EquipmentResponseModel =
         equipmentDataSource.getEquipmentDetail(productNumber).asEquipmentResponseModel()
 
-    override suspend fun modifyEquipment(productNumber: String, body: EquipmentRequestModel) =
-        equipmentDataSource.modifyEquipment(productNumber, body.asEquipmentRequest())
+    override suspend fun modifyEquipment(file: MultipartBody.Part, equipment: HashMap<String, RequestBody>) =
+        equipmentDataSource.modifyEquipment(file, equipment)
 }
