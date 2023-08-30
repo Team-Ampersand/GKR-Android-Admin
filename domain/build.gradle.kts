@@ -39,6 +39,7 @@ dependencies {
     implementation(Dependencies.Google.MATERIAL)
     implementation(Dependencies.Google.HILT)
     kapt(Dependencies.Google.HILT_COMPILER)
+    implementation(Dependencies.Libraries.OKHTTP)
     testImplementation(Dependencies.Test.JUNIT)
     androidTestImplementation(Dependencies.Test.ANDROID_JUNIT)
     androidTestImplementation(Dependencies.Test.ESPRESSO)
