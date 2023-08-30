@@ -27,9 +27,9 @@ interface EquipmentApi {
         @Query("name") name: String
     ): List<EquipmentResponse>
 
-    @GET("equipment/{productNumber}")
+    @GET("equipment/{id}")
     suspend fun getEquipmentDetail(
-        @Path("productNumber") productNumber: String
+        @Path("id") productNumber: String
     ): EquipmentResponse
 
     @PATCH("equipment/{productNumber}")
