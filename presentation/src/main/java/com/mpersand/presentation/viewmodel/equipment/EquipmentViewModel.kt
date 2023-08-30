@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.mpersand.domain.model.equipment.request.EquipmentRequestModel
 import com.mpersand.domain.model.equipment.response.EquipmentResponseModel
 import com.mpersand.domain.usecase.equipment.GetEquipmentDetailUseCase
 import com.mpersand.domain.usecase.equipment.GetEquipmentsByFilterUseCase
@@ -13,6 +12,10 @@ import com.mpersand.presentation.viewmodel.util.UiState
 import com.mpersand.presentation.viewmodel.util.exceptionHandling
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import javax.inject.Inject
 
 @HiltViewModel
@@ -30,9 +33,14 @@ class EquipmentViewModel @Inject constructor(
     private val _equipmentFilter = MutableLiveData<UiState<List<EquipmentResponseModel>>>()
     val equipmentFilter: LiveData<UiState<List<EquipmentResponseModel>>> = _equipmentFilter
 
-    fun modifyEquipment(productNumber: String, body: EquipmentRequestModel) {
+    fun modifyEquipment(file: MultipartBody.Part, name: String, description: String, equipmentType: String) {
+        val equipment = HashMap<String, RequestBody>()
+        equipment["name"] = name.toRequestBody("application/json".toMediaType())
+        equipment["description"] = description.toRequestBody("application/json".toMediaType())
+        equipment["equipmentType"] = equipmentType.toRequestBody("application/json".toMediaType())
+
         viewModelScope.launch {
-            modifyEquipmentUseCase(productNumber, body)
+            modifyEquipmentUseCase(file, equipment)
                 .onSuccess {
                     _modifyState.value = UiState.Success()
                 }.onFailure {
