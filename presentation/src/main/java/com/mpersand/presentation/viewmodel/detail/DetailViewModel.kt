@@ -32,10 +32,9 @@ class DetailViewModel @Inject constructor(
                 _uiState.value = UiState.Success(it)
             }.onFailure {
                 it.exceptionHandling(
-                    badRequestAction = { _uiState.value = UiState.BadRequest },
                     unauthorizedAction = { _uiState.value = UiState.Unauthorized },
-                    forbiddenAction = { _uiState.value = UiState.Forbidden },
-                    notFoundAction = { _uiState.value = UiState.NotFound }
+                    notFoundAction = { _uiState.value = UiState.NotFound },
+                    serverAction = { _uiState.value = UiState.Server }
                 )
             }
         }
