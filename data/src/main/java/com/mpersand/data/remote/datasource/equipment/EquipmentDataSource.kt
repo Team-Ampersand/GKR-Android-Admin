@@ -1,7 +1,8 @@
 package com.mpersand.data.remote.datasource.equipment
 
-import com.mpersand.data.dto.equpiment.request.EquipmentRequest
 import com.mpersand.data.dto.equpiment.response.EquipmentResponse
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 
 interface EquipmentDataSource {
     suspend fun getAllEquipments(): List<EquipmentResponse>
@@ -14,7 +15,7 @@ interface EquipmentDataSource {
 
     suspend fun getEquipmentDetail(productNumber: String): EquipmentResponse
 
-    suspend fun modifyEquipment(productNumber: String, body: EquipmentRequest)
+    suspend fun modifyEquipment(file: MultipartBody.Part, equipment: HashMap<String, RequestBody>)
 
     suspend fun equipmentFilter(name: String): List<EquipmentResponse>
 }
