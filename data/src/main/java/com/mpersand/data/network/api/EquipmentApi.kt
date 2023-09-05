@@ -1,10 +1,13 @@
 package com.mpersand.data.network.api
 
-import com.mpersand.data.dto.equpiment.request.EquipmentRequest
 import com.mpersand.data.dto.equpiment.response.EquipmentResponse
-import retrofit2.http.Body
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.http.GET
+import retrofit2.http.Multipart
 import retrofit2.http.PATCH
+import retrofit2.http.Part
+import retrofit2.http.PartMap
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -32,9 +35,10 @@ interface EquipmentApi {
         @Path("id") productNumber: String
     ): EquipmentResponse
 
-    @PATCH("equipment/{productNumber}")
+    @Multipart
+    @PATCH("equipment/edit/{id}")
     suspend fun modifyEquipment(
-        @Path("productNumber") productNumber: String,
-        @Body body: EquipmentRequest
+        @Part("file") file: MultipartBody.Part,
+        @PartMap equipment: HashMap<String, RequestBody>
     )
 }

@@ -1,7 +1,8 @@
 package com.mpersand.domain.repository
 
-import com.mpersand.domain.model.equipment.request.EquipmentRequestModel
 import com.mpersand.domain.model.equipment.response.EquipmentResponseModel
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 
 interface EquipmentRepository {
     suspend fun getAllEquipments(): List<EquipmentResponseModel>
@@ -14,5 +15,5 @@ interface EquipmentRepository {
 
     suspend fun getEquipmentDetail(productNumber: String): EquipmentResponseModel
 
-    suspend fun modifyEquipment(productNumber: String, body: EquipmentRequestModel)
+    suspend fun modifyEquipment(file: MultipartBody.Part, equipment: HashMap<String, RequestBody>)
 }
