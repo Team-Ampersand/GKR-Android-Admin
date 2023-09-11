@@ -39,7 +39,7 @@ import java.util.UUID
 
 @Composable
 fun ViolationDialog(
-    userId: UUID,
+    email: String,
     viewModel: ViolationViewModel = hiltViewModel(),
     onDismissRequest: () -> Unit,
 ) {
@@ -57,8 +57,8 @@ fun ViolationDialog(
                 postRentalRequest = {
                     viewModel.postViolationUser(
                         ViolationRequestModel(
-                            userId = userId,
-                            reason = text
+                            email = email,
+                            violationReason = text
                         )
                     )
                     onDismissRequest()

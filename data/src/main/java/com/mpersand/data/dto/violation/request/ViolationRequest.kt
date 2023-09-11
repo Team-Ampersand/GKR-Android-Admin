@@ -4,11 +4,11 @@ import com.mpersand.domain.model.violation.request.ViolationRequestModel
 import java.util.UUID
 
 data class ViolationRequest(
-    val userId: UUID,
-    val reason: String
+    val email: String,
+    val violationReason: String
 )
 
 fun ViolationRequestModel.asViolationRequest() = ViolationRequest(
-    userId = userId,
-    reason = reason
+    email = email,
+    violationReason = violationReason
 )
