@@ -52,9 +52,6 @@ class ViolationViewModel @Inject constructor(
                 }
                 .onFailure {
                     it.exceptionHandling(
-                        badRequestAction = {
-                            _getNoReturnStudentsUiState.value = UiState.BadRequest
-                        },
                         unauthorizedAction = {
                             _getNoReturnStudentsUiState.value = UiState.Unauthorized
                         },
@@ -63,6 +60,12 @@ class ViolationViewModel @Inject constructor(
                         },
                         notFoundAction = {
                             _getNoReturnStudentsUiState.value = UiState.NotFound
+                        },
+                        conflictAction = {
+                            _getNoReturnStudentsUiState.value = UiState.Conflict
+                        },
+                        serverAction = {
+                            _getNoReturnStudentsUiState.value = UiState.Server
                         }
                     )
                 }

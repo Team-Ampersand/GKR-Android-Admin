@@ -53,10 +53,11 @@ fun ViolationScreen(
             when (postViolationUserUiState) {
                 UiState.Loading -> {}
                 is UiState.Success -> scaffoldState.snackbarHostState.showSnackbar("제재가 완료되었습니다.")
-                UiState.BadRequest -> scaffoldState.snackbarHostState.showSnackbar("잘못된 요청입니다.\n개발자에게 문의 해주세요.")
                 UiState.Unauthorized -> scaffoldState.snackbarHostState.showSnackbar("토큰이 존재하지 않습니다.\n다시 로그인 해주세요.")
                 UiState.Forbidden -> scaffoldState.snackbarHostState.showSnackbar("권한이 존재하지 않습니다.\n개발자에게 문의 해주세요.")
-                else -> scaffoldState.snackbarHostState.showSnackbar("예상치 못 한 오류가 발생 했습니다.\n개발자에게 문의 해주세요.")
+                UiState.NotFound -> scaffoldState.snackbarHostState.showSnackbar("해당 유저를 찾기를 실패했습니다.")
+                UiState.Conflict -> scaffoldState.snackbarHostState.showSnackbar("해당 유저가 이미 제재 중인 상태입니다.")
+                else -> scaffoldState.snackbarHostState.showSnackbar("서버 에러가 발생 했습니다.\n개발자에게 문의 해주세요.")
             }
         }
 
