@@ -48,7 +48,7 @@ fun DetailScreen(
 
     when (val state = uiState) {
         is UiState.Success -> {
-            val (equipment, repair) = state.data!!
+            val equipment = state.data!!
 
             Column(
                 modifier = modifier
@@ -84,6 +84,18 @@ fun DetailScreen(
                         fontWeight = FontWeight.Black,
                         color = Color(0x99999999)
                     )
+                    Text(
+                        text = when (equipment.equipmentStatus) {
+                            "NOT_RENT" -> "대여전"
+                            "WAITING" -> "대기중"
+                            "RENTING" -> "대여중"
+                            else -> "수리중"
+                        },
+                        fontSize = 8.sp,
+                        fontFamily = FontFamily(Font(R.font.fraunces_black)),
+                        fontWeight = FontWeight.Black,
+                        color = Color(0x99999999)
+                    )
                     Spacer(modifier = modifier.height(30.dp))
                     Text(
                         text = "기자재 상세",
@@ -98,32 +110,6 @@ fun DetailScreen(
                         fontWeight = FontWeight.Black
                     )
                     Spacer(modifier = modifier.height(20.dp))
-                    if (repair.isNotEmpty()) {
-                        RepairDetail(
-                            title = "수리 내용",
-                            content = repair.last().description
-                        )
-                        Spacer(modifier = modifier.height(20.dp))
-                        RepairDetail(
-                            title = "수리 일자",
-                            content = repair.last().repairDate
-                        )
-                        Spacer(modifier = modifier.height(20.dp))
-                        RepairDetail(
-                            title = "수리 비용",
-                            content = repair.last().cost.toString()
-                        )
-                        Spacer(modifier = modifier.height(20.dp))
-                        RepairDetail(
-                            title = "수리 사유",
-                            content = repair.last().reason
-                        )
-                        Spacer(modifier = modifier.height(20.dp))
-                        RepairDetail(
-                            title = "비고",
-                            content = repair.last().comment
-                        )
-                    }
                     Spacer(modifier = modifier.height(60.dp))
                     Button(
                         modifier = modifier.fillMaxWidth(),

@@ -5,9 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mpersand.domain.model.equipment.response.EquipmentResponseModel
-import com.mpersand.domain.model.repair.request.RepairRequestModel
+import com.mpersand.domain.usecase.equipment.ChangeEquipmentToRepairingUseCase
+import com.mpersand.domain.usecase.equipment.CompleteEquipmentRepairUseCase
 import com.mpersand.domain.usecase.equipment.GetEquipmentDetailUseCase
-import com.mpersand.domain.usecase.repair.AddRepairHistoryUseCase
 import com.mpersand.presentation.viewmodel.util.UiState
 import com.mpersand.presentation.viewmodel.util.exceptionHandling
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,25 +16,45 @@ import javax.inject.Inject
 
 @HiltViewModel
 class RepairViewModel @Inject constructor(
-    private val addRepairHistoryUseCase: AddRepairHistoryUseCase,
+    private val changeEquipmentToRepairingUseCase: ChangeEquipmentToRepairingUseCase,
+    private val completeEquipmentRepairUseCase: CompleteEquipmentRepairUseCase,
     private val getEquipmentDetailUseCase: GetEquipmentDetailUseCase
-): ViewModel() {
+) : ViewModel() {
     private val _detailState = MutableLiveData<UiState<EquipmentResponseModel>>()
     val detailState: LiveData<UiState<EquipmentResponseModel>> = _detailState
 
     private val _repairState = MutableLiveData<UiState<Nothing>>()
     val repairState: LiveData<UiState<Nothing>> = _repairState
 
-    fun addRepairHistory(body: RepairRequestModel) {
+    fun changeEquipmentToRepairing(productNumber: String) {
         viewModelScope.launch {
-            addRepairHistoryUseCase(body)
+            changeEquipmentToRepairingUseCase(productNumber)
                 .onSuccess {
                     _repairState.value = UiState.Success()
                 }.onFailure {
                     it.exceptionHandling(
-                        badRequestAction = {
-                            _repairState.value = UiState.BadRequest
-                        }
+                        unauthorizedAction = { _repairState.value = UiState.Unauthorized },
+                        forbiddenAction = { _repairState.value = UiState.Forbidden },
+                        notFoundAction = { _repairState.value = UiState.NotFound },
+                        conflictAction = { _repairState.value = UiState.Conflict },
+                        serverAction = { _repairState.value = UiState.Server }
+                    )
+                }
+        }
+    }
+
+    fun completeEquipmentRepair(productNumber: String) {
+        viewModelScope.launch {
+            completeEquipmentRepairUseCase(productNumber)
+                .onSuccess {
+                    _repairState.value = UiState.Success()
+                }.onFailure {
+                    it.exceptionHandling(
+                        unauthorizedAction = { _repairState.value = UiState.Unauthorized },
+                        forbiddenAction = { _repairState.value = UiState.Forbidden },
+                        notFoundAction = { _repairState.value = UiState.NotFound },
+                        conflictAction = { _repairState.value = UiState.Conflict },
+                        serverAction = { _repairState.value = UiState.Server }
                     )
                 }
         }

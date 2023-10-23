@@ -42,4 +42,14 @@ interface EquipmentApi {
         @Part("file") file: MultipartBody.Part,
         @PartMap equipment: HashMap<String, RequestBody>
     )
+
+    @PATCH("equipment/repair/{id}")
+    suspend fun changeEquipmentToRepairing(
+        @Path("id") productNumber: String
+    )
+
+    @PATCH("equipment/repair/complete/{id}")
+    suspend fun completeEquipmentRepair(
+        @Path("id") productNumber: String
+    )
 }
