@@ -192,7 +192,7 @@ fun SearchResultView(
                 modifier = Modifier.fillMaxWidth(),
                 verticalArrangement = Arrangement.spacedBy(5.dp)
             ) {
-                items(state.data!!) {
+                items(state.data!!.equipmentList) {
                     SearchResultItem(
                         data = it,
                         navigateToDetail = navigateToDetail

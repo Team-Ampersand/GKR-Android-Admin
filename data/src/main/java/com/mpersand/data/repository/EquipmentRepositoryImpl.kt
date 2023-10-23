@@ -1,7 +1,9 @@
 package com.mpersand.data.repository
 
+import com.mpersand.data.dto.equpiment.response.asEquipmentListModel
 import com.mpersand.data.dto.equpiment.response.asEquipmentResponseModel
 import com.mpersand.data.remote.datasource.equipment.EquipmentDataSource
+import com.mpersand.domain.model.equipment.response.EquipmentListResponseModel
 import com.mpersand.domain.model.equipment.response.EquipmentResponseModel
 import com.mpersand.domain.repository.EquipmentRepository
 import okhttp3.MultipartBody
@@ -11,17 +13,17 @@ import javax.inject.Inject
 class EquipmentRepositoryImpl @Inject constructor(
     private val equipmentDataSource: EquipmentDataSource
 ) : EquipmentRepository {
-    override suspend fun getAllEquipments(): List<EquipmentResponseModel> =
-        equipmentDataSource.getAllEquipments().map { it.asEquipmentResponseModel() }
+    override suspend fun getAllEquipments(): EquipmentListResponseModel =
+        equipmentDataSource.getAllEquipments().asEquipmentListModel()
 
-    override suspend fun getEquipmentsByState(equipmentStatus: String): List<EquipmentResponseModel> =
-        equipmentDataSource.getEquipmentsByState(equipmentStatus).map { it.asEquipmentResponseModel() }
+    override suspend fun getEquipmentsByState(equipmentStatus: String): EquipmentListResponseModel =
+        equipmentDataSource.getEquipmentsByState(equipmentStatus).asEquipmentListModel()
 
-    override suspend fun getEquipmentsByType(equipmentType: String): List<EquipmentResponseModel> =
-        equipmentDataSource.getEquipmentsByType(equipmentType).map { it.asEquipmentResponseModel() }
+    override suspend fun getEquipmentsByType(equipmentType: String): EquipmentListResponseModel =
+        equipmentDataSource.getEquipmentsByType(equipmentType).asEquipmentListModel()
 
-    override suspend fun getEquipmentsByFilter(name: String): List<EquipmentResponseModel> =
-        equipmentDataSource.getEquipmentsByFilter(name).map { it.asEquipmentResponseModel() }
+    override suspend fun getEquipmentsByFilter(name: String): EquipmentListResponseModel =
+        equipmentDataSource.getEquipmentsByFilter(name).asEquipmentListModel()
 
     override suspend fun getEquipmentDetail(productNumber: String): EquipmentResponseModel =
         equipmentDataSource.getEquipmentDetail(productNumber).asEquipmentResponseModel()
