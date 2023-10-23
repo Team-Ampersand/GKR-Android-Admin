@@ -49,10 +49,6 @@ fun MainScreen(
     navigateToRequest: () -> Unit,
     navigateToSearch: () -> Unit
 ) {
-    LaunchedEffect(Unit) {
-        viewModel.getAllEquipments()
-    }
-
     var selectedValue by remember { mutableStateOf(0) }
     var showDialog by remember { mutableStateOf(false) }
     var openDrawer by remember { mutableStateOf(false) }
@@ -65,13 +61,18 @@ fun MainScreen(
     val getUserInfoUiState by viewModel.getUserInfoUiState.observeAsState()
 
     when (logoutState) {
-        is UiState.Success -> navigateToSignIn()
+        is UiState.Success,  UiState.NoContent -> navigateToSignIn()
         UiState.Loading -> {}
         else -> {
             LaunchedEffect(logoutState) {
                 scaffoldState.snackbarHostState.showSnackbar("알 수 없는 오류로 로그아웃 하지 못했습니다.")
             }
         }
+    }
+
+    LaunchedEffect(Unit) {
+        viewModel.getAllEquipments()
+        viewModel.getUserInfo()
     }
 
     if (showDialog) {
@@ -86,10 +87,6 @@ fun MainScreen(
         LaunchedEffect(drawerState) {
             drawerState.open()
         }
-    }
-
-    LaunchedEffect(Unit) {
-        viewModel.getUserInfo()
     }
 
     when(val state = getUserInfoUiState) {
