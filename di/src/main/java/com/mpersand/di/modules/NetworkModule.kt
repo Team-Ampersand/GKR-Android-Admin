@@ -5,7 +5,6 @@ import com.mpersand.data.network.RequestInterceptor
 import com.mpersand.data.network.api.AuthApi
 import com.mpersand.data.network.api.EquipmentApi
 import com.mpersand.data.network.api.OrderApi
-import com.mpersand.data.network.api.RepairApi
 import com.mpersand.data.network.api.UserApi
 import com.mpersand.data.network.api.ViolationApi
 import com.mpersand.di.BuildConfig
@@ -71,10 +70,6 @@ object NetworkModule {
     @Provides
     @Singleton
     fun provideEquipmentApi(retrofit: Retrofit): EquipmentApi = retrofit.create(EquipmentApi::class.java)
-
-    @Provides
-    @Singleton
-    fun provideRepairApi(retrofit: Retrofit): RepairApi = retrofit.create(RepairApi::class.java)
 
     @Provides
     @Singleton
