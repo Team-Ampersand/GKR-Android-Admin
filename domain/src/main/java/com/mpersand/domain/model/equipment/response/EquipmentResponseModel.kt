@@ -1,5 +1,9 @@
 package com.mpersand.domain.model.equipment.response
 
+data class EquipmentListResponseModel(
+    val equipmentList: List<EquipmentResponseModel>
+)
+
 data class EquipmentResponseModel(
     val productNumber: String,
     val name: String,
