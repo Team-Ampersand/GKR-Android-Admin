@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.mpersand.domain.model.equipment.response.EquipmentResponseModel
+import com.mpersand.domain.model.equipment.response.EquipmentListResponseModel
 import com.mpersand.domain.model.user.response.UserResponseModel
 import com.mpersand.domain.usecase.equipment.GetEquipmentsByFilterUseCase
 import com.mpersand.domain.usecase.user.GetUserUseCase
@@ -27,8 +27,8 @@ class MainViewModel @Inject constructor(
     private val logoutUseCase: LogoutUseCase,
     private val getUserUseCase: GetUserUseCase
 ) : ViewModel() {
-    private val _uiState = MutableLiveData<UiState<List<EquipmentResponseModel>>>()
-    val uiState: LiveData<UiState<List<EquipmentResponseModel>>> = _uiState
+    private val _uiState = MutableLiveData<UiState<EquipmentListResponseModel>>()
+    val uiState: LiveData<UiState<EquipmentListResponseModel>> = _uiState
 
     private val _logoutState = MutableLiveData<UiState<Nothing>>(UiState.Loading)
     val logoutState: LiveData<UiState<Nothing>> = _logoutState

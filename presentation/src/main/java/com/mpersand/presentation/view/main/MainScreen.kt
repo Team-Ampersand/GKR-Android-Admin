@@ -138,7 +138,7 @@ fun MainScreen(
 
                     var equipmentResult: List<EquipmentResponseModel> by remember { mutableStateOf(emptyList()) }
                     when (val state = uiState) {
-                        is UiState.Success -> equipmentResult = state.data!!
+                        is UiState.Success -> equipmentResult = state.data!!.equipmentList
                         UiState.BadRequest -> {}
                         UiState.Forbidden -> {}
                         UiState.Loading -> {}

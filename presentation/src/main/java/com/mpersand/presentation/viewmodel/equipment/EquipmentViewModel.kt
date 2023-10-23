@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.mpersand.domain.model.equipment.response.EquipmentListResponseModel
 import com.mpersand.domain.model.equipment.response.EquipmentResponseModel
 import com.mpersand.domain.usecase.equipment.GetEquipmentDetailUseCase
 import com.mpersand.domain.usecase.equipment.GetEquipmentsByFilterUseCase
@@ -30,8 +31,8 @@ class EquipmentViewModel @Inject constructor(
     private val _modifyState = MutableLiveData<UiState<Nothing>>()
     val modifyState: LiveData<UiState<Nothing>> = _modifyState
 
-    private val _equipmentFilter = MutableLiveData<UiState<List<EquipmentResponseModel>>>()
-    val equipmentFilter: LiveData<UiState<List<EquipmentResponseModel>>> = _equipmentFilter
+    private val _equipmentFilter = MutableLiveData<UiState<EquipmentListResponseModel>>()
+    val equipmentFilter: LiveData<UiState<EquipmentListResponseModel>> = _equipmentFilter
 
     fun modifyEquipment(file: MultipartBody.Part, name: String, description: String, equipmentType: String) {
         val equipment = HashMap<String, RequestBody>()
