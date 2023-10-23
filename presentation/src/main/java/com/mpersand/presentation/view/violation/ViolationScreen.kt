@@ -85,7 +85,7 @@ fun ViolationScreen(
                         verticalArrangement = Arrangement.spacedBy(8.dp),
                         contentPadding = PaddingValues(top = 12.dp)
                     ) {
-                        items(violationItemList) {
+                        items(violationItemList.applicationList) {
                             if (showDialog) {
                                 ViolationDialog(
                                     email = it.id.toString(),

@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.mpersand.domain.model.order.response.OrderApplicationListResponseModel
 import com.mpersand.domain.model.order.response.OrderDetailListResponseModel
 import com.mpersand.domain.model.violation.request.ViolationRequestModel
 import com.mpersand.domain.usecase.order.GetNoReturnListUseCase
@@ -19,8 +20,8 @@ class ViolationViewModel @Inject constructor(
     private val getNoReturnStudentsUseCase: GetNoReturnListUseCase,
     private val postViolationUserUseCase: PostViolationUserUseCase
 ): ViewModel() {
-    private val _getNoReturnStudentsUiState = MutableLiveData<UiState<List<OrderDetailListResponseModel>>>()
-    val getNoReturnStudentsUiState: LiveData<UiState<List<OrderDetailListResponseModel>>> = _getNoReturnStudentsUiState
+    private val _getNoReturnStudentsUiState = MutableLiveData<UiState<OrderApplicationListResponseModel>>()
+    val getNoReturnStudentsUiState: LiveData<UiState<OrderApplicationListResponseModel>> = _getNoReturnStudentsUiState
 
     private val _postViolationUserUiState = MutableLiveData<UiState<Nothing>>(UiState.Loading)
     val postViolationUserUiState: LiveData<UiState<Nothing>> = _postViolationUserUiState

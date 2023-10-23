@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.mpersand.domain.model.order.response.OrderApplicationListResponseModel
 import com.mpersand.domain.model.order.response.OrderDetailListResponseModel
 import com.mpersand.domain.model.order.response.OrderListResponseModel
 import com.mpersand.domain.usecase.order.AcceptRequestUseCase
@@ -38,14 +39,14 @@ class OrderViewModel @Inject constructor(
     private val _getSelfStateListUiState = MutableLiveData<UiState<List<OrderListResponseModel>>>()
     val getSelfStateListUiState: LiveData<UiState<List<OrderListResponseModel>>> = _getSelfStateListUiState
 
-    private val _getNowRentalListUiState = MutableLiveData<UiState<List<OrderDetailListResponseModel>>>()
-    val getNowRentalListUiState: LiveData<UiState<List<OrderDetailListResponseModel>>> = _getNowRentalListUiState
+    private val _getNowRentalListUiState = MutableLiveData<UiState<OrderApplicationListResponseModel>>()
+    val getNowRentalListUiState: LiveData<UiState<OrderApplicationListResponseModel>> = _getNowRentalListUiState
 
-    private val _getNoReturnListUiState = MutableLiveData<UiState<List<OrderDetailListResponseModel>>>()
-    val getNoReturnListUiState: LiveData<UiState<List<OrderDetailListResponseModel>>> = _getNoReturnListUiState
+    private val _getNoReturnListUiState = MutableLiveData<UiState<OrderApplicationListResponseModel>>()
+    val getNoReturnListUiState: LiveData<UiState<OrderApplicationListResponseModel>> = _getNoReturnListUiState
 
-    private val _getWaitListUiState = MutableLiveData<UiState<List<OrderDetailListResponseModel>>>()
-    val getWaitListUiState: LiveData<UiState<List<OrderDetailListResponseModel>>> = _getWaitListUiState
+    private val _getWaitListUiState = MutableLiveData<UiState<OrderApplicationListResponseModel>>()
+    val getWaitListUiState: LiveData<UiState<OrderApplicationListResponseModel>> = _getWaitListUiState
 
     private val _postRentalUiState = MutableLiveData<UiState<Nothing>>()
     val postRentalUiState: LiveData<UiState<Nothing>> = _postRentalUiState

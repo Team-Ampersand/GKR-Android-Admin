@@ -1,6 +1,7 @@
 package com.mpersand.data.remote.datasource.order
 
 import com.mpersand.data.dto.order.request.OrderRequest
+import com.mpersand.data.dto.order.response.OrderApplicationListResponse
 import com.mpersand.data.dto.order.response.OrderDetailListResponse
 import com.mpersand.data.dto.order.response.OrderListResponse
 import com.mpersand.data.dto.order.response.OrderResponse
@@ -16,15 +17,15 @@ class OrderDataSourceImpl @Inject constructor(
         orderApi.getSelfStateList()
     }
 
-    override suspend fun getNowRentalList(): List<OrderDetailListResponse> = safeApiCall {
+    override suspend fun getNowRentalList(): OrderApplicationListResponse = safeApiCall {
         orderApi.getNowRentalList()
     }
 
-    override suspend fun getNoReturnList(): List<OrderDetailListResponse> = safeApiCall {
+    override suspend fun getNoReturnList(): OrderApplicationListResponse = safeApiCall {
         orderApi.getNoReturnList()
     }
 
-    override suspend fun getWaitList(): List<OrderDetailListResponse> = safeApiCall {
+    override suspend fun getWaitList(): OrderApplicationListResponse = safeApiCall {
         orderApi.getWaitList()
     }
 

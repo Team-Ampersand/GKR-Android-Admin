@@ -1,12 +1,14 @@
 package com.mpersand.data.repository
 
 import com.mpersand.data.dto.order.request.asOrderRequest
+import com.mpersand.data.dto.order.response.asOrderApplicationListResponseModel
 import com.mpersand.data.dto.order.response.asOrderDetailListResponseModel
 import com.mpersand.data.dto.order.response.asOrderListResponseModel
 import com.mpersand.data.dto.order.response.asOrderResponseModel
 import com.mpersand.data.dto.order.response.asWaitListResponseModel
 import com.mpersand.data.remote.datasource.order.OrderDataSource
 import com.mpersand.domain.model.order.request.OrderRequestModel
+import com.mpersand.domain.model.order.response.OrderApplicationListResponseModel
 import com.mpersand.domain.model.order.response.OrderDetailListResponseModel
 import com.mpersand.domain.model.order.response.OrderListResponseModel
 import com.mpersand.domain.model.order.response.OrderResponseModel
@@ -20,14 +22,14 @@ class OrderRepositoryImpl @Inject constructor(
     override suspend fun getSelfStateList(): List<OrderListResponseModel> =
         orderDataSource.getSelfStateList().map { it.asOrderListResponseModel() }
 
-    override suspend fun getNowRentalList(): List<OrderDetailListResponseModel> =
-        orderDataSource.getNowRentalList().map { it.asOrderDetailListResponseModel() }
+    override suspend fun getNowRentalList(): OrderApplicationListResponseModel =
+        orderDataSource.getNowRentalList().asOrderApplicationListResponseModel()
 
-    override suspend fun getNoReturnList(): List<OrderDetailListResponseModel> =
-        orderDataSource.getNoReturnList().map { it.asOrderDetailListResponseModel() }
+    override suspend fun getNoReturnList(): OrderApplicationListResponseModel =
+        orderDataSource.getNoReturnList().asOrderApplicationListResponseModel()
 
-    override suspend fun getWaitList(): List<OrderDetailListResponseModel> =
-        orderDataSource.getWaitList().map { it.asOrderDetailListResponseModel() }
+    override suspend fun getWaitList(): OrderApplicationListResponseModel =
+        orderDataSource.getWaitList().asOrderApplicationListResponseModel()
 
     override suspend fun postRental(id: Int, response: String) =
         orderDataSource.postRental(id, response)

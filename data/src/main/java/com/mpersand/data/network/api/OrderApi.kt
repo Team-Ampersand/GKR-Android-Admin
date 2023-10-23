@@ -1,5 +1,6 @@
 package com.mpersand.data.network.api
 
+import com.mpersand.data.dto.order.response.OrderApplicationListResponse
 import com.mpersand.data.dto.order.response.OrderDetailListResponse
 import com.mpersand.data.dto.order.response.OrderListResponse
 import retrofit2.http.Body
@@ -14,13 +15,13 @@ interface OrderApi {
     suspend fun getSelfStateList(): List<OrderListResponse>
 
     @GET("order/now")
-    suspend fun getNowRentalList(): List<OrderDetailListResponse>
+    suspend fun getNowRentalList(): OrderApplicationListResponse
 
     @GET("order/noreturn")
-    suspend fun getNoReturnList(): List<OrderDetailListResponse>
+    suspend fun getNoReturnList(): OrderApplicationListResponse
 
     @GET("order/wait")
-    suspend fun getWaitList(): List<OrderDetailListResponse>
+    suspend fun getWaitList(): OrderApplicationListResponse
 
     @POST("order/rental/{id}")
     suspend fun postRental(

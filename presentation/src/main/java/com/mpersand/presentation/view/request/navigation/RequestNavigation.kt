@@ -3,6 +3,7 @@ package com.mpersand.presentation.view.request.navigation
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
+import com.mpersand.domain.model.order.response.OrderApplicationListResponseModel
 import com.mpersand.domain.model.order.response.OrderDetailListResponseModel
 import com.mpersand.domain.model.order.response.WaitListResponseModel
 import com.mpersand.presentation.view.request.RequestScreen
@@ -15,7 +16,7 @@ fun NavController.navigateToRequest() {
 
 fun NavGraphBuilder.requestScreen(
     navigateToMain: () -> Unit,
-    navigateToRequestDetail: (OrderDetailListResponseModel) -> Unit
+    navigateToRequestDetail: (OrderApplicationListResponseModel) -> Unit
 ) {
     composable(requestRoute) {
         RequestScreen(
