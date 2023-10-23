@@ -16,7 +16,7 @@ fun NavController.navigateToRequest() {
 
 fun NavGraphBuilder.requestScreen(
     navigateToMain: () -> Unit,
-    navigateToRequestDetail: (OrderApplicationListResponseModel) -> Unit
+    navigateToRequestDetail: (OrderDetailListResponseModel) -> Unit
 ) {
     composable(requestRoute) {
         RequestScreen(

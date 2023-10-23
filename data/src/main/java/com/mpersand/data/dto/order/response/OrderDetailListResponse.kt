@@ -15,8 +15,8 @@ data class OrderDetailListResponse(
     @SerializedName("grade") val grade: Int,
     @SerializedName("classNum") val classNum: Int,
     @SerializedName("stuNum") val stuNum: Int,
-    @SerializedName("rentalStartDate") val rentalStartDate: LocalDateTime,
-    @SerializedName("rentalEndDate") val rentalEndDate: LocalDateTime,
+    @SerializedName("rentalStartDate") val rentalStartDate: LocalDateTime?,
+    @SerializedName("rentalEndDate") val rentalEndDate: LocalDateTime?,
 )
 
 fun OrderDetailListResponse.asOrderDetailListResponseModel() = OrderDetailListResponseModel(
