@@ -48,7 +48,7 @@ class RequestInterceptor @Inject constructor(
                 .patch("".toRequestBody("application/json".toMediaType()))
                 .addHeader(
                     name = "Refresh-Token",
-                    value = "Bearer + $refreshToken"
+                    value = "Bearer $refreshToken"
                 )
                 .build()
             val jsonParser = JsonParser()
@@ -60,8 +60,8 @@ class RequestInterceptor @Inject constructor(
                     localDataSource.saveToken(
                         accessToken = token["accessToken"].asString,
                         refreshToken = token["refreshToken"].asString,
-                        accessTokenExp = token["accessTokenExp"].asString,
-                        refreshTokenExp = token["refreshTokenExp"].asString
+                        accessTokenExp = token["accessExp"].asString,
+                        refreshTokenExp = token["refreshExp"].asString
                     )
                 }
             } else throw TokenExpiredException()
