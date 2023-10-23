@@ -1,6 +1,10 @@
 package com.mpersand.data.remote.datasource.order
 
 import com.mpersand.data.dto.order.request.OrderRequest
+import com.mpersand.data.dto.order.response.OrderApplicationListResponse
+import com.mpersand.data.dto.order.response.OrderDetailListResponse
+import com.mpersand.data.dto.order.response.OrderEquipmentListResponse
+import com.mpersand.data.dto.order.response.OrderListResponse
 import com.mpersand.data.dto.order.response.OrderResponse
 import com.mpersand.data.dto.order.response.WaitListResponse
 import com.mpersand.data.network.api.OrderApi
@@ -10,9 +14,44 @@ import javax.inject.Inject
 class OrderDataSourceImpl @Inject constructor(
     private val orderApi: OrderApi
 ): OrderDataSource {
-    override suspend fun getNoReturnStudents(): List<OrderResponse> = safeApiCall { orderApi.getNoReturnStudents() }
+    override suspend fun getSelfStateList(): OrderEquipmentListResponse = safeApiCall {
+        orderApi.getSelfStateList()
+    }
 
-    override suspend fun getWaitList(): List<WaitListResponse> = safeApiCall { orderApi.getWaitList() }
+    override suspend fun getNowRentalList(): OrderApplicationListResponse = safeApiCall {
+        orderApi.getNowRentalList()
+    }
 
-    override suspend fun requestResult(body: OrderRequest) = safeApiCall { orderApi.requestResult(body) }
+    override suspend fun getNoReturnList(): OrderApplicationListResponse = safeApiCall {
+        orderApi.getNoReturnList()
+    }
+
+    override suspend fun getWaitList(): OrderApplicationListResponse = safeApiCall {
+        orderApi.getWaitList()
+    }
+
+    override suspend fun postRental(id: Int, response: String) = safeApiCall {
+        orderApi.postRental(id, response)
+    }
+
+    override suspend fun postReturn(id: Int) = safeApiCall {
+        orderApi.postReturn(id)
+    }
+
+    override suspend fun postExtension(id: Int, response: String) = safeApiCall {
+        orderApi.postExtension(id, response)
+    }
+
+    override suspend fun postRentalCancel(id: Int) = safeApiCall {
+        orderApi.postRentalCancel(id)
+    }
+
+    override suspend fun acceptRequest(id: Int) = safeApiCall {
+        orderApi.acceptRequest(id)
+    }
+
+    override suspend fun rejectRequest(id: Int) = safeApiCall {
+        orderApi.rejectRequest(id)
+    }
+
 }

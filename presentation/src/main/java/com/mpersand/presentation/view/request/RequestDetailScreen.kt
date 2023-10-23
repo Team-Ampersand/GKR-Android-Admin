@@ -29,16 +29,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.mpersand.domain.model.order.request.OrderRequestModel
-import com.mpersand.domain.model.order.response.WaitListResponseModel
+import com.mpersand.domain.model.order.response.OrderDetailListResponseModel
 import com.mpersand.presentation.R
-import com.mpersand.presentation.viewmodel.request.RequestViewModel
+import com.mpersand.presentation.viewmodel.order.OrderViewModel
 import com.mpersand.presentation.viewmodel.util.UiState
 
 @Composable
 fun RequestDetailScreen(
-    data: WaitListResponseModel?,
-    requestViewModel: RequestViewModel = hiltViewModel()
+    data: OrderDetailListResponseModel?,
+    requestViewModel: OrderViewModel = hiltViewModel()
 ) {
     Column(
         modifier = Modifier
@@ -59,12 +58,12 @@ fun RequestDetailScreen(
 
         Spacer(modifier = Modifier.weight(1f))
 
-        val result by requestViewModel.requestResult.observeAsState()
+        val result by requestViewModel.postRentalUiState.observeAsState()
         val context = LocalContext.current
 
         AcceptOrNotView(
-            acceptButtonClick = { requestViewModel.requestResult(OrderRequestModel(equipmentId = data!!.equipmentId, decision = "RENTAL_ACCEPT")) },
-            rejectButtonClick = { requestViewModel.requestResult(OrderRequestModel(equipmentId = data!!.equipmentId, decision = "REJECT")) }
+            acceptButtonClick = { requestViewModel.acceptRequest(data!!.id) },
+            rejectButtonClick = { requestViewModel.rejectRequest(data!!.id) }
         )
 
         when (result) {
@@ -79,10 +78,10 @@ fun RequestDetailScreen(
 }
 
 @Composable
-fun StudentInfo(data: WaitListResponseModel?) {
+fun StudentInfo(data: OrderDetailListResponseModel?) {
     Text(
         modifier = Modifier.padding(start = 13.dp),
-        text = data?.equipmentId ?: "null equipment",
+        text = data?.id.toString() ?: "null equipment",
         style = TextStyle(
             fontFamily = FontFamily(Font(R.font.inter_black)),
             fontSize = 20.sp
@@ -92,7 +91,7 @@ fun StudentInfo(data: WaitListResponseModel?) {
 
     Text(
         modifier = Modifier.padding(start = 13.dp),
-        text = data?.rentalDate ?: "null date",
+        text = data?.rentalStartDate.toString() ?: "null date",
         style = TextStyle(
             fontFamily = FontFamily(Font(R.font.fraunces_black)),
             fontSize = 15.sp,
@@ -102,7 +101,7 @@ fun StudentInfo(data: WaitListResponseModel?) {
 }
 
 @Composable
-fun ReasonView(data: WaitListResponseModel?) {
+fun ReasonView(data: OrderDetailListResponseModel?) {
     Text(
         modifier = Modifier.padding(start = 13.dp, top = 20.dp),
         text = "대여 이유",
