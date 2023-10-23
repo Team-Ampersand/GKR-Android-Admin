@@ -4,6 +4,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.mpersand.domain.model.order.response.OrderDetailListResponseModel
 import com.mpersand.domain.model.order.response.WaitListResponseModel
 import com.mpersand.presentation.view.request.RequestDetailScreen
 import com.mpersand.presentation.view.request.data.RequestInfoNavType
@@ -23,7 +24,7 @@ fun NavGraphBuilder.requestDetailScreen() {
             }
         )
     ) {
-        val data = it.arguments?.getParcelable<WaitListResponseModel>("data")
+        val data = it.arguments?.getParcelable<OrderDetailListResponseModel>("data")
         RequestDetailScreen(data)
     }
 }
