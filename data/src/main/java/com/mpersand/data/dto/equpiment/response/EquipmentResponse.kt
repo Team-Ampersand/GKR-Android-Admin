@@ -3,6 +3,10 @@ package com.mpersand.data.dto.equpiment.response
 import com.google.gson.annotations.SerializedName
 import com.mpersand.domain.model.equipment.response.EquipmentResponseModel
 
+data class EquipmentListResponse(
+    val equipmentList: List<EquipmentResponse>
+)
+
 data class EquipmentResponse(
     @SerializedName("id") val productNumber: String,
     val name: String,

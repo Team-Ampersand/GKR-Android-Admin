@@ -1,5 +1,6 @@
 package com.mpersand.data.network.api
 
+import com.mpersand.data.dto.equpiment.response.EquipmentListResponse
 import com.mpersand.data.dto.equpiment.response.EquipmentResponse
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -13,22 +14,22 @@ import retrofit2.http.Query
 
 interface EquipmentApi {
     @GET("equipment")
-    suspend fun getAllEquipments(): List<EquipmentResponse>
+    suspend fun getAllEquipments(): EquipmentListResponse
 
     @GET("equipment/state")
     suspend fun getEquipmentsByState(
         @Query("equipmentStatus") equipmentStatus: String
-    ): List<EquipmentResponse>
+    ): EquipmentListResponse
 
     @GET("equipment/type")
     suspend fun getEquipmentsByType(
         @Query("equipmentType") equipmentType: String
-    ): List<EquipmentResponse>
+    ): EquipmentListResponse
 
-    @GET("equipment")
+    @GET("equipment/search")
     suspend fun getEquipmentsByFilter(
         @Query("name") name: String
-    ): List<EquipmentResponse>
+    ): EquipmentListResponse
 
     @GET("equipment/{id}")
     suspend fun getEquipmentDetail(
