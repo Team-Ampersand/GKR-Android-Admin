@@ -26,11 +26,12 @@ class RequestInterceptor @Inject constructor(
         val request = chain.request()
         val builder = request.newBuilder()
         val path = request.url.encodedPath
+        val method = request.method
         val ignorePath = listOf("/auth")
         val currentTime = LocalDateTime.now()
 
         ignorePath.forEach {
-            if (path.contains(it)) {
+            if (path.contains(it) && method != "DELETE") {
                 return chain.proceed(request)
             }
         }

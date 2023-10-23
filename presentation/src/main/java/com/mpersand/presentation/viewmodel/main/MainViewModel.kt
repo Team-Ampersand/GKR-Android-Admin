@@ -110,6 +110,7 @@ class MainViewModel @Inject constructor(
                     _logoutState.value = UiState.Success()
                 }.onFailure {
                     it.exceptionHandling(
+                        noContentAction = { _logoutState.value = UiState.NoContent },
                         badRequestAction = { _logoutState.value = UiState.BadRequest }
                     )
                 }

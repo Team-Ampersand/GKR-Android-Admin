@@ -18,8 +18,8 @@ class AuthRepositoryImpl @Inject constructor(
         authDataSource.signIn(signInRequest.asSignInRequest()).asSignInResponseModel()
 
     override suspend fun logout() {
-        authDataSource.logout()
         localDataSource.logout()
+        authDataSource.logout()
     }
 
     override suspend fun saveToken(accessToken: String, refreshToken: String, accessTokenExp: String, refreshTokenExp: String) {
