@@ -89,9 +89,9 @@ fun RepairScreen(
                             colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFF865DFF)),
                             onClick = {
                                 if (repaired) {
-                                    viewModel.completeEquipmentRepair(checkNotNull(productNumber))
-                                } else {
                                     viewModel.changeEquipmentToRepairing(checkNotNull(productNumber))
+                                } else {
+                                    viewModel.completeEquipmentRepair(checkNotNull(productNumber))
                                 }
                             }
                         ) {
