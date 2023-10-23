@@ -15,17 +15,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.mpersand.domain.model.order.response.WaitListResponseModel
+import com.mpersand.domain.model.order.response.OrderDetailListResponseModel
 import com.mpersand.presentation.view.component.GKRToolbar
 import com.mpersand.presentation.view.request.component.RequestItem
-import com.mpersand.presentation.viewmodel.request.RequestViewModel
+import com.mpersand.presentation.viewmodel.order.OrderViewModel
 import com.mpersand.presentation.viewmodel.util.UiState
 
 @Composable
 fun RequestScreen(
-    requestViewModel: RequestViewModel = hiltViewModel(),
+    requestViewModel: OrderViewModel = hiltViewModel(),
     navigateToMain: () -> Unit,
-    navigateToRequestDetail: (WaitListResponseModel) -> Unit
+    navigateToRequestDetail: (OrderDetailListResponseModel) -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -36,7 +36,7 @@ fun RequestScreen(
         GKRToolbar(title = "요청") { navigateToMain() }
 
         requestViewModel.getWaitList()
-        val waitList by requestViewModel.waitList.observeAsState()
+        val waitList by requestViewModel.getWaitListUiState.observeAsState()
 
         RequestList(
             waitState = waitList,
@@ -47,8 +47,8 @@ fun RequestScreen(
 
 @Composable
 fun RequestList(
-    waitState: UiState<List<WaitListResponseModel>>?,
-    navigateToRequestDetail: (WaitListResponseModel) -> Unit
+    waitState: UiState<List<OrderDetailListResponseModel>>?,
+    navigateToRequestDetail: (OrderDetailListResponseModel) -> Unit
 ) {
     when (waitState) {
         UiState.Loading -> {}
@@ -70,8 +70,8 @@ fun RequestList(
 
 @Composable
 fun RequestItemList(
-    list: List<WaitListResponseModel>,
-    navigateToRequestDetail: (WaitListResponseModel) -> Unit
+    list: List<OrderDetailListResponseModel>,
+    navigateToRequestDetail: (OrderDetailListResponseModel) -> Unit
 ) {
     LazyColumn(
         modifier = Modifier.fillMaxSize(),

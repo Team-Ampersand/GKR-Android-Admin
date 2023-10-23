@@ -19,14 +19,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.mpersand.domain.model.order.response.OrderDetailListResponseModel
 import com.mpersand.domain.model.order.response.WaitListResponseModel
 import com.mpersand.presentation.R
 import com.mpersand.presentation.view.modifier.gkrClickable
 
 @Composable
 fun RequestItem(
-    data: WaitListResponseModel,
-    onCardClick: (WaitListResponseModel) -> Unit
+    data: OrderDetailListResponseModel,
+    onCardClick: (OrderDetailListResponseModel) -> Unit
 ) {
     Card(
         modifier = Modifier
@@ -47,7 +48,7 @@ fun RequestItem(
             Row(modifier = Modifier.fillMaxWidth()) {
                 Text(
                     modifier = Modifier.weight(1f),
-                    text = data.equipmentId,
+                    text = data.name,
                     style = TextStyle(
                         fontFamily = FontFamily(Font(R.font.inter_black)),
                         fontSize = 15.sp,
@@ -57,7 +58,7 @@ fun RequestItem(
                 )
                 
                 Text(
-                    text = data.rentalDate,
+                    text = data.rentalStartDate.toString(),
                     style = TextStyle(
                         fontFamily = FontFamily(Font(resId = R.font.inter_light, weight = FontWeight.Medium)),
                         fontSize = 12.sp

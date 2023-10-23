@@ -95,11 +95,11 @@ fun ViolationScreen(
 
                             ViolationItem(
                                 modifier = modifier.gkrClickable { showDialog = true },
-                                grade = it.grade ?: 0,
-                                classNum = it.classNum ?: 0,
-                                number = it.number ?: 0,
+                                grade = it.id ?: 0,
+                                classNum = it.id ?: 0,
+                                number = it.id ?: 0,
                                 productNumber = it.name,
-                                image = it.profileUrl ?: ""
+                                image = it.imageUrl ?: ""
                             )
                         }
                     }

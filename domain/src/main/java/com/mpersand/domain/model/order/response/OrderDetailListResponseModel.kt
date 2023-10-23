@@ -1,7 +1,10 @@
 package com.mpersand.domain.model.order.response
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 import java.time.LocalDateTime
 
+@Parcelize
 data class OrderDetailListResponseModel(
     val id: Int,
     val name: String,
@@ -12,4 +15,4 @@ data class OrderDetailListResponseModel(
     val reason: String,
     val rentalStartDate: LocalDateTime,
     val rentalEndDate: LocalDateTime,
-)
+) : Parcelable
