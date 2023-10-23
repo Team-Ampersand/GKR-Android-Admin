@@ -2,7 +2,6 @@ package com.mpersand.presentation.view.equipment
 
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
@@ -15,7 +14,6 @@ import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.LocalContentAlpha
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -138,8 +136,7 @@ fun EquipmentScreen(
                         onClick = {
                             if (file != null && equipmentName.isNotEmpty() && description.isNotEmpty()) {
                                 viewModel.modifyEquipment(
-                                    productNumber = productNumber!!,
-                                    file = null,
+                                    file = changeToPartList(file!!),
                                     name = equipmentName,
                                     description = description,
                                     equipmentType = state.data.equipmentType
