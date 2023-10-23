@@ -53,7 +53,4 @@ interface OrderApi {
     suspend fun rejectRequest(
         @Path("id") id: Int
     )
-
-//    @POST("order")
-//    suspend fun requestResult(@Body body: OrderRequest)
 }
