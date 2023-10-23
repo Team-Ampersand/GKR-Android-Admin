@@ -6,8 +6,6 @@ import com.mpersand.data.remote.datasource.equipment.EquipmentDataSource
 import com.mpersand.data.remote.datasource.equipment.EquipmentDataSourceImpl
 import com.mpersand.data.remote.datasource.order.OrderDataSource
 import com.mpersand.data.remote.datasource.order.OrderDataSourceImpl
-import com.mpersand.data.remote.datasource.repair.RepairDataSource
-import com.mpersand.data.remote.datasource.repair.RepairDataSourceImpl
 import com.mpersand.data.remote.datasource.user.UserDataSource
 import com.mpersand.data.remote.datasource.user.UserDataSourceImpl
 import com.mpersand.data.remote.datasource.violation.ViolationDataSource
@@ -29,11 +27,6 @@ interface RemoteDataSourceModule {
     fun bindsEquipmentDataSource(
         equipmentDataSourceImpl: EquipmentDataSourceImpl
     ): EquipmentDataSource
-
-    @Binds
-    fun bindsRepairDataSource(
-        repairDataSourceImpl: RepairDataSourceImpl
-    ): RepairDataSource
 
     @Binds
     fun bindsOrderDataSource(

@@ -24,4 +24,12 @@ class EquipmentDataSourceImpl @Inject constructor(
 
     override suspend fun modifyEquipment(file: MultipartBody.Part, equipment: HashMap<String, RequestBody>) =
         safeApiCall { equipmentApi.modifyEquipment(file, equipment) }
+
+    override suspend fun changeEquipmentToRepairing(productNumber: String) {
+        safeApiCall { equipmentApi.changeEquipmentToRepairing(productNumber) }
+    }
+
+    override suspend fun completeEquipmentRepair(productNumber: String) {
+        safeApiCall { equipmentApi.completeEquipmentRepair(productNumber) }
+    }
 }
