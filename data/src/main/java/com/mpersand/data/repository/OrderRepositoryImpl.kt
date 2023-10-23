@@ -3,6 +3,7 @@ package com.mpersand.data.repository
 import com.mpersand.data.dto.order.request.asOrderRequest
 import com.mpersand.data.dto.order.response.asOrderApplicationListResponseModel
 import com.mpersand.data.dto.order.response.asOrderDetailListResponseModel
+import com.mpersand.data.dto.order.response.asOrderEquipmentListResponseModel
 import com.mpersand.data.dto.order.response.asOrderListResponseModel
 import com.mpersand.data.dto.order.response.asOrderResponseModel
 import com.mpersand.data.dto.order.response.asWaitListResponseModel
@@ -10,6 +11,7 @@ import com.mpersand.data.remote.datasource.order.OrderDataSource
 import com.mpersand.domain.model.order.request.OrderRequestModel
 import com.mpersand.domain.model.order.response.OrderApplicationListResponseModel
 import com.mpersand.domain.model.order.response.OrderDetailListResponseModel
+import com.mpersand.domain.model.order.response.OrderEquipmentListResponseModel
 import com.mpersand.domain.model.order.response.OrderListResponseModel
 import com.mpersand.domain.model.order.response.OrderResponseModel
 import com.mpersand.domain.model.order.response.WaitListResponseModel
@@ -19,8 +21,8 @@ import javax.inject.Inject
 class OrderRepositoryImpl @Inject constructor(
     private val orderDataSource: OrderDataSource
 ): OrderRepository {
-    override suspend fun getSelfStateList(): List<OrderListResponseModel> =
-        orderDataSource.getSelfStateList().map { it.asOrderListResponseModel() }
+    override suspend fun getSelfStateList(): OrderEquipmentListResponseModel =
+        orderDataSource.getSelfStateList().asOrderEquipmentListResponseModel()
 
     override suspend fun getNowRentalList(): OrderApplicationListResponseModel =
         orderDataSource.getNowRentalList().asOrderApplicationListResponseModel()

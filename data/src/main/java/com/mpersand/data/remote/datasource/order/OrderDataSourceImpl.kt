@@ -3,6 +3,7 @@ package com.mpersand.data.remote.datasource.order
 import com.mpersand.data.dto.order.request.OrderRequest
 import com.mpersand.data.dto.order.response.OrderApplicationListResponse
 import com.mpersand.data.dto.order.response.OrderDetailListResponse
+import com.mpersand.data.dto.order.response.OrderEquipmentListResponse
 import com.mpersand.data.dto.order.response.OrderListResponse
 import com.mpersand.data.dto.order.response.OrderResponse
 import com.mpersand.data.dto.order.response.WaitListResponse
@@ -13,7 +14,7 @@ import javax.inject.Inject
 class OrderDataSourceImpl @Inject constructor(
     private val orderApi: OrderApi
 ): OrderDataSource {
-    override suspend fun getSelfStateList(): List<OrderListResponse> = safeApiCall {
+    override suspend fun getSelfStateList(): OrderEquipmentListResponse = safeApiCall {
         orderApi.getSelfStateList()
     }
 

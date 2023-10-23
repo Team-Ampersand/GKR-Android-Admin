@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mpersand.domain.model.order.response.OrderApplicationListResponseModel
 import com.mpersand.domain.model.order.response.OrderDetailListResponseModel
+import com.mpersand.domain.model.order.response.OrderEquipmentListResponseModel
 import com.mpersand.domain.model.order.response.OrderListResponseModel
 import com.mpersand.domain.usecase.order.AcceptRequestUseCase
 import com.mpersand.domain.usecase.order.GetNoReturnListUseCase
@@ -36,8 +37,8 @@ class OrderViewModel @Inject constructor(
     private val acceptRequestUseCase: AcceptRequestUseCase,
     private val rejectRequestUseCase: RejectRequestUseCase
 ): ViewModel() {
-    private val _getSelfStateListUiState = MutableLiveData<UiState<List<OrderListResponseModel>>>()
-    val getSelfStateListUiState: LiveData<UiState<List<OrderListResponseModel>>> = _getSelfStateListUiState
+    private val _getSelfStateListUiState = MutableLiveData<UiState<OrderEquipmentListResponseModel>>()
+    val getSelfStateListUiState: LiveData<UiState<OrderEquipmentListResponseModel>> = _getSelfStateListUiState
 
     private val _getNowRentalListUiState = MutableLiveData<UiState<OrderApplicationListResponseModel>>()
     val getNowRentalListUiState: LiveData<UiState<OrderApplicationListResponseModel>> = _getNowRentalListUiState

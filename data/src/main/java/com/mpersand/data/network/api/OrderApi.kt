@@ -2,6 +2,7 @@ package com.mpersand.data.network.api
 
 import com.mpersand.data.dto.order.response.OrderApplicationListResponse
 import com.mpersand.data.dto.order.response.OrderDetailListResponse
+import com.mpersand.data.dto.order.response.OrderEquipmentListResponse
 import com.mpersand.data.dto.order.response.OrderListResponse
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -12,7 +13,7 @@ import retrofit2.http.Path
 interface OrderApi {
 
     @GET("order/state")
-    suspend fun getSelfStateList(): List<OrderListResponse>
+    suspend fun getSelfStateList(): OrderEquipmentListResponse
 
     @GET("order/now")
     suspend fun getNowRentalList(): OrderApplicationListResponse
