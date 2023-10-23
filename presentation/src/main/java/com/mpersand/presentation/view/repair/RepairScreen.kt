@@ -4,6 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -78,7 +79,15 @@ fun RepairScreen(
                     )
                     Column(modifier = modifier.padding(horizontal = 26.dp)) {
                         Spacer(modifier = modifier.height(17.dp))
+                        Text(
+                            modifier = Modifier.padding(start = 12.dp),
+                            text = "수리 여부",
+                            fontSize = 16.sp,
+                            fontWeight = FontWeight.Medium
+                        )
+                        Spacer(modifier = Modifier.height(4.dp))
                         Checkbox(
+                            modifier = Modifier.defaultMinSize(0.dp),
                             checked = repaired,
                             onCheckedChange = { repaired = !repaired }
                         )
