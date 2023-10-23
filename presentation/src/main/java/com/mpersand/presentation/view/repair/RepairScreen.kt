@@ -59,6 +59,8 @@ fun RepairScreen(
 
     when (val state = detailState) {
         is UiState.Success -> {
+            repaired = state.data!!.equipmentStatus == "REPAIRING"
+
             Scaffold { paddingValues ->
                 Column(
                     modifier = modifier
@@ -77,8 +79,8 @@ fun RepairScreen(
                     Column(modifier = modifier.padding(horizontal = 26.dp)) {
                         Spacer(modifier = modifier.height(17.dp))
                         Checkbox(
-                            checked = repaired, 
-                            onCheckedChange = {repaired = !repaired}
+                            checked = repaired,
+                            onCheckedChange = { repaired = !repaired }
                         )
                         Spacer(modifier = modifier.height(90.dp))
                         Button(
@@ -86,7 +88,11 @@ fun RepairScreen(
                             contentPadding = PaddingValues(vertical = 16.dp),
                             colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFF865DFF)),
                             onClick = {
-                                /* TODO: 수리내역 추가 로직 */
+                                if (repaired) {
+                                    viewModel.completeEquipmentRepair(checkNotNull(productNumber))
+                                } else {
+                                    viewModel.changeEquipmentToRepairing(checkNotNull(productNumber))
+                                }
                             }
                         ) {
                             Text(
