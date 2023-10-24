@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.DrawerValue
 import androidx.compose.material.rememberDrawerState
@@ -50,15 +51,21 @@ fun MainScreen(
     navigateToSearch: () -> Unit
 ) {
     var selectedValue by remember { mutableStateOf(0) }
+    var filterSelectedQuery by remember { mutableStateOf("RENTING") }
+
     var showDialog by remember { mutableStateOf(false) }
     var openDrawer by remember { mutableStateOf(false) }
 
-    val filter = listOf("전체", "맥북", "갤럭시 북", "터치모니터", "대여함", "대여하지 않음")
-    val uiState by viewModel.uiState.observeAsState()
+    val filter = listOf("대여중", "대여하지 않음", "대여 대기 중", "수리 중")
+    val filterResultState by viewModel.uiState.observeAsState()
     val logoutState by viewModel.logoutState.observeAsState()
     val coroutineScope = rememberCoroutineScope()
     val scaffoldState = rememberScaffoldState()
     val getUserInfoUiState by viewModel.getUserInfoUiState.observeAsState()
+
+    LaunchedEffect(filterSelectedQuery) {
+        viewModel.getEquipmentsByState(filterSelectedQuery)
+    }
 
     when (logoutState) {
         is UiState.Success,  UiState.NoContent -> navigateToSignIn()
@@ -71,8 +78,8 @@ fun MainScreen(
     }
 
     LaunchedEffect(Unit) {
-        viewModel.getAllEquipments()
         viewModel.getUserInfo()
+        viewModel.getEquipmentsByState("RENTING")
     }
 
     if (showDialog) {
@@ -116,38 +123,38 @@ fun MainScreen(
                         modifier = modifier.padding(horizontal = 13.dp),
                         horizontalArrangement = Arrangement.spacedBy(10.dp)
                     ) {
-                        items(filter.size) {
+                        itemsIndexed(filter) { index, item ->
                             FilterItem(
-                                selected = it == selectedValue,
-                                content = filter[it],
+                                selected = index == selectedValue,
+                                content = item,
                                 onClick = {
-                                    when (it) {
-                                        filter.lastIndex -1 -> viewModel.getEquipmentsByState("RENTING")
-                                        filter.lastIndex -> viewModel.getEquipmentsByState("NOT_RENT")
-                                        else -> if (it == 0) viewModel.getAllEquipments() else viewModel.getEquipmentsByType(filter[it])
-                                    }
-                                    selectedValue = it
+                                    selectedValue = index
+                                    filterSelectedQuery = filterItemStringToQueryString(item)
                                 }
                             )
                         }
                     }
                     Spacer(modifier = modifier.height(8.dp))
 
-                    var equipmentResult: List<EquipmentResponseModel> by remember { mutableStateOf(emptyList()) }
-                    when (val state = uiState) {
-                        is UiState.Success -> equipmentResult = state.data!!.equipmentList
+                    when (val filterResult = filterResultState) {
+                        is UiState.Success -> {
+                            EquipmentListView(
+                                equipments = filterResult.data!!.equipmentList,
+                                navigateToDetail = navigateToDetail
+                            )
+                        }
                         UiState.BadRequest -> {}
                         UiState.Forbidden -> {}
                         UiState.Loading -> {}
-                        UiState.NotFound -> equipmentResult = emptyList()
+                        UiState.NotFound -> {
+                            EquipmentListView(
+                                equipments = emptyList(),
+                                navigateToDetail = navigateToDetail
+                            )
+                        }
                         UiState.Unauthorized -> {}
                         else -> {}
                     }
-
-                    EquipmentListView(
-                        equipments = equipmentResult,
-                        navigateToDetail = navigateToDetail
-                    )
                 }
             }
         }
@@ -180,5 +187,15 @@ fun EquipmentListView(
                 image = it.image
             )
         }
+    }
+}
+
+private fun filterItemStringToQueryString(data: String): String {
+    return when(data) {
+        "대여중" -> "RENTING"
+        "대여하지 않음" -> "NOT_RENT"
+        "대여 대기 중" -> "WAITING"
+        "수리 중" -> "REPAIRING"
+        else -> ""
     }
 }
