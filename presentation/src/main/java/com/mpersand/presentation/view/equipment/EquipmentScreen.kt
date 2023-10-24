@@ -137,12 +137,13 @@ fun EquipmentScreen(
                         onClick = {
                             if (file != null && equipmentName.isNotEmpty() && description.isNotEmpty()) {
                                 viewModel.modifyEquipment(
+                                    productNumber = productNumber!!,
                                     file = changeToPartList(file!!),
                                     name = equipmentName,
                                     description = description,
                                     equipmentType = state.data.equipmentType
                                 )
-                                navigateToRepair(productNumber!!)
+                                navigateToRepair(productNumber)
                             } else {
                                 Toast.makeText(context, "모두 입력되지 않으면 수정할 수 없습니다.", Toast.LENGTH_SHORT).show()
                             }
