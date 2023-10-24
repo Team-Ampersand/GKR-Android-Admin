@@ -16,8 +16,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
+import org.json.JSONObject
 import javax.inject.Inject
 
 @HiltViewModel
@@ -36,14 +36,17 @@ class EquipmentViewModel @Inject constructor(
     private val _equipmentFilter = MutableLiveData<UiState<EquipmentListResponseModel>>()
     val equipmentFilter: LiveData<UiState<EquipmentListResponseModel>> = _equipmentFilter
 
-    fun modifyEquipment(file: MultipartBody.Part, name: String, description: String, equipmentType: String) {
-        val equipment = HashMap<String, RequestBody>()
-        equipment["name"] = name.toRequestBody("application/json".toMediaType())
-        equipment["description"] = description.toRequestBody("application/json".toMediaType())
-        equipment["equipmentType"] = equipmentType.toRequestBody("application/json".toMediaType())
+    fun modifyEquipment(productNumber: String, file: MultipartBody.Part, name: String, description: String, equipmentType: String) {
+        val jsonObject = JSONObject()
+        jsonObject.apply {
+            put("name", name)
+            put("description", description)
+            put("equipmentType", equipmentType)
+        }
+        val equipment = jsonObject.toString().toRequestBody("application/json".toMediaType())
 
         viewModelScope.launch {
-            modifyEquipmentUseCase(file, equipment)
+            modifyEquipmentUseCase(productNumber, file, equipment)
                 .onSuccess {
                     _modifyState.value = UiState.Success()
                 }.onFailure {
