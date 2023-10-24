@@ -8,6 +8,6 @@ import javax.inject.Inject
 class ModifyEquipmentUseCase @Inject constructor(
     private val repository: EquipmentRepository
 ) {
-    suspend operator fun invoke(file: MultipartBody.Part, equipment: HashMap<String, RequestBody>) =
-        kotlin.runCatching { repository.modifyEquipment(file, equipment) }
+    suspend operator fun invoke(productNumber: String, file: MultipartBody.Part, equipment: RequestBody) =
+        kotlin.runCatching { repository.modifyEquipment(productNumber, file, equipment) }
 }

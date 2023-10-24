@@ -16,7 +16,7 @@ interface EquipmentDataSource {
 
     suspend fun getEquipmentDetail(productNumber: String): EquipmentResponse
 
-    suspend fun modifyEquipment(file: MultipartBody.Part, equipment: HashMap<String, RequestBody>)
+    suspend fun modifyEquipment(productNumber: String, file: MultipartBody.Part, equipment: RequestBody)
 
     suspend fun changeEquipmentToRepairing(productNumber: String)
 

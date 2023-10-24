@@ -28,8 +28,8 @@ class EquipmentRepositoryImpl @Inject constructor(
     override suspend fun getEquipmentDetail(productNumber: String): EquipmentResponseModel =
         equipmentDataSource.getEquipmentDetail(productNumber).asEquipmentResponseModel()
 
-    override suspend fun modifyEquipment(file: MultipartBody.Part, equipment: HashMap<String, RequestBody>) =
-        equipmentDataSource.modifyEquipment(file, equipment)
+    override suspend fun modifyEquipment(productNumber: String, file: MultipartBody.Part, equipment: RequestBody) =
+        equipmentDataSource.modifyEquipment(productNumber, file, equipment)
 
     override suspend fun changeEquipmentToRepairing(productNumber: String) =
         equipmentDataSource.changeEquipmentToRepairing(productNumber)
