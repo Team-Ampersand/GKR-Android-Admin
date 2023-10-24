@@ -98,7 +98,7 @@ fun ViolationScreen(
                                 grade = it.grade,
                                 classNum = it.classNum,
                                 number = it.stuNum,
-                                productNumber = it.name,
+                                productNumber = it.userName,
                                 image = it.imageUrl
                             )
                         }
