@@ -37,7 +37,8 @@ import com.mpersand.presentation.viewmodel.util.UiState
 @Composable
 fun RequestDetailScreen(
     data: OrderDetailListResponseModel?,
-    requestViewModel: OrderViewModel = hiltViewModel()
+    requestViewModel: OrderViewModel = hiltViewModel(),
+    navigateToSignIn: () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -70,7 +71,7 @@ fun RequestDetailScreen(
             UiState.Loading -> {}
             is UiState.Success -> Toast.makeText(context, "요청을 수락하였습니다.", Toast.LENGTH_SHORT).show()
             UiState.BadRequest -> Toast.makeText(context, "토큰 값이 잘못되었습니다.", Toast.LENGTH_SHORT).show()
-            UiState.Unauthorized -> Toast.makeText(context, "토큰이 유효하지 않습니다.", Toast.LENGTH_SHORT).show()
+            UiState.Unauthorized -> navigateToSignIn()
             UiState.NotFound -> Toast.makeText(context, "UUID를 찾을 수 없습니다.", Toast.LENGTH_SHORT).show()
             else -> Toast.makeText(context, "알 수 없는 오류가 발생했습니다.", Toast.LENGTH_SHORT).show()
         }
@@ -81,7 +82,7 @@ fun RequestDetailScreen(
 fun StudentInfo(data: OrderDetailListResponseModel?) {
     Text(
         modifier = Modifier.padding(start = 13.dp),
-        text = data?.id.toString() ?: "null equipment",
+        text = data?.id.toString(),
         style = TextStyle(
             fontFamily = FontFamily(Font(R.font.inter_black)),
             fontSize = 20.sp
@@ -91,7 +92,7 @@ fun StudentInfo(data: OrderDetailListResponseModel?) {
 
     Text(
         modifier = Modifier.padding(start = 13.dp),
-        text = data?.rentalStartDate.toString() ?: "null date",
+        text = data?.rentalStartDate.toString(),
         style = TextStyle(
             fontFamily = FontFamily(Font(R.font.fraunces_black)),
             fontSize = 15.sp,

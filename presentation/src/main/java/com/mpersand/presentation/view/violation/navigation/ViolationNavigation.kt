@@ -11,8 +11,14 @@ fun NavController.navigationToViolation() {
     this.navigate(violationRoute)
 }
 
-fun NavGraphBuilder.violationScreen(navigateToMain: () -> Unit) {
+fun NavGraphBuilder.violationScreen(
+    navigateToSignIn: () -> Unit,
+    navigateToMain: () -> Unit
+) {
     composable(violationRoute) {
-        ViolationScreen(navigateToMain = navigateToMain)
+        ViolationScreen(
+            navigateToSignIn = navigateToSignIn,
+            navigateToMain = navigateToMain
+        )
     }
 }

@@ -16,4 +16,6 @@ interface AuthRepository {
     )
 
     suspend fun isLogin(): Boolean
+
+    suspend fun removeLocalData()
 }

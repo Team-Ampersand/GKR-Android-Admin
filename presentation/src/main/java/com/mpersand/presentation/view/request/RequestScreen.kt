@@ -25,6 +25,7 @@ import com.mpersand.presentation.viewmodel.util.UiState
 @Composable
 fun RequestScreen(
     requestViewModel: OrderViewModel = hiltViewModel(),
+    navigateToSignIn: () -> Unit,
     navigateToMain: () -> Unit,
     navigateToRequestDetail: (OrderDetailListResponseModel) -> Unit
 ) {
@@ -41,7 +42,8 @@ fun RequestScreen(
 
         RequestList(
             waitState = waitList,
-            navigateToRequestDetail = navigateToRequestDetail
+            navigateToRequestDetail = navigateToRequestDetail,
+            navigateToSignIn = navigateToSignIn
         )
     }
 }
@@ -49,7 +51,8 @@ fun RequestScreen(
 @Composable
 fun RequestList(
     waitState: UiState<OrderApplicationListResponseModel>?,
-    navigateToRequestDetail: (OrderDetailListResponseModel) -> Unit
+    navigateToRequestDetail: (OrderDetailListResponseModel) -> Unit,
+    navigateToSignIn: () -> Unit
 ) {
     when (waitState) {
         UiState.Loading -> {}
@@ -60,7 +63,7 @@ fun RequestList(
             )
         }
         UiState.BadRequest -> {}
-        UiState.Unauthorized -> {}
+        UiState.Unauthorized -> navigateToSignIn()
         UiState.NotFound -> {}
         else -> {}
     }

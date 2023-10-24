@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mpersand.domain.model.equipment.response.EquipmentResponseModel
+import com.mpersand.domain.usecase.auth.RemoveLocalDataUseCase
 import com.mpersand.domain.usecase.equipment.ChangeEquipmentToRepairingUseCase
 import com.mpersand.domain.usecase.equipment.CompleteEquipmentRepairUseCase
 import com.mpersand.domain.usecase.equipment.GetEquipmentDetailUseCase
@@ -18,7 +19,8 @@ import javax.inject.Inject
 class RepairViewModel @Inject constructor(
     private val changeEquipmentToRepairingUseCase: ChangeEquipmentToRepairingUseCase,
     private val completeEquipmentRepairUseCase: CompleteEquipmentRepairUseCase,
-    private val getEquipmentDetailUseCase: GetEquipmentDetailUseCase
+    private val getEquipmentDetailUseCase: GetEquipmentDetailUseCase,
+    private val removeLocalDataUseCase: RemoveLocalDataUseCase
 ) : ViewModel() {
     private val _detailState = MutableLiveData<UiState<EquipmentResponseModel>>()
     val detailState: LiveData<UiState<EquipmentResponseModel>> = _detailState
@@ -33,7 +35,10 @@ class RepairViewModel @Inject constructor(
                     _repairState.value = UiState.Success()
                 }.onFailure {
                     it.exceptionHandling(
-                        unauthorizedAction = { _repairState.value = UiState.Unauthorized },
+                        unauthorizedAction = {
+                            removeLocalDataUseCase()
+                            _repairState.value = UiState.Unauthorized
+                        },
                         forbiddenAction = { _repairState.value = UiState.Forbidden },
                         notFoundAction = { _repairState.value = UiState.NotFound },
                         conflictAction = { _repairState.value = UiState.Conflict },
@@ -50,7 +55,10 @@ class RepairViewModel @Inject constructor(
                     _repairState.value = UiState.Success()
                 }.onFailure {
                     it.exceptionHandling(
-                        unauthorizedAction = { _repairState.value = UiState.Unauthorized },
+                        unauthorizedAction = {
+                            removeLocalDataUseCase()
+                            _repairState.value = UiState.Unauthorized
+                        },
                         forbiddenAction = { _repairState.value = UiState.Forbidden },
                         notFoundAction = { _repairState.value = UiState.NotFound },
                         conflictAction = { _repairState.value = UiState.Conflict },
@@ -68,7 +76,10 @@ class RepairViewModel @Inject constructor(
                 }.onFailure {
                     it.exceptionHandling(
                         badRequestAction = { _detailState.value = UiState.BadRequest },
-                        unauthorizedAction = { _detailState.value = UiState.Unauthorized },
+                        unauthorizedAction = {
+                            removeLocalDataUseCase()
+                            _detailState.value = UiState.Unauthorized
+                        },
                         notFoundAction = { _detailState.value = UiState.NotFound }
                     )
                 }

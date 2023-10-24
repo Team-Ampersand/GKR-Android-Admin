@@ -5,8 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mpersand.domain.model.order.response.OrderApplicationListResponseModel
-import com.mpersand.domain.model.order.response.OrderDetailListResponseModel
 import com.mpersand.domain.model.violation.request.ViolationRequestModel
+import com.mpersand.domain.usecase.auth.RemoveLocalDataUseCase
 import com.mpersand.domain.usecase.order.GetNoReturnListUseCase
 import com.mpersand.domain.usecase.violation.PostViolationUserUseCase
 import com.mpersand.presentation.viewmodel.util.UiState
@@ -18,8 +18,9 @@ import javax.inject.Inject
 @HiltViewModel
 class ViolationViewModel @Inject constructor(
     private val getNoReturnStudentsUseCase: GetNoReturnListUseCase,
-    private val postViolationUserUseCase: PostViolationUserUseCase
-): ViewModel() {
+    private val postViolationUserUseCase: PostViolationUserUseCase,
+    private val removeLocalDataUseCase: RemoveLocalDataUseCase
+) : ViewModel() {
     private val _getNoReturnStudentsUiState = MutableLiveData<UiState<OrderApplicationListResponseModel>>()
     val getNoReturnStudentsUiState: LiveData<UiState<OrderApplicationListResponseModel>> = _getNoReturnStudentsUiState
 
@@ -38,6 +39,7 @@ class ViolationViewModel @Inject constructor(
                             _getNoReturnStudentsUiState.value = UiState.BadRequest
                         },
                         unauthorizedAction = {
+                            removeLocalDataUseCase()
                             _getNoReturnStudentsUiState.value = UiState.Unauthorized
                         }
                     )
@@ -54,6 +56,7 @@ class ViolationViewModel @Inject constructor(
                 .onFailure {
                     it.exceptionHandling(
                         unauthorizedAction = {
+                            removeLocalDataUseCase()
                             _getNoReturnStudentsUiState.value = UiState.Unauthorized
                         },
                         forbiddenAction = {

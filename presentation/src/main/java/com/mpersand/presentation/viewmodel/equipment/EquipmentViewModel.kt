@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mpersand.domain.model.equipment.response.EquipmentListResponseModel
 import com.mpersand.domain.model.equipment.response.EquipmentResponseModel
+import com.mpersand.domain.usecase.auth.RemoveLocalDataUseCase
 import com.mpersand.domain.usecase.equipment.GetEquipmentDetailUseCase
 import com.mpersand.domain.usecase.equipment.GetEquipmentsByFilterUseCase
 import com.mpersand.domain.usecase.equipment.ModifyEquipmentUseCase
@@ -23,7 +24,8 @@ import javax.inject.Inject
 class EquipmentViewModel @Inject constructor(
     private val modifyEquipmentUseCase: ModifyEquipmentUseCase,
     private val getEquipmentDetailUseCase: GetEquipmentDetailUseCase,
-    private val getEquipmentsByFilterUseCase: GetEquipmentsByFilterUseCase
+    private val getEquipmentsByFilterUseCase: GetEquipmentsByFilterUseCase,
+    private val removeLocalDataUseCase: RemoveLocalDataUseCase
 ) : ViewModel() {
     private val _equipmentState = MutableLiveData<UiState<EquipmentResponseModel>>()
     val equipmentState: LiveData<UiState<EquipmentResponseModel>> = _equipmentState
@@ -48,7 +50,10 @@ class EquipmentViewModel @Inject constructor(
                     it.exceptionHandling(
                         noContentAction = { _modifyState.value = UiState.NoContent },
                         badRequestAction = { _modifyState.value = UiState.BadRequest },
-                        unauthorizedAction = { _modifyState.value = UiState.Unauthorized },
+                        unauthorizedAction = {
+                            removeLocalDataUseCase()
+                            _modifyState.value = UiState.Unauthorized
+                        },
                         forbiddenAction = { _modifyState.value = UiState.Forbidden },
                         notFoundAction = { _modifyState.value = UiState.NotFound }
                     )
@@ -64,7 +69,10 @@ class EquipmentViewModel @Inject constructor(
                 }.onFailure {
                     it.exceptionHandling(
                         badRequestAction = { _equipmentState.value = UiState.BadRequest },
-                        unauthorizedAction = { _equipmentState.value = UiState.Unauthorized },
+                        unauthorizedAction = {
+                            removeLocalDataUseCase()
+                            _equipmentState.value = UiState.Unauthorized
+                        },
                         notFoundAction = { _equipmentState.value = UiState.NotFound }
                     )
                 }
@@ -78,7 +86,10 @@ class EquipmentViewModel @Inject constructor(
             }.onFailure {
                 it.exceptionHandling(
                     badRequestAction = { _equipmentFilter.value = UiState.BadRequest },
-                    unauthorizedAction = { _equipmentFilter.value = UiState.Unauthorized },
+                    unauthorizedAction = {
+                        removeLocalDataUseCase()
+                        _equipmentFilter.value = UiState.Unauthorized
+                    },
                     notFoundAction = { _equipmentFilter.value = UiState.NotFound }
                 )
             }

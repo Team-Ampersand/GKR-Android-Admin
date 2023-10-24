@@ -10,10 +10,10 @@ import com.mpersand.domain.exception.TimeOutException
 import com.mpersand.domain.exception.TokenExpiredException
 import com.mpersand.domain.exception.UnauthorizedException
 
-fun Throwable.exceptionHandling(
+suspend fun Throwable.exceptionHandling(
     noContentAction: () -> Unit = {},
     badRequestAction: () -> Unit = {},
-    unauthorizedAction: () -> Unit = {},
+    unauthorizedAction: suspend () -> Unit = {},
     forbiddenAction: () -> Unit = {},
     notFoundAction: () -> Unit = {},
     timeOutAction: () -> Unit = {},

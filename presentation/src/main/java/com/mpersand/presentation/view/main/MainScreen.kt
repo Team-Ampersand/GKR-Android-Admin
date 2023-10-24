@@ -151,6 +151,7 @@ fun MainScreen(
                 }
             }
         }
+        UiState.Unauthorized -> navigateToSignIn()
         else -> {}
     }
 }

@@ -40,31 +40,55 @@ fun GKRAdminNavHost(
             navigateToRequest = { navController.navigateToRequest() },
             navigateToSearch = { navController.navigateToSearch() }
         )
-        violationScreen(navigateToMain = {
-            navController.navigateToMain()
-        })
-        
-        detailScreen(navigateToEquipment = {
-            navController.navigateToEquipment(it)
-        })
-        equipmentScreen(navigateToRepair = {
-            navController.navigateToRepair(it)
-        })
-        repairScreen(navigateToMain = {
-            navController.navigateToMain()
-        })
-        
+        violationScreen(
+            navigateToSignIn = {
+                navController.navigateToSignIn()
+            },
+            navigateToMain = {
+                navController.navigateToMain()
+            }
+        )
+
+        detailScreen(
+            navigateToSignIn = {
+                navController.navigateToSignIn()
+            },
+            navigateToEquipment = {
+                navController.navigateToEquipment(it)
+            }
+        )
+        equipmentScreen(
+            navigateToSignIn = {
+                navController.navigateToSignIn()
+            },
+            navigateToRepair = {
+                navController.navigateToRepair(it)
+            }
+        )
+        repairScreen(
+            navigateToSignIn = {
+                navController.navigateToSignIn()
+            },
+            navigateToMain = {
+                navController.navigateToMain()
+            }
+        )
+
         requestScreen(
             navigateToMain = { navController.navigateToMain() },
+            navigateToSignIn = { navController.navigateToSignIn() },
             navigateToRequestDetail = { data ->
                 val json = Uri.encode(Gson().toJson(data))
                 navController.navigateToRequestDetail(json)
             }
         )
 
-        requestDetailScreen()
+        requestDetailScreen(navigateToSignIn = {
+            navController.navigateToSignIn()
+        })
 
         searchScreen(
+            navigateToSignIn = { navController.navigateToSignIn() },
             navigateToMain = { navController.navigateToMain() },
             navigateToDetail = { navController.navigateToDetail(it) }
         )

@@ -9,6 +9,7 @@ import com.mpersand.domain.model.user.response.UserResponseModel
 import com.mpersand.domain.usecase.equipment.GetEquipmentsByFilterUseCase
 import com.mpersand.domain.usecase.user.GetUserUseCase
 import com.mpersand.domain.usecase.auth.LogoutUseCase
+import com.mpersand.domain.usecase.auth.RemoveLocalDataUseCase
 import com.mpersand.domain.usecase.equipment.GetAllEquipmentsUseCase
 import com.mpersand.domain.usecase.equipment.GetEquipmentsByStateUseCase
 import com.mpersand.domain.usecase.equipment.GetEquipmentsByTypeUseCase
@@ -25,7 +26,8 @@ class MainViewModel @Inject constructor(
     private val getEquipmentsByStateUseCase: GetEquipmentsByStateUseCase,
     private val getEquipmentsByTypeUseCase: GetEquipmentsByTypeUseCase,
     private val logoutUseCase: LogoutUseCase,
-    private val getUserUseCase: GetUserUseCase
+    private val getUserUseCase: GetUserUseCase,
+    private val removeLocalDataUseCase: RemoveLocalDataUseCase
 ) : ViewModel() {
     private val _uiState = MutableLiveData<UiState<EquipmentListResponseModel>>()
     val uiState: LiveData<UiState<EquipmentListResponseModel>> = _uiState
@@ -43,7 +45,10 @@ class MainViewModel @Inject constructor(
                     _uiState.value = UiState.Success(it)
                 }.onFailure {
                     it.exceptionHandling(
-                        unauthorizedAction = { _uiState.value = UiState.Unauthorized },
+                        unauthorizedAction = {
+                            removeLocalDataUseCase()
+                            _uiState.value = UiState.Unauthorized
+                        },
                         notFoundAction = { _uiState.value = UiState.NotFound },
                         serverAction = { _uiState.value = UiState.Server }
                     )
@@ -58,7 +63,10 @@ class MainViewModel @Inject constructor(
                     _uiState.value = UiState.Success(it)
                 }.onFailure {
                     it.exceptionHandling(
-                        unauthorizedAction = { _uiState.value = UiState.Unauthorized },
+                        unauthorizedAction = {
+                            removeLocalDataUseCase()
+                            _uiState.value = UiState.Unauthorized
+                        },
                         serverAction = { _uiState.value = UiState.Server }
                     )
                 }
@@ -72,7 +80,10 @@ class MainViewModel @Inject constructor(
                     _uiState.value = UiState.Success(it)
                 }.onFailure {
                     it.exceptionHandling(
-                        unauthorizedAction = { _uiState.value = UiState.Unauthorized },
+                        unauthorizedAction = {
+                            removeLocalDataUseCase()
+                            _uiState.value = UiState.Unauthorized
+                        },
                         serverAction = { _uiState.value = UiState.Server }
                     )
                 }
@@ -90,6 +101,7 @@ class MainViewModel @Inject constructor(
                             _uiState.value = UiState.BadRequest
                         },
                         unauthorizedAction = {
+                            removeLocalDataUseCase()
                             _uiState.value = UiState.Unauthorized
                         },
                         forbiddenAction = {
@@ -129,6 +141,7 @@ class MainViewModel @Inject constructor(
                             _getUserInfoUiState.value = UiState.BadRequest
                         },
                         unauthorizedAction = {
+                            removeLocalDataUseCase()
                             _getUserInfoUiState.value = UiState.Unauthorized
                         },
                         notFoundAction = {

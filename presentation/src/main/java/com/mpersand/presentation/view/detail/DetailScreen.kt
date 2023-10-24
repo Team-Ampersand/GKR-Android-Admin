@@ -38,6 +38,7 @@ fun DetailScreen(
     modifier: Modifier = Modifier,
     productNumber: String?,
     viewModel: DetailViewModel = hiltViewModel(),
+    navigateToSignIn: () -> Unit,
     navigateToEquipment: (productNumber: String) -> Unit
 ) {
     LaunchedEffect(Unit) {
@@ -133,7 +134,7 @@ fun DetailScreen(
         UiState.Forbidden -> {}
         UiState.Loading -> {}
         UiState.NotFound -> {}
-        UiState.Unauthorized -> {}
+        UiState.Unauthorized -> navigateToSignIn()
         UiState.Unknown -> {}
         else -> {}
     }

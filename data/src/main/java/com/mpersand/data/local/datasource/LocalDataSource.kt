@@ -21,4 +21,6 @@ interface LocalDataSource {
     suspend fun isLogin(): Flow<Boolean>
 
     suspend fun logout()
+
+    suspend fun removeLocalData()
 }
