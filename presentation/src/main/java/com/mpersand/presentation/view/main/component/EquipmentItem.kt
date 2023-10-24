@@ -62,12 +62,7 @@ fun EquipmentItem(
                 )
                 Spacer(modifier = modifier.width(3.dp))
                 Text(
-                    text = when (name) {
-                        "맥북" -> "#맥북 #노트북"
-                        "갤럭시 북" -> "#갤럭시 북 #노트북"
-                        "터치모니터" -> "#터치모니터 #모니터"
-                        else -> "#?"
-                    },
+                    text = name,
                     fontSize = 8.sp,
                     fontFamily = FontFamily(Font(R.font.fraunces_black)),
                     fontWeight = FontWeight.SemiBold,

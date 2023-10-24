@@ -174,7 +174,7 @@ fun EquipmentListView(
         items(equipments) {
             EquipmentItem(
                 modifier = Modifier.gkrClickable { navigateToDetail(it.productNumber) },
-                name = it.name,
+                name = it.equipmentType,
                 status = it.equipmentStatus,
                 description = it.description,
                 image = it.image
