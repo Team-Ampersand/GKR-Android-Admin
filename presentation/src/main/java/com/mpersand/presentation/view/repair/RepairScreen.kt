@@ -40,6 +40,7 @@ fun RepairScreen(
     modifier: Modifier = Modifier,
     productNumber: String?,
     viewModel: RepairViewModel = hiltViewModel(),
+    navigateToSignIn: () -> Unit,
     navigateToMain: () -> Unit
 ) {
     LaunchedEffect(Unit) {
@@ -75,7 +76,7 @@ fun RepairScreen(
                             .height(235.dp),
                         contentDescription = "equipment",
                         contentScale = ContentScale.Crop,
-                        painter = rememberAsyncImagePainter(state.data?.image)
+                        painter = rememberAsyncImagePainter(state.data.image)
                     )
                     Column(modifier = modifier.padding(horizontal = 26.dp)) {
                         Spacer(modifier = modifier.height(17.dp))
@@ -120,7 +121,7 @@ fun RepairScreen(
         UiState.BadRequest -> {}
         UiState.Loading -> {}
         UiState.NotFound -> {}
-        UiState.Unauthorized -> {}
+        UiState.Unauthorized -> navigateToSignIn()
         else -> {}
     }
 }

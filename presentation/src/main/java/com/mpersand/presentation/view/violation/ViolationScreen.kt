@@ -34,6 +34,7 @@ import com.mpersand.presentation.viewmodel.violation.ViolationViewModel
 fun ViolationScreen(
     modifier: Modifier = Modifier,
     viewModel: ViolationViewModel = hiltViewModel(),
+    navigateToSignIn: () -> Unit,
     navigateToMain: () -> Unit
 ) {
     var showDialog by remember { mutableStateOf(false) }
@@ -53,7 +54,7 @@ fun ViolationScreen(
             when (postViolationUserUiState) {
                 UiState.Loading -> {}
                 is UiState.Success -> scaffoldState.snackbarHostState.showSnackbar("제재가 완료되었습니다.")
-                UiState.Unauthorized -> scaffoldState.snackbarHostState.showSnackbar("토큰이 존재하지 않습니다.\n다시 로그인 해주세요.")
+                UiState.Unauthorized -> navigateToSignIn()
                 UiState.Forbidden -> scaffoldState.snackbarHostState.showSnackbar("권한이 존재하지 않습니다.\n개발자에게 문의 해주세요.")
                 UiState.NotFound -> scaffoldState.snackbarHostState.showSnackbar("해당 유저를 찾기를 실패했습니다.")
                 UiState.Conflict -> scaffoldState.snackbarHostState.showSnackbar("해당 유저가 이미 제재 중인 상태입니다.")
@@ -105,6 +106,7 @@ fun ViolationScreen(
                     }
                 }
             }
+            UiState.Unauthorized -> navigateToSignIn()
             else -> {}
         }
     }

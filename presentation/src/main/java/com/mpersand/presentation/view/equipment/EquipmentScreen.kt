@@ -47,6 +47,7 @@ fun EquipmentScreen(
     modifier: Modifier = Modifier,
     productNumber: String?,
     viewModel: EquipmentViewModel = hiltViewModel(),
+    navigateToSignIn: () -> Unit,
     navigateToRepair: (productNumber: String) -> Unit
 ) {
     val equipmentState by viewModel.equipmentState.observeAsState()
@@ -65,7 +66,7 @@ fun EquipmentScreen(
         UiState.Forbidden -> {}
         UiState.Loading -> {}
         UiState.NotFound -> {}
-        UiState.Unauthorized -> {}
+        UiState.Unauthorized -> navigateToSignIn()
         else -> {}
     }
 
@@ -158,11 +159,10 @@ fun EquipmentScreen(
                 }
             }
         }
-
         UiState.BadRequest -> {}
         UiState.Loading -> {}
         UiState.NotFound -> {}
-        UiState.Unauthorized -> {}
+        UiState.Unauthorized -> navigateToSignIn()
         else -> {}
     }
 }

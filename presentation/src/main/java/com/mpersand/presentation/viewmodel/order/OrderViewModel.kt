@@ -5,9 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mpersand.domain.model.order.response.OrderApplicationListResponseModel
-import com.mpersand.domain.model.order.response.OrderDetailListResponseModel
 import com.mpersand.domain.model.order.response.OrderEquipmentListResponseModel
-import com.mpersand.domain.model.order.response.OrderListResponseModel
 import com.mpersand.domain.usecase.order.AcceptRequestUseCase
 import com.mpersand.domain.usecase.order.GetNoReturnListUseCase
 import com.mpersand.domain.usecase.order.GetNowRentalListUseCase
@@ -36,7 +34,7 @@ class OrderViewModel @Inject constructor(
     private val postRentalCancelUseCase: PostRentalCancelUseCase,
     private val acceptRequestUseCase: AcceptRequestUseCase,
     private val rejectRequestUseCase: RejectRequestUseCase
-): ViewModel() {
+) : ViewModel() {
     private val _getSelfStateListUiState = MutableLiveData<UiState<OrderEquipmentListResponseModel>>()
     val getSelfStateListUiState: LiveData<UiState<OrderEquipmentListResponseModel>> = _getSelfStateListUiState
 
@@ -191,6 +189,7 @@ class OrderViewModel @Inject constructor(
             }
             .onFailure {
                 it.exceptionHandling(
+                    unauthorizedAction = { _acceptRequestUiState.value = UiState.Unauthorized },
                     badRequestAction = { _acceptRequestUiState.value = UiState.BadRequest },
                     forbiddenAction = { _acceptRequestUiState.value = UiState.Forbidden },
                     notFoundAction = { _acceptRequestUiState.value = UiState.NotFound },
@@ -206,6 +205,7 @@ class OrderViewModel @Inject constructor(
             }
             .onFailure {
                 it.exceptionHandling(
+                    unauthorizedAction =  { _rejectRequestUiState.value = UiState.Unauthorized },
                     badRequestAction = { _rejectRequestUiState.value = UiState.BadRequest },
                     forbiddenAction = { _rejectRequestUiState.value = UiState.Forbidden },
                     notFoundAction = { _rejectRequestUiState.value = UiState.NotFound },

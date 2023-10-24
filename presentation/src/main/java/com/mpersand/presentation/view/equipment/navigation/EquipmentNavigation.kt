@@ -11,10 +11,14 @@ fun NavController.navigateToEquipment(productNumber: String) {
     this.navigate("$equipmentRoute/$productNumber")
 }
 
-fun NavGraphBuilder.equipmentScreen(navigateToRepair: (productNumber: String) -> Unit) {
+fun NavGraphBuilder.equipmentScreen(
+    navigateToSignIn: () -> Unit,
+    navigateToRepair: (productNumber: String) -> Unit
+) {
     composable("$equipmentRoute/{productNumber}") { backStackEntry ->
         EquipmentScreen(
             productNumber = backStackEntry.arguments?.getString("productNumber"),
+            navigateToSignIn = navigateToSignIn,
             navigateToRepair = navigateToRepair
         )
     }

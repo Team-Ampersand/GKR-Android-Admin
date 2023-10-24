@@ -46,6 +46,7 @@ import com.mpersand.presentation.viewmodel.util.UiState
 @Composable
 fun SearchScreen(
     equipmentViewModel: EquipmentViewModel = hiltViewModel(),
+    navigateToSignIn: () -> Unit,
     navigateToMain: () -> Unit,
     navigateToDetail: (productNumber: String) -> Unit
 ) {
@@ -82,7 +83,8 @@ fun SearchScreen(
             SearchResultView(
                 text = textState.value,
                 equipmentViewModel = equipmentViewModel,
-                navigateToDetail = navigateToDetail
+                navigateToSignIn = navigateToSignIn,
+                navigateToDetail = navigateToDetail,
             )
     }
 }
@@ -170,6 +172,7 @@ fun SearchHistoryView(textState: MutableState<String>) {
 fun SearchResultView(
     text: String,
     equipmentViewModel: EquipmentViewModel,
+    navigateToSignIn: () -> Unit,
     navigateToDetail: (productNumber: String) -> Unit
 ) {
     Text(
@@ -200,6 +203,7 @@ fun SearchResultView(
                 }
             }
         }
+        UiState.Unauthorized -> navigateToSignIn()
         UiState.BadRequest -> {}
         UiState.NotFound -> {}
         else -> {}

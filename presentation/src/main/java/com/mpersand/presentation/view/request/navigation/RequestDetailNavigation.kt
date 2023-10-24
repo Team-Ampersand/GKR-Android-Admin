@@ -5,7 +5,6 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.mpersand.domain.model.order.response.OrderDetailListResponseModel
-import com.mpersand.domain.model.order.response.WaitListResponseModel
 import com.mpersand.presentation.view.request.RequestDetailScreen
 import com.mpersand.presentation.view.request.data.RequestInfoNavType
 
@@ -15,7 +14,7 @@ fun NavController.navigateToRequestDetail(json: String) {
     this.navigate("$requestDetailRoute/$json")
 }
 
-fun NavGraphBuilder.requestDetailScreen() {
+fun NavGraphBuilder.requestDetailScreen(navigateToSignIn: () -> Unit) {
     composable(
         route = "$requestDetailRoute/{data}",
         arguments = listOf(
@@ -25,6 +24,9 @@ fun NavGraphBuilder.requestDetailScreen() {
         )
     ) {
         val data = it.arguments?.getParcelable<OrderDetailListResponseModel>("data")
-        RequestDetailScreen(data)
+        RequestDetailScreen(
+            data = data,
+            navigateToSignIn = navigateToSignIn
+        )
     }
 }
