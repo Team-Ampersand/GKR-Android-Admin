@@ -8,7 +8,6 @@ import retrofit2.http.GET
 import retrofit2.http.Multipart
 import retrofit2.http.PATCH
 import retrofit2.http.Part
-import retrofit2.http.PartMap
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -39,8 +38,9 @@ interface EquipmentApi {
     @Multipart
     @PATCH("equipment/edit/{id}")
     suspend fun modifyEquipment(
-        @Part("file") file: MultipartBody.Part,
-        @PartMap equipment: HashMap<String, RequestBody>
+        @Path("id") productNumber: String,
+        @Part file: MultipartBody.Part,
+        @Part("equipment") equipment: RequestBody
     )
 
     @PATCH("equipment/repair/{id}")
