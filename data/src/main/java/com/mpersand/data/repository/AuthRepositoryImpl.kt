@@ -32,4 +32,8 @@ class AuthRepositoryImpl @Inject constructor(
     }
 
     override suspend fun isLogin(): Boolean = localDataSource.isLogin().first()
+
+    override suspend fun removeLocalData() {
+        localDataSource.removeLocalData()
+    }
 }

@@ -47,6 +47,12 @@ class LocalDataSourceImpl @Inject constructor(
 
     override suspend fun logout() {
         context.dataStore.edit {
+            it[IS_LOGIN] = false
+        }
+    }
+
+    override suspend fun removeLocalData() {
+        context.dataStore.edit {
             it[ACCESS_TOKEN] = ""
             it[REFRESH_TOKEN] = ""
             it[ACCESS_TOKEN_EXP] = ""
