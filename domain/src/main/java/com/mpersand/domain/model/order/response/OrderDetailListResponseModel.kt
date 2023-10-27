@@ -18,4 +18,5 @@ data class OrderDetailListResponseModel(
     val stuNum: Int,
     val rentalStartDate: String?,
     val rentalEndDate: String?,
+    val email: String
 ) : Parcelable

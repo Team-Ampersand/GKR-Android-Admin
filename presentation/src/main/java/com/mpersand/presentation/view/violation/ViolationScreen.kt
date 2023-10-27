@@ -88,7 +88,7 @@ fun ViolationScreen(
                         items(violationItemList.applicationList) {
                             if (showDialog) {
                                 ViolationDialog(
-                                    email = it.id.toString(),
+                                    email = it.email,
                                     onDismissRequest = { showDialog = false }
                                 )
                             }
