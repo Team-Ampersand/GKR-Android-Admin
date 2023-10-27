@@ -49,7 +49,7 @@ fun RequestItem(
             Row(modifier = Modifier.fillMaxWidth()) {
                 Text(
                     modifier = Modifier.weight(1f),
-                    text = data.name,
+                    text = data.userName,
                     style = TextStyle(
                         fontFamily = FontFamily(Font(R.font.inter_black)),
                         fontSize = 15.sp,

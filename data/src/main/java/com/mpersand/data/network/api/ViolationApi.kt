@@ -7,6 +7,6 @@ import retrofit2.http.POST
 interface ViolationApi {
     @POST("violation")
     suspend fun postViolationUser(
-        @Body violationRequest: ViolationRequest
+        @Body body: ViolationRequest
     )
 }

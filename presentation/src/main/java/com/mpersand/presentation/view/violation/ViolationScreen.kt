@@ -89,7 +89,7 @@ fun ViolationScreen(
                         items(violationItemList.applicationList) {
                             if (showDialog) {
                                 ViolationDialog(
-                                    email = it.id.toString(),
+                                    email = it.email,
                                     onDismissRequest = { showDialog = false }
                                 )
                             }
@@ -99,7 +99,7 @@ fun ViolationScreen(
                                 grade = it.grade,
                                 classNum = it.classNum,
                                 number = it.stuNum,
-                                productNumber = it.name,
+                                productNumber = it.userName,
                                 image = it.imageUrl
                             )
                         }
