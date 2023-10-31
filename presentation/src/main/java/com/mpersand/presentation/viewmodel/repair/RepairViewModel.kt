@@ -12,6 +12,7 @@ import com.mpersand.domain.usecase.equipment.GetEquipmentDetailUseCase
 import com.mpersand.presentation.viewmodel.util.UiState
 import com.mpersand.presentation.viewmodel.util.exceptionHandling
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -70,6 +71,8 @@ class RepairViewModel @Inject constructor(
 
     fun getRepairDetail(productNumber: String) {
         viewModelScope.launch {
+            _detailState.value = UiState.Loading
+            delay(1000L)
             getEquipmentDetailUseCase(productNumber)
                 .onSuccess {
                     _detailState.value = UiState.Success(it)
