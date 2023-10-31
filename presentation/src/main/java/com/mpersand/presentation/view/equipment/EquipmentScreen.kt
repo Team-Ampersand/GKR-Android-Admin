@@ -146,7 +146,6 @@ fun EquipmentScreen(
                                     description = description,
                                     equipmentType = state.data.equipmentType
                                 )
-                                navigateToRepair(productNumber)
                             } else {
                                 Toast.makeText(context, "모두 입력되지 않으면 수정할 수 없습니다.", Toast.LENGTH_SHORT).show()
                             }
