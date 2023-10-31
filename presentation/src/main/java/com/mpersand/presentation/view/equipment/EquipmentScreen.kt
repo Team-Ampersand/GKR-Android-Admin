@@ -1,5 +1,6 @@
 package com.mpersand.presentation.view.equipment
 
+import android.net.Uri
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -74,6 +75,7 @@ fun EquipmentScreen(
         is UiState.Success -> {
             val equipment = state.data!!
 
+            var imageUri by remember { mutableStateOf<Uri?>(null) }
             var equipmentName by remember { mutableStateOf(equipment.name) }
             var description by remember { mutableStateOf(equipment.description) }
 
@@ -81,6 +83,7 @@ fun EquipmentScreen(
             val galleryLauncher = rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) { uri ->
                 uri?.let {
                     file = getFileFromUri(context, uri)
+                    imageUri = uri
                 }
             }
 
@@ -94,7 +97,7 @@ fun EquipmentScreen(
                         },
                     contentDescription = "equipment",
                     contentScale = ContentScale.Crop,
-                    painter = rememberAsyncImagePainter(equipment.image)
+                    painter = rememberAsyncImagePainter(imageUri ?: equipment.image)
                 )
                 Spacer(modifier = modifier.height(17.dp))
                 Column(modifier = modifier.padding(horizontal = 26.dp)) {
