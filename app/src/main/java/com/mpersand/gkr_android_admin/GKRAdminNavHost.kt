@@ -96,6 +96,8 @@ fun GKRAdminNavHost(
             navigateToDetail = { navController.navigateToDetail(it) }
         )
 
-        rentDetailScreen()
+        rentDetailScreen(
+            navigateToMain = { navController.navigateToMain() }
+        )
     }
 }
