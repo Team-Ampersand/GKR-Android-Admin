@@ -1,20 +1,11 @@
 package com.mpersand.data.repository
 
-import com.mpersand.data.dto.order.request.asOrderRequest
 import com.mpersand.data.dto.order.response.asOrderApplicationListResponseModel
-import com.mpersand.data.dto.order.response.asOrderDetailListResponseModel
 import com.mpersand.data.dto.order.response.asOrderEquipmentListResponseModel
-import com.mpersand.data.dto.order.response.asOrderListResponseModel
-import com.mpersand.data.dto.order.response.asOrderResponseModel
-import com.mpersand.data.dto.order.response.asWaitListResponseModel
+import com.mpersand.data.dto.order.response.asRentalInfoResponseModel
 import com.mpersand.data.remote.datasource.order.OrderDataSource
-import com.mpersand.domain.model.order.request.OrderRequestModel
 import com.mpersand.domain.model.order.response.OrderApplicationListResponseModel
-import com.mpersand.domain.model.order.response.OrderDetailListResponseModel
 import com.mpersand.domain.model.order.response.OrderEquipmentListResponseModel
-import com.mpersand.domain.model.order.response.OrderListResponseModel
-import com.mpersand.domain.model.order.response.OrderResponseModel
-import com.mpersand.domain.model.order.response.WaitListResponseModel
 import com.mpersand.domain.repository.OrderRepository
 import javax.inject.Inject
 
@@ -32,6 +23,9 @@ class OrderRepositoryImpl @Inject constructor(
 
     override suspend fun getWaitList(): OrderApplicationListResponseModel =
         orderDataSource.getWaitList().asOrderApplicationListResponseModel()
+
+    override suspend fun getRentalRequestDetail(id: String) =
+        orderDataSource.getRentalRequestDetail(id).asRentalInfoResponseModel()
 
     override suspend fun postRental(id: Int, response: String) =
         orderDataSource.postRental(id, response)
