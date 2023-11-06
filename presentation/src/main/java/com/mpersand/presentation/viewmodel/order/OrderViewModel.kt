@@ -1,15 +1,18 @@
 package com.mpersand.presentation.viewmodel.order
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mpersand.domain.model.order.response.OrderApplicationListResponseModel
 import com.mpersand.domain.model.order.response.OrderEquipmentListResponseModel
+import com.mpersand.domain.model.order.response.RentalInfoResponseModel
 import com.mpersand.domain.usecase.auth.RemoveLocalDataUseCase
 import com.mpersand.domain.usecase.order.AcceptRequestUseCase
 import com.mpersand.domain.usecase.order.GetNoReturnListUseCase
 import com.mpersand.domain.usecase.order.GetNowRentalListUseCase
+import com.mpersand.domain.usecase.order.GetRentalRequestDetailUseCase
 import com.mpersand.domain.usecase.order.GetSelfStateListUseCase
 import com.mpersand.domain.usecase.order.GetWaitListUseCase
 import com.mpersand.domain.usecase.order.PostExtensionUseCase
@@ -29,6 +32,7 @@ class OrderViewModel @Inject constructor(
     private val getNowRentalListUseCase: GetNowRentalListUseCase,
     private val getNoReturnListUseCase: GetNoReturnListUseCase,
     private val getWaitListUseCase: GetWaitListUseCase,
+    private val getRentalRequestDetailUseCase: GetRentalRequestDetailUseCase,
     private val postRentalUseCase: PostRentalUseCase,
     private val postReturnUseCase: PostReturnUseCase,
     private val postExtensionUseCase: PostExtensionUseCase,
@@ -48,6 +52,9 @@ class OrderViewModel @Inject constructor(
 
     private val _getWaitListUiState = MutableLiveData<UiState<OrderApplicationListResponseModel>>()
     val getWaitListUiState: LiveData<UiState<OrderApplicationListResponseModel>> = _getWaitListUiState
+
+    private val _getRentalRequestState = MutableLiveData<UiState<RentalInfoResponseModel>>()
+    val getRentalRequestState: LiveData<UiState<RentalInfoResponseModel>> = _getRentalRequestState
 
     private val _postRentalUiState = MutableLiveData<UiState<Nothing>>()
     val postRentalUiState: LiveData<UiState<Nothing>> = _postRentalUiState
@@ -120,6 +127,22 @@ class OrderViewModel @Inject constructor(
                     serverAction = { _getWaitListUiState.value = UiState.Server }
                 )
             }
+    }
+
+    fun getRentalRequestInfo(id: String) {
+        viewModelScope.launch {
+            getRentalRequestDetailUseCase(id).onSuccess {
+                _getRentalRequestState.value = UiState.Success(it)
+            }.onFailure {
+                println(it)
+                it.exceptionHandling(
+                    unauthorizedAction = { _getRentalRequestState.value = UiState.Unauthorized },
+                    forbiddenAction = { _getRentalRequestState.value = UiState.Forbidden },
+                    notFoundAction = { _getRentalRequestState.value = UiState.NotFound },
+                    serverAction = { _getRentalRequestState.value = UiState.Server }
+                )
+            }
+        }
     }
 
     fun postRental(id: Int, response: String) = viewModelScope.launch {
@@ -206,6 +229,7 @@ class OrderViewModel @Inject constructor(
     fun rejectRequest(id: Int) = viewModelScope.launch {
         rejectRequestUseCase(id)
             .onSuccess {
+                Log.d("TAG", "rejectRequest: $it")
                 _rejectRequestUiState.value = UiState.Success()
             }
             .onFailure {
