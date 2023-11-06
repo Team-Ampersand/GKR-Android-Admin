@@ -46,6 +46,7 @@ fun MainScreen(
     viewModel: MainViewModel = hiltViewModel(),
     navigateToViolation: () -> Unit,
     navigateToDetail: (String) -> Unit,
+    navigateToRentDetail: (String) -> Unit,
     navigateToSignIn: () -> Unit,
     navigateToRequest: () -> Unit,
     navigateToSearch: () -> Unit
@@ -140,7 +141,8 @@ fun MainScreen(
                         is UiState.Success -> {
                             EquipmentListView(
                                 equipments = filterResult.data!!.equipmentList,
-                                navigateToDetail = navigateToDetail
+                                navigateToDetail = navigateToDetail,
+                                navigateToRentDetail = navigateToRentDetail
                             )
                         }
                         UiState.BadRequest -> {}
@@ -149,7 +151,8 @@ fun MainScreen(
                         UiState.NotFound -> {
                             EquipmentListView(
                                 equipments = emptyList(),
-                                navigateToDetail = navigateToDetail
+                                navigateToDetail = navigateToDetail,
+                                navigateToRentDetail = navigateToRentDetail
                             )
                         }
                         UiState.Unauthorized -> {}
@@ -166,7 +169,8 @@ fun MainScreen(
 @Composable
 fun EquipmentListView(
     equipments: List<EquipmentResponseModel>,
-    navigateToDetail: (String) -> Unit
+    navigateToDetail: (String) -> Unit,
+    navigateToRentDetail: (String) -> Unit,
 ) {
     LazyColumn(
         modifier = Modifier
@@ -180,7 +184,10 @@ fun EquipmentListView(
     ) {
         items(equipments) {
             EquipmentItem(
-                modifier = Modifier.gkrClickable { navigateToDetail(it.productNumber) },
+                modifier = Modifier.gkrClickable {
+                    if (it.equipmentStatus == "WAITING") navigateToRentDetail(it.productNumber)
+                    else navigateToDetail(it.productNumber)
+                },
                 name = it.equipmentType,
                 status = it.equipmentStatus,
                 description = it.description,

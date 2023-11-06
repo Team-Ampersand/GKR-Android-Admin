@@ -13,6 +13,7 @@ fun NavController.navigateToMain() {
 
 fun NavGraphBuilder.mainScreen(
     navigateToDetail: (String) -> Unit,
+    navigateToRentDetail: (String) -> Unit,
     navigateToViolation: () -> Unit,
     navigateToSignIn: () -> Unit,
     navigateToRequest: () -> Unit,
@@ -24,6 +25,7 @@ fun NavGraphBuilder.mainScreen(
             navigateToViolation = navigateToViolation,
             navigateToSignIn = navigateToSignIn,
             navigateToRequest = navigateToRequest,
+            navigateToRentDetail = navigateToRentDetail,
             navigateToSearch = navigateToSearch
         )
     }
