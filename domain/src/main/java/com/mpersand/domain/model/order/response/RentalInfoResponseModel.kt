@@ -11,6 +11,6 @@ data class RentalInfoResponseModel(
     val classNum: Int,
     val stuNum: Int,
     val reason: String,
-    val rentalStartDate: String,
-    val rentalEndDate: String
+    val rentalStartDate: String?,
+    val rentalEndDate: String?
 )

@@ -13,8 +13,8 @@ data class RentalInfoResponse(
     val classNum: Int,
     val stuNum: Int,
     val reason: String,
-    val rentalStartDate: String,
-    val rentalEndDate: String
+    val rentalStartDate: String?,
+    val rentalEndDate: String?
 )
 
 fun RentalInfoResponse.asRentalInfoResponseModel(): RentalInfoResponseModel {
