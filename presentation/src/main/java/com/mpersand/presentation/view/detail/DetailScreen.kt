@@ -68,7 +68,11 @@ fun DetailScreen(
                     contentScale = ContentScale.Crop
                 )
                 Spacer(modifier = modifier.height(17.dp))
-                Column(modifier = modifier.padding(horizontal = 26.dp)) {
+                Column(
+                    modifier = modifier
+                        .weight(1f)
+                        .padding(horizontal = 26.dp)
+                ) {
                     Text(
                         text = equipment.name,
                         fontSize = 16.sp,
@@ -107,8 +111,7 @@ fun DetailScreen(
                         fontFamily = FontFamily(Font(R.font.fraunces_black)),
                         fontWeight = FontWeight.Black
                     )
-                    Spacer(modifier = modifier.height(20.dp))
-                    Spacer(modifier = modifier.height(60.dp))
+                    Spacer(modifier = modifier.weight(1f))
                     Button(
                         modifier = modifier.fillMaxWidth(),
                         colors = ButtonDefaults.buttonColors(
@@ -127,6 +130,7 @@ fun DetailScreen(
                 }
             }
         }
+
         UiState.BadRequest -> {}
         UiState.Forbidden -> {}
         UiState.Loading -> {}
