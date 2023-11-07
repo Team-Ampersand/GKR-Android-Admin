@@ -11,10 +11,11 @@ fun NavController.navigateToRentDetail(productNumber: String) {
     this.navigate("$rentDetailRoute/$productNumber")
 }
 
-fun NavGraphBuilder.rentDetailScreen() {
+fun NavGraphBuilder.rentDetailScreen(navigateToMain: () -> Unit) {
     composable("$rentDetailRoute/{productNumber}") { backStackEntry ->
         RentDetailScreen(
-            productNumber = backStackEntry.arguments?.getString("productNumber")
+            productNumber = backStackEntry.arguments?.getString("productNumber"),
+            navigateToMain = navigateToMain
         )
     }
 }

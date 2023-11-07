@@ -1,12 +1,7 @@
 package com.mpersand.data.remote.datasource.order
 
-import com.mpersand.data.dto.order.request.OrderRequest
 import com.mpersand.data.dto.order.response.OrderApplicationListResponse
-import com.mpersand.data.dto.order.response.OrderDetailListResponse
 import com.mpersand.data.dto.order.response.OrderEquipmentListResponse
-import com.mpersand.data.dto.order.response.OrderListResponse
-import com.mpersand.data.dto.order.response.OrderResponse
-import com.mpersand.data.dto.order.response.WaitListResponse
 import com.mpersand.data.network.api.OrderApi
 import com.mpersand.data.remote.util.safeApiCall
 import javax.inject.Inject
@@ -28,6 +23,10 @@ class OrderDataSourceImpl @Inject constructor(
 
     override suspend fun getWaitList(): OrderApplicationListResponse = safeApiCall {
         orderApi.getWaitList()
+    }
+
+    override suspend fun getRentalRequestDetail(id: String) = safeApiCall {
+        orderApi.getRentRequestDetail(id)
     }
 
     override suspend fun postRental(id: Int, response: String) = safeApiCall {

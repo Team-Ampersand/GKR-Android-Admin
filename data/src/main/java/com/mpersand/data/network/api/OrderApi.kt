@@ -1,9 +1,8 @@
 package com.mpersand.data.network.api
 
 import com.mpersand.data.dto.order.response.OrderApplicationListResponse
-import com.mpersand.data.dto.order.response.OrderDetailListResponse
 import com.mpersand.data.dto.order.response.OrderEquipmentListResponse
-import com.mpersand.data.dto.order.response.OrderListResponse
+import com.mpersand.data.dto.order.response.RentalInfoResponse
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.PATCH
@@ -23,6 +22,9 @@ interface OrderApi {
 
     @GET("order/wait")
     suspend fun getWaitList(): OrderApplicationListResponse
+
+    @GET("order/detail/{id}")
+    suspend fun getRentRequestDetail(@Path("id") id: String): RentalInfoResponse
 
     @POST("order/rental/{id}")
     suspend fun postRental(
