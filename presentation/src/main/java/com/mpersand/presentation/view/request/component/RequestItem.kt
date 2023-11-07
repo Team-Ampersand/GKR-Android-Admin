@@ -1,5 +1,7 @@
 package com.mpersand.presentation.view.request.component
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -24,12 +26,20 @@ import com.mpersand.domain.model.order.response.OrderDetailListResponseModel
 import com.mpersand.domain.model.order.response.WaitListResponseModel
 import com.mpersand.presentation.R
 import com.mpersand.presentation.view.modifier.gkrClickable
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
+
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun RequestItem(
     data: OrderDetailListResponseModel,
     onCardClick: (OrderDetailListResponseModel) -> Unit
 ) {
+    var localDate = ""
+    if (data.rentalStartDate != null) localDate = LocalDateTime.parse(data.rentalStartDate).format(DateTimeFormatter.ofPattern("yyyy.MM.dd"))
+
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -59,7 +69,7 @@ fun RequestItem(
                 )
                 
                 Text(
-                    text = data.rentalStartDate.toString(),
+                    text = localDate,
                     style = TextStyle(
                         fontFamily = FontFamily(Font(resId = R.font.inter_light, weight = FontWeight.Medium)),
                         fontSize = 12.sp
