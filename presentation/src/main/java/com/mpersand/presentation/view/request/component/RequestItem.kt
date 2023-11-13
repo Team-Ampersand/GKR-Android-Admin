@@ -1,7 +1,5 @@
 package com.mpersand.presentation.view.request.component
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -21,17 +19,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.mpersand.domain.model.order.response.OrderApplicationListResponseModel
 import com.mpersand.domain.model.order.response.OrderDetailListResponseModel
-import com.mpersand.domain.model.order.response.WaitListResponseModel
 import com.mpersand.presentation.R
 import com.mpersand.presentation.view.modifier.gkrClickable
-import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 
-@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun RequestItem(
     data: OrderDetailListResponseModel,
