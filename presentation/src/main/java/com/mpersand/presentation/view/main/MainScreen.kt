@@ -188,7 +188,8 @@ fun EquipmentListView(
                     if (it.equipmentStatus == "WAITING") navigateToRentDetail(it.productNumber)
                     else navigateToDetail(it.productNumber)
                 },
-                name = it.equipmentType,
+                name = it.name,
+                type = it.equipmentType,
                 status = it.equipmentStatus,
                 description = it.description,
                 image = it.image
