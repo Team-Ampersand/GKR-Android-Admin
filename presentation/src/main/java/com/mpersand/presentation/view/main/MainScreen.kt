@@ -152,7 +152,7 @@ fun MainScreen(
                                                     name = it.name,
                                                     image = it.imageUrl,
                                                     description = it.description,
-                                                    equipmentStatus = it.userName,
+                                                    equipmentStatus = "WAITING",
                                                     equipmentType = it.orderType
                                                 )
                                             }
