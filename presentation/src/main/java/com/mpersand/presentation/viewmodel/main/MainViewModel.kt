@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mpersand.domain.model.equipment.response.EquipmentListResponseModel
+import com.mpersand.domain.model.order.response.OrderApplicationListResponseModel
 import com.mpersand.domain.model.user.response.UserResponseModel
 import com.mpersand.domain.usecase.equipment.GetEquipmentsByFilterUseCase
 import com.mpersand.domain.usecase.user.GetUserUseCase
@@ -13,6 +14,7 @@ import com.mpersand.domain.usecase.auth.RemoveLocalDataUseCase
 import com.mpersand.domain.usecase.equipment.GetAllEquipmentsUseCase
 import com.mpersand.domain.usecase.equipment.GetEquipmentsByStateUseCase
 import com.mpersand.domain.usecase.equipment.GetEquipmentsByTypeUseCase
+import com.mpersand.domain.usecase.order.GetWaitListUseCase
 import com.mpersand.presentation.viewmodel.util.exceptionHandling
 import com.mpersand.presentation.viewmodel.util.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -25,6 +27,7 @@ class MainViewModel @Inject constructor(
     private val getAllEquipmentsUseCase: GetAllEquipmentsUseCase,
     private val getEquipmentsByStateUseCase: GetEquipmentsByStateUseCase,
     private val getEquipmentsByTypeUseCase: GetEquipmentsByTypeUseCase,
+    private val getWaitListUseCase: GetWaitListUseCase,
     private val logoutUseCase: LogoutUseCase,
     private val getUserUseCase: GetUserUseCase,
     private val removeLocalDataUseCase: RemoveLocalDataUseCase
@@ -37,6 +40,9 @@ class MainViewModel @Inject constructor(
 
     private val _getUserInfoUiState = MutableLiveData<UiState<UserResponseModel>>()
     val getUserInfoUiState: LiveData<UiState<UserResponseModel>> = _getUserInfoUiState
+
+    private val _waitingUiState = MutableLiveData<UiState<OrderApplicationListResponseModel>>()
+    val waitingUiState: LiveData<UiState< OrderApplicationListResponseModel>> = _waitingUiState
 
     fun getAllEquipments() {
         viewModelScope.launch {
@@ -87,6 +93,22 @@ class MainViewModel @Inject constructor(
                         serverAction = { _uiState.value = UiState.Server }
                     )
                 }
+        }
+    }
+
+    fun getWaitingList() {
+        viewModelScope.launch {
+            getWaitListUseCase()
+                .onSuccess {
+                    _waitingUiState.value = UiState.Success(it)
+                }.onFailure {
+                    it.exceptionHandling(
+                        badRequestAction = { _waitingUiState.value = UiState.BadRequest },
+                        forbiddenAction = { _waitingUiState.value = UiState.Forbidden },
+                        serverAction = { _waitingUiState.value = UiState.Server }
+                    )
+                }
+
         }
     }
 
