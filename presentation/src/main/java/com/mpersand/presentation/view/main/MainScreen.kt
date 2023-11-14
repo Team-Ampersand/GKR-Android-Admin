@@ -144,22 +144,25 @@ fun MainScreen(
                             if (filterSelectedQuery == "WAITING") {
                                 when (val waitingState = waitingUiState) {
                                     is UiState.Success -> {
-                                        val response = waitingState.data!!.applicationList.map {
-                                            EquipmentResponseModel(
-                                                productNumber = it.id.toString(),
-                                                name = it.name,
-                                                image = it.imageUrl,
-                                                description = it.description,
-                                                equipmentStatus = it.userName,
-                                                equipmentType = it.orderType
-                                            )
-                                        }
+                                        val response = waitingState.data!!.applicationList
+                                            .filter { it.orderType == "RENTAL" }
+                                            .map {
+                                                EquipmentResponseModel(
+                                                    productNumber = it.id.toString(),
+                                                    name = it.name,
+                                                    image = it.imageUrl,
+                                                    description = it.description,
+                                                    equipmentStatus = it.userName,
+                                                    equipmentType = it.orderType
+                                                )
+                                            }
                                         EquipmentListView(
                                             equipments = response,
                                             navigateToDetail = navigateToDetail,
                                             navigateToRentDetail = navigateToRentDetail
                                         )
                                     }
+
                                     else -> {}
                                 }
                             } else {
@@ -170,6 +173,7 @@ fun MainScreen(
                                 )
                             }
                         }
+
                         UiState.BadRequest -> {}
                         UiState.Forbidden -> {}
                         UiState.Loading -> {}
@@ -180,12 +184,14 @@ fun MainScreen(
                                 navigateToRentDetail = navigateToRentDetail
                             )
                         }
+
                         UiState.Unauthorized -> {}
                         else -> {}
                     }
                 }
             }
         }
+
         UiState.Unauthorized -> navigateToSignIn()
         else -> {}
     }
