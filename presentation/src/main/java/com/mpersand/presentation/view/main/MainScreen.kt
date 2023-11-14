@@ -49,7 +49,7 @@ fun MainScreen(
     navigateToRentDetail: (String) -> Unit,
     navigateToSignIn: () -> Unit,
     navigateToRequest: () -> Unit,
-    navigateToSearch: () -> Unit
+    navigateToSearch: () -> Unit,
 ) {
     var selectedValue by remember { mutableStateOf(0) }
     var filterSelectedQuery by remember { mutableStateOf("RENTING") }
@@ -63,13 +63,15 @@ fun MainScreen(
     val coroutineScope = rememberCoroutineScope()
     val scaffoldState = rememberScaffoldState()
     val getUserInfoUiState by viewModel.getUserInfoUiState.observeAsState()
+    val waitingUiState by viewModel.waitingUiState.observeAsState()
 
     LaunchedEffect(filterSelectedQuery) {
-        viewModel.getEquipmentsByState(filterSelectedQuery)
+        if (filterSelectedQuery == "WAITING") viewModel.getWaitingList()
+        else viewModel.getEquipmentsByState(filterSelectedQuery)
     }
 
     when (logoutState) {
-        is UiState.Success,  UiState.NoContent -> navigateToSignIn()
+        is UiState.Success, UiState.NoContent -> navigateToSignIn()
         UiState.Loading -> {}
         else -> {
             LaunchedEffect(logoutState) {
@@ -97,7 +99,7 @@ fun MainScreen(
         }
     }
 
-    when(val state = getUserInfoUiState) {
+    when (val state = getUserInfoUiState) {
         is UiState.Success -> {
             NavigationDrawer(
                 drawerState = drawerState,
@@ -139,11 +141,34 @@ fun MainScreen(
 
                     when (val filterResult = filterResultState) {
                         is UiState.Success -> {
-                            EquipmentListView(
-                                equipments = filterResult.data!!.equipmentList,
-                                navigateToDetail = navigateToDetail,
-                                navigateToRentDetail = navigateToRentDetail
-                            )
+                            if (filterSelectedQuery == "WAITING") {
+                                when (val waitingState = waitingUiState) {
+                                    is UiState.Success -> {
+                                        val response = waitingState.data!!.applicationList.map {
+                                            EquipmentResponseModel(
+                                                productNumber = it.id.toString(),
+                                                name = it.name,
+                                                image = it.imageUrl,
+                                                description = it.description,
+                                                equipmentStatus = it.userName,
+                                                equipmentType = it.orderType
+                                            )
+                                        }
+                                        EquipmentListView(
+                                            equipments = response,
+                                            navigateToDetail = navigateToDetail,
+                                            navigateToRentDetail = navigateToRentDetail
+                                        )
+                                    }
+                                    else -> {}
+                                }
+                            } else {
+                                EquipmentListView(
+                                    equipments = filterResult.data!!.equipmentList,
+                                    navigateToDetail = navigateToDetail,
+                                    navigateToRentDetail = navigateToRentDetail
+                                )
+                            }
                         }
                         UiState.BadRequest -> {}
                         UiState.Forbidden -> {}
@@ -199,7 +224,7 @@ fun EquipmentListView(
 }
 
 private fun filterItemStringToQueryString(data: String): String {
-    return when(data) {
+    return when (data) {
         "대여중" -> "RENTING"
         "대여하지 않음" -> "NOT_RENT"
         "대여 대기 중" -> "WAITING"
