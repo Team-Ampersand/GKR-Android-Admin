@@ -2,6 +2,7 @@ package com.mpersand.presentation.view.request.navigation
 
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.mpersand.domain.model.order.response.OrderDetailListResponseModel
@@ -10,22 +11,19 @@ import com.mpersand.presentation.view.request.data.RequestInfoNavType
 
 const val requestDetailRoute = "request_detail_route"
 
-fun NavController.navigateToRequestDetail(json: String) {
-    this.navigate("$requestDetailRoute/$json")
+fun NavController.navigateToRequestDetail(applicationId: String) {
+    this.navigate("$requestDetailRoute/$applicationId")
 }
 
 fun NavGraphBuilder.requestDetailScreen(navigateToSignIn: () -> Unit) {
     composable(
-        route = "$requestDetailRoute/{data}",
+        route = "$requestDetailRoute/{applicationId}",
         arguments = listOf(
-            navArgument("data") {
-                type = RequestInfoNavType()
-            }
+            navArgument("applicationId") { type = NavType.StringType }
         )
-    ) {
-        val data = it.arguments?.getParcelable<OrderDetailListResponseModel>("data")
+    ) { backStackEntry ->
         RequestDetailScreen(
-            data = data,
+            applicationId = backStackEntry.arguments?.getString("applicationId"),
             navigateToSignIn = navigateToSignIn
         )
     }

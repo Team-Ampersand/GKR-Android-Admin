@@ -80,10 +80,7 @@ fun GKRAdminNavHost(
         requestScreen(
             navigateToMain = { navController.navigateToMain() },
             navigateToSignIn = { navController.navigateToSignIn() },
-            navigateToRequestDetail = { data ->
-                val json = Uri.encode(Gson().toJson(data))
-                navController.navigateToRequestDetail(json)
-            }
+            navigateToRequestDetail = { navController.navigateToRequestDetail(it.toString()) }
         )
 
         requestDetailScreen(navigateToSignIn = {

@@ -28,7 +28,7 @@ import com.mpersand.presentation.view.modifier.gkrClickable
 @Composable
 fun RequestItem(
     data: OrderDetailListResponseModel,
-    onCardClick: (OrderDetailListResponseModel) -> Unit
+    onCardClick: (Long) -> Unit
 ) {
     Card(
         modifier = Modifier
@@ -39,7 +39,7 @@ fun RequestItem(
                 color = Color(0xFFD3D3D3),
                 shape = RoundedCornerShape(8.dp)
             )
-            .gkrClickable { onCardClick(data) }
+            .gkrClickable { onCardClick(data.applicationId) }
     ) {
         Column(
             modifier = Modifier

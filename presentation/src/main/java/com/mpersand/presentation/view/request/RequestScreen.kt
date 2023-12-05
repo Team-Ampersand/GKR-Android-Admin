@@ -27,7 +27,7 @@ fun RequestScreen(
     requestViewModel: OrderViewModel = hiltViewModel(),
     navigateToSignIn: () -> Unit,
     navigateToMain: () -> Unit,
-    navigateToRequestDetail: (OrderDetailListResponseModel) -> Unit
+    navigateToRequestDetail: (Long) -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -51,7 +51,7 @@ fun RequestScreen(
 @Composable
 fun RequestList(
     waitState: UiState<OrderApplicationListResponseModel>?,
-    navigateToRequestDetail: (OrderDetailListResponseModel) -> Unit,
+    navigateToRequestDetail: (Long) -> Unit,
     navigateToSignIn: () -> Unit
 ) {
     when (waitState) {
@@ -72,7 +72,7 @@ fun RequestList(
 @Composable
 fun RequestItemList(
     list: OrderApplicationListResponseModel,
-    navigateToRequestDetail: (OrderDetailListResponseModel) -> Unit
+    navigateToRequestDetail: (Long) -> Unit
 ) {
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
