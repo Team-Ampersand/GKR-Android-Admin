@@ -1,8 +1,8 @@
 package com.mpersand.data.repository
 
 import com.mpersand.data.dto.order.response.asOrderApplicationListResponseModel
+import com.mpersand.data.dto.order.response.asOrderDetailListResponseModel
 import com.mpersand.data.dto.order.response.asOrderEquipmentListResponseModel
-import com.mpersand.data.dto.order.response.asRentalInfoResponseModel
 import com.mpersand.data.remote.datasource.order.OrderDataSource
 import com.mpersand.domain.model.order.response.OrderApplicationListResponseModel
 import com.mpersand.domain.model.order.response.OrderEquipmentListResponseModel
@@ -25,7 +25,7 @@ class OrderRepositoryImpl @Inject constructor(
         orderDataSource.getWaitList().asOrderApplicationListResponseModel()
 
     override suspend fun getRentalRequestDetail(id: String) =
-        orderDataSource.getRentalRequestDetail(id).asRentalInfoResponseModel()
+        orderDataSource.getRentalRequestDetail(id).asOrderDetailListResponseModel()
 
     override suspend fun postRental(id: Int, response: String) =
         orderDataSource.postRental(id, response)
