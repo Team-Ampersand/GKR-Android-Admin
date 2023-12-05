@@ -6,7 +6,8 @@ import java.time.LocalDateTime
 
 @Parcelize
 data class OrderDetailListResponseModel(
-    val id: Int,
+    val applicationId: Long,
+    val equipmentId: Long,
     val name: String,
     val imageUrl: String,
     val description: String,
