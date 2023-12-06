@@ -148,7 +148,7 @@ fun MainScreen(
                                             .filter { it.orderType == "RENTAL" }
                                             .map {
                                                 EquipmentResponseModel(
-                                                    productNumber = it.id.toString(),
+                                                    productNumber = it.applicationId.toString(),
                                                     name = it.name,
                                                     image = it.imageUrl,
                                                     description = it.description,
