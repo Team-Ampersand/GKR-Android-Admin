@@ -1,8 +1,8 @@
 package com.mpersand.domain.repository
 
 import com.mpersand.domain.model.order.response.OrderApplicationListResponseModel
+import com.mpersand.domain.model.order.response.OrderDetailListResponseModel
 import com.mpersand.domain.model.order.response.OrderEquipmentListResponseModel
-import com.mpersand.domain.model.order.response.RentalInfoResponseModel
 
 interface OrderRepository {
     suspend fun getSelfStateList(): OrderEquipmentListResponseModel
@@ -13,7 +13,7 @@ interface OrderRepository {
 
     suspend fun getWaitList(): OrderApplicationListResponseModel
 
-    suspend fun getRentalRequestDetail(id: String): RentalInfoResponseModel
+    suspend fun getRentalRequestDetail(id: String): OrderDetailListResponseModel
 
     suspend fun postRental(id: Int, response: String)
 

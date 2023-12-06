@@ -15,13 +15,13 @@ import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -29,6 +29,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import coil.compose.rememberAsyncImagePainter
 import com.mpersand.domain.model.order.response.OrderDetailListResponseModel
 import com.mpersand.presentation.R
 import com.mpersand.presentation.viewmodel.order.OrderViewModel
@@ -36,45 +37,62 @@ import com.mpersand.presentation.viewmodel.util.UiState
 
 @Composable
 fun RequestDetailScreen(
-    data: OrderDetailListResponseModel?,
+    applicationId: String?,
     requestViewModel: OrderViewModel = hiltViewModel(),
     navigateToSignIn: () -> Unit
 ) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .systemBarsPadding()
-            .navigationBarsPadding()
-    ) {
-        Image(
-            modifier = Modifier.fillMaxWidth(),
-            painter = painterResource(id = R.drawable.temp_equipment_image),
-            contentDescription = "request detail equipment image",
-            contentScale = ContentScale.FillWidth
-        )
+    val rentalRequestState = requestViewModel.getRentalRequestState.observeAsState()
+    val acceptState by requestViewModel.acceptRequestUiState.observeAsState()
+    val context = LocalContext.current
 
-        StudentInfo(data = data)
+    LaunchedEffect(Unit) {
+        if (applicationId != null) requestViewModel.getRentalRequestInfo(applicationId)
+    }
 
-        ReasonView(data = data)
+    when (val data = rentalRequestState.value) {
+        UiState.Loading -> {}
+        is UiState.Success -> {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .systemBarsPadding()
+                    .navigationBarsPadding()
+            ) {
+                Image(
+                    modifier = Modifier.fillMaxWidth(),
+                    painter = rememberAsyncImagePainter(model = data.data?.imageUrl),
+                    contentDescription = "request detail equipment image",
+                    contentScale = ContentScale.FillWidth
+                )
 
-        Spacer(modifier = Modifier.weight(1f))
+                StudentInfo(data = data.data)
 
-        val result by requestViewModel.postRentalUiState.observeAsState()
-        val context = LocalContext.current
+                ReasonView(data = data.data)
 
-        AcceptOrNotView(
-            acceptButtonClick = { requestViewModel.acceptRequest(data!!.id) },
-            rejectButtonClick = { requestViewModel.rejectRequest(data!!.id) }
-        )
+                Spacer(modifier = Modifier.weight(1f))
 
-        when (result) {
-            UiState.Loading -> {}
-            is UiState.Success -> Toast.makeText(context, "요청을 수락하였습니다.", Toast.LENGTH_SHORT).show()
-            UiState.BadRequest -> Toast.makeText(context, "토큰 값이 잘못되었습니다.", Toast.LENGTH_SHORT).show()
-            UiState.Unauthorized -> navigateToSignIn()
-            UiState.NotFound -> Toast.makeText(context, "UUID를 찾을 수 없습니다.", Toast.LENGTH_SHORT).show()
-            else -> Toast.makeText(context, "알 수 없는 오류가 발생했습니다.", Toast.LENGTH_SHORT).show()
+                AcceptOrNotView(
+                    acceptButtonClick = {
+                        requestViewModel.acceptRequest(data.data!!.applicationId.toInt())
+
+                        when (acceptState) {
+                            UiState.Loading -> {}
+                            is UiState.Success -> Toast.makeText(context, "요청을 수락하였습니다.", Toast.LENGTH_SHORT).show()
+                            UiState.BadRequest -> Toast.makeText(context, "토큰 값이 잘못되었습니다.", Toast.LENGTH_SHORT).show()
+                            UiState.Unauthorized -> navigateToSignIn()
+                            UiState.NotFound -> Toast.makeText(context, "UUID를 찾을 수 없습니다.", Toast.LENGTH_SHORT).show()
+                            else -> Toast.makeText(context, "알 수 없는 오류가 발생했습니다.", Toast.LENGTH_SHORT).show()
+                        }
+                    },
+                    rejectButtonClick = { requestViewModel.rejectRequest(data.data!!.applicationId.toInt()) }
+                )
+            }
         }
+        UiState.Unauthorized -> {}
+        UiState.Forbidden -> {}
+        UiState.NotFound -> {}
+        UiState.Server -> {}
+        else -> {}
     }
 }
 
@@ -82,7 +100,7 @@ fun RequestDetailScreen(
 fun StudentInfo(data: OrderDetailListResponseModel?) {
     Text(
         modifier = Modifier.padding(start = 13.dp),
-        text = data?.id.toString(),
+        text = data?.equipmentId.toString(),
         style = TextStyle(
             fontFamily = FontFamily(Font(R.font.inter_black)),
             fontSize = 20.sp

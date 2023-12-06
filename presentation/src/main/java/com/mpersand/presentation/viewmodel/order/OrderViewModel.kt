@@ -6,8 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mpersand.domain.model.order.response.OrderApplicationListResponseModel
+import com.mpersand.domain.model.order.response.OrderDetailListResponseModel
 import com.mpersand.domain.model.order.response.OrderEquipmentListResponseModel
-import com.mpersand.domain.model.order.response.RentalInfoResponseModel
 import com.mpersand.domain.usecase.auth.RemoveLocalDataUseCase
 import com.mpersand.domain.usecase.order.AcceptRequestUseCase
 import com.mpersand.domain.usecase.order.GetNoReturnListUseCase
@@ -53,8 +53,8 @@ class OrderViewModel @Inject constructor(
     private val _getWaitListUiState = MutableLiveData<UiState<OrderApplicationListResponseModel>>()
     val getWaitListUiState: LiveData<UiState<OrderApplicationListResponseModel>> = _getWaitListUiState
 
-    private val _getRentalRequestState = MutableLiveData<UiState<RentalInfoResponseModel>>()
-    val getRentalRequestState: LiveData<UiState<RentalInfoResponseModel>> = _getRentalRequestState
+    private val _getRentalRequestState = MutableLiveData<UiState<OrderDetailListResponseModel>>()
+    val getRentalRequestState: LiveData<UiState<OrderDetailListResponseModel>> = _getRentalRequestState
 
     private val _postRentalUiState = MutableLiveData<UiState<Nothing>>()
     val postRentalUiState: LiveData<UiState<Nothing>> = _postRentalUiState
