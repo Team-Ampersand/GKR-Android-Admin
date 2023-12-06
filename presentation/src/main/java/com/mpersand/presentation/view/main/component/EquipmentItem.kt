@@ -29,6 +29,7 @@ import com.mpersand.presentation.R
 fun EquipmentItem(
     modifier: Modifier = Modifier,
     name: String,
+    type: String,
     status: String,
     description: String,
     image: String,
@@ -62,7 +63,7 @@ fun EquipmentItem(
                 )
                 Spacer(modifier = modifier.width(3.dp))
                 Text(
-                    text = name,
+                    text = type,
                     fontSize = 8.sp,
                     fontFamily = FontFamily(Font(R.font.fraunces_black)),
                     fontWeight = FontWeight.SemiBold,

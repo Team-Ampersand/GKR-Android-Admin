@@ -56,9 +56,5 @@ fun AppBar(
             contentDescription = "search"
         )
         Spacer(modifier = modifier.width(16.dp))
-        Image(
-            painter = painterResource(id = R.drawable.ic_bell),
-            contentDescription = "alarm"
-        )
     }
 }

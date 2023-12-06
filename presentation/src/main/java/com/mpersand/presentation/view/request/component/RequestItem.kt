@@ -19,17 +19,21 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.mpersand.domain.model.order.response.OrderApplicationListResponseModel
 import com.mpersand.domain.model.order.response.OrderDetailListResponseModel
-import com.mpersand.domain.model.order.response.WaitListResponseModel
 import com.mpersand.presentation.R
 import com.mpersand.presentation.view.modifier.gkrClickable
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+
 
 @Composable
 fun RequestItem(
     data: OrderDetailListResponseModel,
     onCardClick: (Long) -> Unit
 ) {
+    var localDate = ""
+    if (data.rentalStartDate != null) localDate = LocalDateTime.parse(data.rentalStartDate).format(DateTimeFormatter.ofPattern("yyyy.MM.dd"))
+
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -59,7 +63,7 @@ fun RequestItem(
                 )
                 
                 Text(
-                    text = data.rentalStartDate.toString(),
+                    text = localDate,
                     style = TextStyle(
                         fontFamily = FontFamily(Font(resId = R.font.inter_light, weight = FontWeight.Medium)),
                         fontSize = 12.sp
